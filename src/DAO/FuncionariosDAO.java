@@ -9,7 +9,7 @@ import Control.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -20,14 +20,14 @@ public class FuncionariosDAO {
     private double cpfFunc;
     private String nomeFunc;
     private double rgFunc;
-    private Calendar dataNascFunc;
+    private Date dataNascFunc;
     private String telefoneFunc;
     private String emailFunc;
     private String tipoFunc;
     private String statusFunc;
     private int idEndereco_FK;
 
-    public FuncionariosDAO(double cpfFunc, String nomeFunc, double rgFunc, Calendar dataNascFunc, String telefoneFunc, String emailFunc, String tipoFunc, String statusFunc, int idEndereco_FK) {
+    public FuncionariosDAO(double cpfFunc, String nomeFunc, double rgFunc, Date dataNascFunc, String telefoneFunc, String emailFunc, String tipoFunc, String statusFunc, int idEndereco_FK) {
         this.cpfFunc = cpfFunc;
         this.nomeFunc = nomeFunc;
         this.rgFunc = rgFunc;
@@ -41,7 +41,9 @@ public class FuncionariosDAO {
 
     public FuncionariosDAO() {
     }
-
+    
+    FuncionariosDAO funcionario = new FuncionariosDAO();
+    
     public void setFuncionario(){
     
         String comando = "insert into funcionario values (?,?,?,?,?,?,?,?,?)";
@@ -54,6 +56,12 @@ public class FuncionariosDAO {
             comandoSQL.setDouble(1, this.getCpfFunc());
             comandoSQL.setString(2, this.getNomeFunc());
             comandoSQL.setDouble(3, this.getRgFunc());
+            comandoSQL.setDate(4, (java.sql.Date) this.getDataNascFunc());
+            comandoSQL.setString(5, this.getTelefoneFunc());
+            comandoSQL.setString(6, this.getEmailFunc());
+            comandoSQL.setString(7, this.getTipoFunc());
+            comandoSQL.setString(8, this.getStatusFunc());
+            comandoSQL.setInt(9, this.getIdEndereco_FK());
             
             comandoSQL.executeUpdate();
 
@@ -65,8 +73,6 @@ public class FuncionariosDAO {
 
         
     }
-    
-    FuncionariosDAO funcionario = new FuncionariosDAO();
     
     public double getCpfFunc() {
         return cpfFunc;
@@ -92,11 +98,11 @@ public class FuncionariosDAO {
         this.rgFunc = rgFunc;
     }
 
-    public Calendar getDataNascFunc() {
+    public Date getDataNascFunc() {
         return dataNascFunc;
     }
 
-    public void setDataNascFunc(Calendar dataNascFunc) {
+    public void setDataNascFunc(Date dataNascFunc) {
         this.dataNascFunc = dataNascFunc;
     }
 
