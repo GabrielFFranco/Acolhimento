@@ -7,12 +7,9 @@ package DAO;
 
 import Control.Conexao;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 /**
  *
@@ -23,14 +20,14 @@ public class FuncionariosDAO {
     private double cpfFunc;
     private String nomeFunc;
     private double rgFunc;
-    private Date dataNascFunc;
+    private Calendar dataNascFunc;
     private String telefoneFunc;
     private String emailFunc;
     private String tipoFunc;
     private String statusFunc;
     private int idEndereco_FK;
 
-    public FuncionariosDAO(double cpfFunc, String nomeFunc, double rgFunc, Date dataNascFunc, String telefoneFunc, String emailFunc, String tipoFunc, String statusFunc, int idEndereco_FK) {
+    public FuncionariosDAO(double cpfFunc, String nomeFunc, double rgFunc, Calendar dataNascFunc, String telefoneFunc, String emailFunc, String tipoFunc, String statusFunc, int idEndereco_FK) {
         this.cpfFunc = cpfFunc;
         this.nomeFunc = nomeFunc;
         this.rgFunc = rgFunc;
@@ -44,7 +41,7 @@ public class FuncionariosDAO {
 
     public FuncionariosDAO() {
     }
-    
+
     public void setFuncionario(){
     
         String comando = "insert into funcionario values (?,?,?,?,?,?,?,?,?)";
@@ -57,12 +54,6 @@ public class FuncionariosDAO {
             comandoSQL.setDouble(1, this.getCpfFunc());
             comandoSQL.setString(2, this.getNomeFunc());
             comandoSQL.setDouble(3, this.getRgFunc());
-            comandoSQL.setDate(4, this.getDataNascFunc());
-            comandoSQL.setString(5, this.getTelefoneFunc());
-            comandoSQL.setString(6, this.getEmailFunc());
-            comandoSQL.setString(7, this.getTipoFunc());
-            comandoSQL.setString(8, this.getStatusFunc());
-            comandoSQL.setInt(9, this.getIdEndereco_FK());
             
             comandoSQL.executeUpdate();
 
@@ -75,102 +66,7 @@ public class FuncionariosDAO {
         
     }
     
-    /**
-     * Método para listar todos os funcionários.
-     * @return
-     */
-    public List<FuncionariosDAO> getFuncionario(){
-        
-        ArrayList lista = new ArrayList();
-
-        String listarFuncionarios = "SELECT * FROM funcionario";
-
-        Connection conexao;
-        try {
-            conexao = new Conexao().getConnection();
-            
-            PreparedStatement comandoSQL = conexao.prepareStatement(listarFuncionarios);
-            
-            ResultSet retorno = comandoSQL.executeQuery();
-
-            while (retorno.next()) {
-
-                FuncionariosDAO funcionario = new FuncionariosDAO();
-                
-                funcionario.setCpfFunc(retorno.getDouble("cpfFunc"));
-                funcionario.setNomeFunc(retorno.getString("nomeFunc"));
-                funcionario.setRgFunc(retorno.getDouble("rgFunc"));
-                funcionario.setDataNascFunc(retorno.getDate("dataNascFunc"));
-                funcionario.setTelefoneFunc(retorno.getString("telefoneFunc"));
-                funcionario.setEmailFunc(retorno.getString("emailFunc"));
-                funcionario.setTipoFunc(retorno.getString("tipoFunc"));
-                funcionario.setStatusFunc(retorno.getString("statusFunc"));
-                funcionario.setIdEndereco_FK(retorno.getInt("idEndereco"));
-                
-                /*
-                Object[] linha = new Object[6];
-
-                linha[0] = retorno.getString("tipoEnc");
-                linha[1] = retorno.getString("localEnc");
-                linha[2] = retorno.getString("statusEnc");
-                linha[3] = retorno.getLong("cpfFunc");
-                linha[4] = retorno.getLong("nProntuarioUsu");
-                linha[5] = retorno.getString("idEndereco");
-                */
-                
-                lista.add(funcionario);
-            }
-            
-            comandoSQL.close();
-            conexao.close();
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        return lista;
-        
-    }
-    
-    public FuncionariosDAO getFuncionario(long cpf){
-        
-        FuncionariosDAO funcionario = new FuncionariosDAO();
-
-        String listarFuncionarios = "SELECT * FROM endereco WHERE cpfFunc = ?";
-
-        try {
-
-            Connection conexao = new Conexao().getConnection();
-            PreparedStatement comandoSQL = conexao.prepareStatement(listarFuncionarios);
-
-            comandoSQL.setLong(1, cpf);
-
-            ResultSet retorno = comandoSQL.executeQuery();
-
-            while (retorno.next()) {
-
-                funcionario.setCpfFunc(retorno.getDouble("cpfFunc"));
-                funcionario.setNomeFunc(retorno.getString("nomeFunc"));
-                funcionario.setRgFunc(retorno.getDouble("rgFunc"));
-                funcionario.setDataNascFunc(retorno.getDate("dataNascFunc"));
-                funcionario.setTelefoneFunc(retorno.getString("telefoneFunc"));
-                funcionario.setEmailFunc(retorno.getString("emailFunc"));
-                funcionario.setTipoFunc(retorno.getString("tipoFunc"));
-                funcionario.setStatusFunc(retorno.getString("statusFunc"));
-                funcionario.setIdEndereco_FK(retorno.getInt("idEndereco"));
-                
-            }
-            
-            comandoSQL.close();
-            conexao.close();
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        return funcionario;
-        
-    }
+    FuncionariosDAO funcionario = new FuncionariosDAO();
     
     public double getCpfFunc() {
         return cpfFunc;
@@ -196,11 +92,11 @@ public class FuncionariosDAO {
         this.rgFunc = rgFunc;
     }
 
-    public Date getDataNascFunc() {
+    public Calendar getDataNascFunc() {
         return dataNascFunc;
     }
 
-    public void setDataNascFunc(Date dataNascFunc) {
+    public void setDataNascFunc(Calendar dataNascFunc) {
         this.dataNascFunc = dataNascFunc;
     }
 
