@@ -139,6 +139,32 @@ public class EnderecoDAO {
         
     }
     
+    public int getUltimoEndereco(){
+        
+        String comando = "Select MAX(idEndereco) as idEndereco from endereco";
+        int resultado = 0;
+        
+        try {
+
+            Connection conexao = new Conexao().getConnection();
+            PreparedStatement comandoSQL = conexao.prepareStatement(comando);
+
+            ResultSet retorno = comandoSQL.executeQuery();
+
+            while (retorno.next()) {
+                resultado = retorno.getInt("idEndereco");
+            }
+            
+            comandoSQL.close();
+            conexao.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return resultado;
+        
+    }
     
     public double getCep() {
         return cep;

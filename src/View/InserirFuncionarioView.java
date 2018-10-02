@@ -8,9 +8,11 @@ package View;
 
 import DAO.EnderecoDAO;
 import DAO.FuncionariosDAO;
+import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 /**
  *
@@ -34,6 +36,7 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dateChooserDialog1 = new datechooser.beans.DateChooserDialog();
         jPanel1 = new javax.swing.JPanel();
         jSeparator = new javax.swing.JSeparator();
         lTitulo = new javax.swing.JLabel();
@@ -205,16 +208,20 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             funcionario.setCpfFunc(Double.parseDouble(txtCpf.getText()));
             funcionario.setNomeFunc(txtNome.getText());
             funcionario.setRgFunc(Double.parseDouble(txtRg.getText()));            
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date myDate = formatter.parse(txtDataNasc.getText());
+            java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
 
-            SimpleDateFormat form = new SimpleDateFormat("dd/mm/YYYY");
-            Date dutiln = form.parse(txtDataNasc.getText());
-            funcionario.setDataNascFunc(dutiln);
+            funcionario.setDataNascFunc(sqlDate);
             
             funcionario.setTelefoneFunc(txtTelefone.getText());             
             funcionario.setEmailFunc(txtEmail.getText());
             funcionario.setTipoFunc((String) cbTipo.getSelectedItem());            
             funcionario.setStatusFunc((String) cbStatus.getSelectedItem());
-
+            funcionario.setIdEndereco_FK(endereco.getUltimoEndereco());
+            
+            funcionario.setFuncionario();
             
         } catch (ParseException ex) {
             ex.printStackTrace();
@@ -263,6 +270,7 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
     private javax.swing.JButton bSalvar;
     private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JComboBox<String> cbTipo;
+    private datechooser.beans.DateChooserDialog dateChooserDialog1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator;
     private javax.swing.JLabel lBairro;
