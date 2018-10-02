@@ -36,7 +36,6 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dateChooserDialog1 = new datechooser.beans.DateChooserDialog();
         jPanel1 = new javax.swing.JPanel();
         jSeparator = new javax.swing.JSeparator();
         lTitulo = new javax.swing.JLabel();
@@ -175,7 +174,7 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
 
         bCancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         bCancelar.setText("Cancelar");
-        jPanel1.add(bCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 460, -1, -1));
+        jPanel1.add(bCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, -1, -1));
         jPanel1.add(txtRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 180, -1));
         jPanel1.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, 140, -1));
         jPanel1.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 50, -1));
@@ -209,11 +208,12 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             funcionario.setNomeFunc(txtNome.getText());
             funcionario.setRgFunc(Double.parseDouble(txtRg.getText()));            
             
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date myDate = formatter.parse(txtDataNasc.getText());
-            java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+            SimpleDateFormat form = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date dutiln;
+            dutiln = form.parse(txtDataNasc.getText());
+            java.sql.Date dsqln = new java.sql.Date(dutiln.getTime());
 
-            funcionario.setDataNascFunc(sqlDate);
+            funcionario.setDataNascFunc(dsqln);
             
             funcionario.setTelefoneFunc(txtTelefone.getText());             
             funcionario.setEmailFunc(txtEmail.getText());
@@ -229,6 +229,41 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_bSalvarActionPerformed
 
+    public void editarFuncionario(long cpfFunc){
+        
+        this.setVisible(true);
+        
+        FuncionariosDAO funcionario;
+        funcionario = new FuncionariosDAO().getFuncionario(cpfFunc);
+        
+        EnderecoDAO endereco;
+        endereco = new EnderecoDAO().getEndereco(funcionario.getIdEndereco_FK());
+        
+        txtCpf.setEditable(false);
+        txtCpf.setText(String.valueOf(funcionario.getCpfFunc()));
+        
+        txtNome.setText(String.valueOf(funcionario.getNomeFunc()));
+        txtRg.setText(String.valueOf(funcionario.getRgFunc()));
+        
+        SimpleDateFormat forma = new SimpleDateFormat("yyyy-MM-dd");
+        
+        
+        txtTelefone.setText(String.valueOf(funcionario.getTelefoneFunc()));
+        txtEmail.setText(String.valueOf(funcionario.getEmailFunc()));
+        
+        for(int i = 0; i < cbTipo.getItemCount(); i++){
+            if(cbTipo.getItemAt(i).equals(funcionario.getTipoFunc())){
+                cbTipo.setSelectedIndex(i);
+            }
+        }
+        
+        for(int i = 0; i < cbStatus.getItemCount(); i++){
+            if(cbStatus.getItemAt(i).equals(funcionario.getStatusFunc())){
+                cbStatus.setSelectedIndex(i);
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -270,7 +305,6 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
     private javax.swing.JButton bSalvar;
     private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JComboBox<String> cbTipo;
-    private datechooser.beans.DateChooserDialog dateChooserDialog1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator;
     private javax.swing.JLabel lBairro;
