@@ -9,7 +9,10 @@ import Control.Conexao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -69,6 +72,103 @@ public class FuncionariosDAO {
             ex.printStackTrace();
         }
 
+        
+    }
+    
+    /**
+     * Método para listar todos os funcionários.
+     * @return
+     */
+    public List<FuncionariosDAO> getFuncionario(){
+        
+        ArrayList lista = new ArrayList();
+
+        String listarFuncionarios = "SELECT * FROM funcionario";
+
+        Connection conexao;
+        try {
+            conexao = new Conexao().getConnection();
+            
+            PreparedStatement comandoSQL = conexao.prepareStatement(listarFuncionarios);
+            
+            ResultSet retorno = comandoSQL.executeQuery();
+
+            while (retorno.next()) {
+
+                FuncionariosDAO funcionario = new FuncionariosDAO();
+                
+                funcionario.setCpfFunc(retorno.getDouble("cpfFunc"));
+                funcionario.setNomeFunc(retorno.getString("nomeFunc"));
+                funcionario.setRgFunc(retorno.getDouble("rgFunc"));
+                funcionario.setDataNascFunc(retorno.getDate("dataNascFunc"));
+                funcionario.setTelefoneFunc(retorno.getString("telefoneFunc"));
+                funcionario.setEmailFunc(retorno.getString("emailFunc"));
+                funcionario.setTipoFunc(retorno.getString("tipoFunc"));
+                funcionario.setStatusFunc(retorno.getString("statusFunc"));
+                funcionario.setIdEndereco_FK(retorno.getInt("idEndereco"));
+                
+                /*
+                Object[] linha = new Object[6];
+
+                linha[0] = retorno.getString("tipoEnc");
+                linha[1] = retorno.getString("localEnc");
+                linha[2] = retorno.getString("statusEnc");
+                linha[3] = retorno.getLong("cpfFunc");
+                linha[4] = retorno.getLong("nProntuarioUsu");
+                linha[5] = retorno.getString("idEndereco");
+                */
+                
+                lista.add(funcionario);
+            }
+            
+            comandoSQL.close();
+            conexao.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return lista;
+        
+    }
+    
+    public FuncionariosDAO getFuncionario(long cpf){
+        
+        FuncionariosDAO funcionario = new FuncionariosDAO();
+
+        String listarFuncionarios = "SELECT * FROM endereco WHERE cpfFunc = ?";
+
+        try {
+
+            Connection conexao = new Conexao().getConnection();
+            PreparedStatement comandoSQL = conexao.prepareStatement(listarFuncionarios);
+
+            comandoSQL.setLong(1, cpf);
+
+            ResultSet retorno = comandoSQL.executeQuery();
+
+            while (retorno.next()) {
+
+                funcionario.setCpfFunc(retorno.getDouble("cpfFunc"));
+                funcionario.setNomeFunc(retorno.getString("nomeFunc"));
+                funcionario.setRgFunc(retorno.getDouble("rgFunc"));
+                funcionario.setDataNascFunc(retorno.getDate("dataNascFunc"));
+                funcionario.setTelefoneFunc(retorno.getString("telefoneFunc"));
+                funcionario.setEmailFunc(retorno.getString("emailFunc"));
+                funcionario.setTipoFunc(retorno.getString("tipoFunc"));
+                funcionario.setStatusFunc(retorno.getString("statusFunc"));
+                funcionario.setIdEndereco_FK(retorno.getInt("idEndereco"));
+                
+            }
+            
+            comandoSQL.close();
+            conexao.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return funcionario;
         
     }
     
