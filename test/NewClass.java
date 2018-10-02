@@ -1,4 +1,5 @@
 
+
 import DAO.FuncionariosDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,11 +20,12 @@ public class NewClass {
     
     public static void main(String[] args) throws ParseException {
          
-        SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date dutiln;
-            //dutiln = form.format("2000-05-12");
+        SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
         
-        System.out.println(dutiln);
+        String datann = out.format(in.parse("1998-08-05"));
+                
+        System.out.println(datann);
         
     }
     
