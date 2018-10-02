@@ -156,7 +156,7 @@ public class EncaminhamentoDAO {
             ResultSet retorno = comandoSQL.executeQuery();
 
             while (retorno.next()) {
-
+                
                 lista.setTipoEnc(retorno.getString("tipoEnc"));
                 lista.setLocalEnc(retorno.getString("localEnc"));
                 lista.setStatusEnc(retorno.getString("statusEnc"));
