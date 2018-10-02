@@ -214,7 +214,7 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
             funcionario.setEmailFunc(txtEmail.getText());
             funcionario.setTipoFunc((String) cbTipo.getSelectedItem());            
             funcionario.setStatusFunc((String) cbStatus.getSelectedItem());
-
+            funcionario.setIdEndereco_FK(endereco.getUltimoEndereco());
             
         } catch (ParseException ex) {
             ex.printStackTrace();
