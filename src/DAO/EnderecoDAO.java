@@ -141,7 +141,7 @@ public class EnderecoDAO {
     
     public int getUltimoEndereco(){
         
-        String comando = "Select MAX(idEndereco) from endereco";
+        String comando = "Select MAX(idEndereco) as idEndereco from endereco";
         int resultado = 0;
         
         try {

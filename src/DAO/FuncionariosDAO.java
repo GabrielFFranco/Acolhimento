@@ -7,9 +7,9 @@ package DAO;
 
 import Control.Conexao;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
 
 /**
  *
@@ -42,8 +42,6 @@ public class FuncionariosDAO {
     public FuncionariosDAO() {
     }
     
-    FuncionariosDAO funcionario = new FuncionariosDAO();
-    
     public void setFuncionario(){
     
         String comando = "insert into funcionario values (?,?,?,?,?,?,?,?,?)";
@@ -56,7 +54,7 @@ public class FuncionariosDAO {
             comandoSQL.setDouble(1, this.getCpfFunc());
             comandoSQL.setString(2, this.getNomeFunc());
             comandoSQL.setDouble(3, this.getRgFunc());
-            comandoSQL.setDate(4, (java.sql.Date) this.getDataNascFunc());
+            comandoSQL.setDate(4, this.getDataNascFunc());
             comandoSQL.setString(5, this.getTelefoneFunc());
             comandoSQL.setString(6, this.getEmailFunc());
             comandoSQL.setString(7, this.getTipoFunc());
