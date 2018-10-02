@@ -132,18 +132,18 @@ public class FuncionariosDAO {
         
     }
     
-    public FuncionariosDAO getFuncionario(long cpf){
+    public FuncionariosDAO getFuncionario(double cpf){
         
         FuncionariosDAO funcionario = new FuncionariosDAO();
 
-        String listarFuncionarios = "SELECT * FROM endereco WHERE cpfFunc = ?";
+        String listarFuncionarios = "SELECT * FROM funcionario WHERE cpfFunc = ?";
 
         try {
 
             Connection conexao = new Conexao().getConnection();
             PreparedStatement comandoSQL = conexao.prepareStatement(listarFuncionarios);
 
-            comandoSQL.setLong(1, cpf);
+            comandoSQL.setDouble(1, cpf);
 
             ResultSet retorno = comandoSQL.executeQuery();
 

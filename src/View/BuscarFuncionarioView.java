@@ -6,7 +6,10 @@
 package View;
 
 import DAO.FuncionariosDAO;
+import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -158,8 +161,12 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
         
         if(linhaSelecionada == -1){
         }else{   
-            new InserirFuncionarioView().editarFuncionario(
-                    (long) jtFuncionarios.getValueAt(linhaSelecionada, 0));
+            try {
+                new InserirFuncionarioView().editarFuncionario(
+                        (double) jtFuncionarios.getValueAt(linhaSelecionada, 0));
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
         }
         
     }//GEN-LAST:event_bEditarActionPerformed

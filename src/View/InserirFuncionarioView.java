@@ -229,7 +229,7 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_bSalvarActionPerformed
 
-    public void editarFuncionario(long cpfFunc){
+    public void editarFuncionario(double cpfFunc) throws ParseException{
         
         this.setVisible(true);
         
@@ -245,8 +245,9 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
         txtNome.setText(String.valueOf(funcionario.getNomeFunc()));
         txtRg.setText(String.valueOf(funcionario.getRgFunc()));
         
-        SimpleDateFormat forma = new SimpleDateFormat("yyyy-MM-dd");
-        
+        SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+        txtDataNasc.setText(out.format(in.parse(String.valueOf(funcionario.getDataNascFunc()))));
         
         txtTelefone.setText(String.valueOf(funcionario.getTelefoneFunc()));
         txtEmail.setText(String.valueOf(funcionario.getEmailFunc()));
