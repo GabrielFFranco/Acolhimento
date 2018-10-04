@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -162,8 +163,9 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
         if(linhaSelecionada == -1){
         }else{   
             try {
-                new InserirFuncionarioView().editarFuncionario(
-                        (double) jtFuncionarios.getValueAt(linhaSelecionada, 0));
+                InserirFuncionarioView insFunc = new InserirFuncionarioView(this, true);
+                insFunc.editarFuncionario((double) jtFuncionarios.getValueAt(linhaSelecionada, 0));
+                insFunc.setVisible(true);
             } catch (ParseException ex) {
                 ex.printStackTrace();
             }
@@ -254,4 +256,8 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
     private javax.swing.JTextField txtNome;
     private javax.swing.JLabel txtStatus;
     // End of variables declaration//GEN-END:variables
+
+    private void finalize(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
