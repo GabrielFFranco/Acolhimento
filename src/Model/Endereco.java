@@ -22,13 +22,13 @@ public class Endereco {
     private int numEnd;
     private String bairro;
     private String cidade;
-    private double cep;
+    private String cep;
 
     public Endereco(){
         
     }
     
-    public Endereco(int idEnd, String endereco, int numEnd, String bairro, String cidade, double cep) {
+    public Endereco(int idEnd, String endereco, int numEnd, String bairro, String cidade, String cep) {
         this.idEnd = idEnd;
         this.endereco = endereco;
         this.numEnd = numEnd;
@@ -55,7 +55,7 @@ public class Endereco {
             comandoSQL.setInt(2, this.getNumEnd());
             comandoSQL.setString(3, this.getBairro());
             comandoSQL.setString(4, this.getCidade());
-            comandoSQL.setDouble(5, this.getCep());
+            comandoSQL.setString(5, this.getCep());
 
             comandoSQL.executeUpdate();
 
@@ -83,7 +83,7 @@ public class Endereco {
             comandoSQL.setInt(2, this.getNumEnd());
             comandoSQL.setString(3, this.getBairro());
             comandoSQL.setString(4, this.getCidade());
-            comandoSQL.setDouble(5, this.getCep());
+            comandoSQL.setString(5, this.getCep());
             comandoSQL.setInt(6, this.getIdEnd());
 
             comandoSQL.executeUpdate();
@@ -124,7 +124,7 @@ public class Endereco {
                 lista.setNumEnd(retorno.getInt("numeroEnd"));
                 lista.setBairro(retorno.getString("bairro"));
                 lista.setCidade(retorno.getString("cidade"));
-                lista.setCep(retorno.getDouble("cep"));
+                lista.setCep(retorno.getString("cep"));
                 
             }
             
@@ -166,11 +166,11 @@ public class Endereco {
         
     }
     
-    public double getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(double cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

@@ -231,7 +231,7 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
             endereco.setNumEnd(Integer.parseInt(txtNumero.getText()));
             endereco.setBairro(txtBairro.getText());
             endereco.setCidade(txtCidade.getText());
-            endereco.setCep(Double.parseDouble(txtCep.getText()));
+            endereco.setCep(txtCep.getText());
             //Fim da inserção do endereço
 
             if (new Funcionario().getFuncionario(funcionario.getCpfFunc()).getCpfFunc()
