@@ -5,12 +5,10 @@
  */
 package View;
 
+import DAO.FuncionarioDAO;
 import Model.Funcionario;
 import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -88,7 +86,7 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
         jPanel1.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 410, -1));
         jPanel1.add(txtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 180, -1));
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auxiliar", "Coordenador", "Tecnico" }));
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Auxiliar", "Coordenador", "Tecnico" }));
         jPanel1.add(cbTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 80, -1));
 
         txtStatus.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -110,7 +108,7 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
         bCancelar.setText("Cancelar");
         jPanel1.add(bCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
 
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo", " " }));
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Ativo", "Inativo", " " }));
         jPanel1.add(cbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 90, -1));
 
         jtFuncionarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -157,11 +155,11 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEditarActionPerformed
-        
+
         int linhaSelecionada = jtFuncionarios.getSelectedRow();
-        
-        if(linhaSelecionada == -1){
-        }else{   
+
+        if (linhaSelecionada == -1) {
+        } else {
             try {
                 InserirFuncionarioView insFunc = new InserirFuncionarioView(this, true);
                 insFunc.preencherFuncionario((double) jtFuncionarios.getValueAt(linhaSelecionada, 0));
@@ -170,29 +168,56 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
                 ex.printStackTrace();
             }
         }
-        
+
     }//GEN-LAST:event_bEditarActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-        
-        List<Funcionario> lista = new Funcionario().getFuncionario();
-        
-        DefaultTableModel modelo = (DefaultTableModel) jtFuncionarios.getModel();
-        
-        for(int i = modelo.getRowCount() - 1; i > -1; i--)
-                    modelo.removeRow(i);
-        
-        for(Funcionario funcionario : lista){
+
+        List<Funcionario> lista;
+        String comando = "select * from funcionario";
+
+        if (!"".equals(txtCpf.getText())
+                || !"".equals(txtNome.getText())
+                || !"Selecione".equals(cbStatus.getSelectedItem())
+                || !"Selecione".equals(cbTipo.getSelectedItem())) {
+
+            comando = comando + " where";
+
+            if (!"".equals(txtCpf.getText())) {
+                comando = comando + " cpfFunc = '" + txtCpf.getText() + "' and";
+            }
+            if (!"".equals(txtNome.getText())) {
+                comando = comando + " nomeFunc = '" + txtNome.getText() + "' and";
+            }
+            if (!"Selecione".equals(cbStatus.getSelectedItem())) {
+                comando = comando + " statusFunc = '" + cbStatus.getSelectedItem() + "' and";
+            }
+            if (!"Selecione".equals(cbTipo.getSelectedItem())) {
+                comando = comando + " tipoFunc = '" + cbTipo.getSelectedItem() + "' and";
+            }
             
+            comando = comando.substring(0, comando.length() - 4);
+        }
+        System.out.println(comando);
+        lista = new FuncionarioDAO().getFuncionario(comando);
+
+        DefaultTableModel modelo = (DefaultTableModel) jtFuncionarios.getModel();
+
+        for (int i = modelo.getRowCount() - 1; i > -1; i--) {
+            modelo.removeRow(i);
+        }
+
+        for (Funcionario funcionario : lista) {
+
             Object[] vetor = new Object[]{
                 funcionario.getCpfFunc(),
                 funcionario.getNomeFunc(),
                 funcionario.getTipoFunc(),
                 funcionario.getStatusFunc()
             };
-            
+
             modelo.addRow(vetor);
-        }   
+        }
     }//GEN-LAST:event_bBuscarActionPerformed
 
     /**
@@ -256,8 +281,4 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
     private javax.swing.JTextField txtNome;
     private javax.swing.JLabel txtStatus;
     // End of variables declaration//GEN-END:variables
-
-    private void finalize(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

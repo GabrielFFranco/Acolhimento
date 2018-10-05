@@ -5,6 +5,8 @@
  */
 package View;
 
+import DAO.EnderecoDAO;
+import DAO.FuncionarioDAO;
 import Model.Endereco;
 import Model.Funcionario;
 import java.text.ParseException;
@@ -18,6 +20,8 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
     /**
      * Creates new form Teste
+     * @param parent
+     * @param modal
      */
     public InserirFuncionarioView(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
@@ -204,7 +208,9 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
     private void bSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalvarActionPerformed
 
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         Funcionario funcionario = new Funcionario();
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
         Endereco endereco = new Endereco();
 
         try {
@@ -234,16 +240,16 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
             endereco.setCep(Double.parseDouble(txtCep.getText()));
             //Fim da inserção do endereço
 
-            if (new Funcionario().getFuncionario(funcionario.getCpfFunc()).getCpfFunc()
+            if (new FuncionarioDAO().getFuncionario(funcionario.getCpfFunc()).getCpfFunc()
                     == funcionario.getCpfFunc()) {
-                endereco.setIdEnd(funcionario.getIdEndereco_FK());
-                endereco.altEndereco();
-                funcionario.altEndereco();
+                endereco.setIdEnd(funcionarioDAO.getFuncionario(funcionario.getCpfFunc()).getIdEndereco_FK());
+                enderecoDAO.altEndereco(endereco);
+                funcionarioDAO.altEndereco(funcionario);
 
             } else {
-                endereco.setEndereco();
-                funcionario.setIdEndereco_FK(endereco.getUltimoEndereco());
-                funcionario.setFuncionario();
+                enderecoDAO.setEndereco(endereco);
+                funcionario.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
+                funcionarioDAO.setFuncionario(funcionario);
             }
         } catch (ParseException ex) {
             ex.printStackTrace();
@@ -252,13 +258,18 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
     public void preencherFuncionario(double cpfFunc) throws ParseException {
 
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         Funcionario funcionario;
-        funcionario = new Funcionario().getFuncionario(cpfFunc);
+        
+        funcionario = funcionarioDAO.getFuncionario(cpfFunc);
 
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
         Endereco endereco;
-        endereco = new Endereco().getEndereco(funcionario.getIdEndereco_FK());
+        
+        endereco = enderecoDAO.getEndereco(funcionario.getIdEndereco_FK());
 
         txtCpf.setEditable(false);
+        txtCpf.setEnabled(false);
         txtCpf.setText(String.format("%.0f", funcionario.getCpfFunc()));
 
         txtNome.setText(String.valueOf(funcionario.getNomeFunc()));
