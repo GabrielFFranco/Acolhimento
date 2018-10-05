@@ -20,6 +20,8 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
     /**
      * Creates new form Teste
+     * @param parent
+     * @param modal
      */
     public InserirFuncionarioView(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
