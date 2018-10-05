@@ -1,5 +1,5 @@
 
-import DAO.EncaminhamentoDAO;
+import Model.Encaminhamento;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,7 +15,7 @@ import java.util.Iterator;
 public class Teste {
 
     public static void main(String[] args) {
-        EncaminhamentoDAO encaminhamento = new EncaminhamentoDAO("Saúde", "Hospital Cardíaco", "Ativo", 7685575930L, 1, 123);
+        Encaminhamento encaminhamento = new Encaminhamento("Saúde", "Hospital Cardíaco", "Ativo", 7685575930L, 1, 123);
         
         try {
             //encaminhamento.setEncaminhamento();

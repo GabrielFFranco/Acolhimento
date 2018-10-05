@@ -5,8 +5,8 @@
  */
 package View;
 
-import DAO.EnderecoDAO;
-import DAO.FuncionariosDAO;
+import Model.Endereco;
+import Model.Funcionario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -204,10 +204,27 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
     private void bSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalvarActionPerformed
 
-        FuncionariosDAO funcionario = new FuncionariosDAO();
-        EnderecoDAO endereco = new EnderecoDAO();
+        Funcionario funcionario = new Funcionario();
+        Endereco endereco = new Endereco();
 
         try {
+
+            funcionario.setCpfFunc(Double.parseDouble(txtCpf.getText()));
+            funcionario.setNomeFunc(txtNome.getText());
+            funcionario.setRgFunc(Double.parseDouble(txtRg.getText()));
+
+            //Setando Data
+            SimpleDateFormat form = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date dataUtil;
+            dataUtil = form.parse(txtDataNasc.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataUtil.getTime());
+            funcionario.setDataNascFunc(dataSQL);
+            //Terminando de setar a Data
+
+            funcionario.setTelefoneFunc(txtTelefone.getText());
+            funcionario.setEmailFunc(txtEmail.getText());
+            funcionario.setTipoFunc((String) cbTipo.getSelectedItem());
+            funcionario.setStatusFunc((String) cbStatus.getSelectedItem());
 
             //Inserindo Endereço
             endereco.setEndereco(txtEndereco.getText());
@@ -215,74 +232,65 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
             endereco.setBairro(txtBairro.getText());
             endereco.setCidade(txtCidade.getText());
             endereco.setCep(Double.parseDouble(txtCep.getText()));
-            endereco.setEndereco();
             //Fim da inserção do endereço
 
-            funcionario.setCpfFunc(Double.parseDouble(txtCpf.getText()));
-            funcionario.setNomeFunc(txtNome.getText());
-            funcionario.setRgFunc(Double.parseDouble(txtRg.getText()));
+            if (new Funcionario().getFuncionario(funcionario.getCpfFunc()).getCpfFunc()
+                    == funcionario.getCpfFunc()) {
+                endereco.setIdEnd(funcionario.getIdEndereco_FK());
+                endereco.altEndereco();
+                funcionario.altEndereco();
 
-            SimpleDateFormat form = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date dutiln;
-            dutiln = form.parse(txtDataNasc.getText());
-            java.sql.Date dsqln = new java.sql.Date(dutiln.getTime());
-
-            funcionario.setDataNascFunc(dsqln);
-
-            funcionario.setTelefoneFunc(txtTelefone.getText());
-            funcionario.setEmailFunc(txtEmail.getText());
-            funcionario.setTipoFunc((String) cbTipo.getSelectedItem());
-            funcionario.setStatusFunc((String) cbStatus.getSelectedItem());
-            funcionario.setIdEndereco_FK(endereco.getUltimoEndereco());
-
-            funcionario.setFuncionario();
-
+            } else {
+                endereco.setEndereco();
+                funcionario.setIdEndereco_FK(endereco.getUltimoEndereco());
+                funcionario.setFuncionario();
+            }
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_bSalvarActionPerformed
 
-    public void editarFuncionario(double cpfFunc) throws ParseException{
+    public void preencherFuncionario(double cpfFunc) throws ParseException {
 
-        FuncionariosDAO funcionario;
-        funcionario = new FuncionariosDAO().getFuncionario(cpfFunc);
-        
-        EnderecoDAO endereco;
-        endereco = new EnderecoDAO().getEndereco(funcionario.getIdEndereco_FK());
-        
+        Funcionario funcionario;
+        funcionario = new Funcionario().getFuncionario(cpfFunc);
+
+        Endereco endereco;
+        endereco = new Endereco().getEndereco(funcionario.getIdEndereco_FK());
+
         txtCpf.setEditable(false);
         txtCpf.setText(String.format("%.0f", funcionario.getCpfFunc()));
-        
+
         txtNome.setText(String.valueOf(funcionario.getNomeFunc()));
         txtRg.setText(String.format("%.0f", funcionario.getRgFunc()));
-        
+
         SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
         txtDataNasc.setText(out.format(in.parse(String.valueOf(funcionario.getDataNascFunc()))));
-        
+
         txtTelefone.setText(String.valueOf(funcionario.getTelefoneFunc()));
         txtEmail.setText(String.valueOf(funcionario.getEmailFunc()));
-        
-        for(int i = 0; i < cbTipo.getItemCount(); i++){
-            if(cbTipo.getItemAt(i).equals(funcionario.getTipoFunc())){
+
+        for (int i = 0; i < cbTipo.getItemCount(); i++) {
+            if (cbTipo.getItemAt(i).equals(funcionario.getTipoFunc())) {
                 cbTipo.setSelectedIndex(i);
             }
         }
-        
-        for(int i = 0; i < cbStatus.getItemCount(); i++){
-            if(cbStatus.getItemAt(i).equals(funcionario.getStatusFunc())){
+
+        for (int i = 0; i < cbStatus.getItemCount(); i++) {
+            if (cbStatus.getItemAt(i).equals(funcionario.getStatusFunc())) {
                 cbStatus.setSelectedIndex(i);
             }
         }
-        
+
         txtEndereco.setText(endereco.getEndereco());
         txtNumero.setText(String.valueOf(endereco.getNumEnd()));
         txtBairro.setText(endereco.getBairro());
         txtCidade.setText(endereco.getCidade());
         txtCep.setText(String.format("%.0f", endereco.getCep()));
-        
+
     }
-    
+
     /**
      * @param args the command line arguments
      */
