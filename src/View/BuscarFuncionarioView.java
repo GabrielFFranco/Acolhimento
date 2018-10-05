@@ -5,12 +5,10 @@
  */
 package View;
 
+import DAO.FuncionarioDAO;
 import Model.Funcionario;
 import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -175,7 +173,7 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
         
-        List<Funcionario> lista = new Funcionario().getFuncionario();
+        List<Funcionario> lista = new FuncionarioDAO().getFuncionario();
         
         DefaultTableModel modelo = (DefaultTableModel) jtFuncionarios.getModel();
         
@@ -256,8 +254,4 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
     private javax.swing.JTextField txtNome;
     private javax.swing.JLabel txtStatus;
     // End of variables declaration//GEN-END:variables
-
-    private void finalize(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
