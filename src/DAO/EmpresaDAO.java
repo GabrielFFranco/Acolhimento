@@ -6,40 +6,24 @@
 package DAO;
 
 import Control.Conexao;
+import Model.Empresa;
+import Model.Funcionario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
- * @author gabri
+ * @author User
  */
 public class EmpresaDAO {
-
-    private double cnpjEmp;
-    private String nomeEmp;
-    private int numeroVagasEmp;
-    private String razaoSocialEmp;
-    private int idEndereco_FK;
-
-    public EmpresaDAO(){
-        
-    }
     
-    public EmpresaDAO(double cnpjEmp, String nomeEmp, int numeroVagasEmp, String razaoSocialEmp, int idEndereco) {
-        this.cnpjEmp = cnpjEmp;
-        this.nomeEmp = nomeEmp;
-        this.numeroVagasEmp = numeroVagasEmp;
-        this.razaoSocialEmp = razaoSocialEmp;
-        this.idEndereco_FK = idEndereco;
-    }
-
-    /**
+        /**
      * Método para inserir uma empresa no banco de dados.
+     * @param empresa
      */
-    public void setEmpresa() {
+    public void setEmpresa(Empresa empresa) {
 
         String comando = "insert into empresa values (?,?,?,?,?)";
 
@@ -48,11 +32,11 @@ public class EmpresaDAO {
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setDouble(1, this.getCnpjEmp());
-            comandoSQL.setString(2, this.getNomeEmp());
-            comandoSQL.setInt(3, this.getNumeroVagasEmp());
-            comandoSQL.setString(4, this.getRazaoSocialEmp());
-            comandoSQL.setInt(5, this.getIdEndereco_FK());
+            comandoSQL.setDouble(1, empresa.getCnpjEmp());
+            comandoSQL.setString(2, empresa.getNomeEmp());
+            comandoSQL.setInt(3, empresa.getNumeroVagasEmp());
+            comandoSQL.setString(4, empresa.getRazaoSocialEmp());
+            comandoSQL.setInt(5, empresa.getIdEndereco_FK());
             
             comandoSQL.executeUpdate();
 
@@ -67,8 +51,9 @@ public class EmpresaDAO {
 
     /**
      *Método para alterar uma empresa no banco de dados
+     * @param funcionario
      */
-    public void altEmpresa() {
+    public void altEmpresa(Empresa empresa) {
         
         String comando = "update encaminhamento set nomeEmp = ?, numeroVagasEmp = ?, "
                 + "razaoSocialEmp = ?, idEndereco = ? where cnpjEmp = ?";
@@ -78,11 +63,11 @@ public class EmpresaDAO {
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setDouble(5, this.getCnpjEmp());
-            comandoSQL.setString(1, this.getNomeEmp());
-            comandoSQL.setInt(2, this.getNumeroVagasEmp());
-            comandoSQL.setString(3, this.getRazaoSocialEmp());
-            comandoSQL.setInt(4, this.getIdEndereco_FK());
+            comandoSQL.setDouble(5, empresa.getCnpjEmp());
+            comandoSQL.setString(1, empresa.getNomeEmp());
+            comandoSQL.setInt(2, empresa.getNumeroVagasEmp());
+            comandoSQL.setString(3, empresa.getRazaoSocialEmp());
+            comandoSQL.setInt(4, empresa.getIdEndereco_FK());
             
             comandoSQL.executeUpdate();
 
@@ -94,9 +79,13 @@ public class EmpresaDAO {
         }
     }
 
-    public EmpresaDAO getEmpresa() {
+    /**
+     * Retorna uma empresa
+     * @return
+     */
+    public Empresa getEmpresa() {
 
-        EmpresaDAO empresa = new EmpresaDAO();
+        Empresa empresa = new Empresa();
 
         String listarEmpresa = "SELECT * FROM encaminhamento";
 
@@ -128,47 +117,4 @@ public class EmpresaDAO {
         return empresa;
 
     }
-    
-    public int getIdEndereco_FK() {
-        return idEndereco_FK;
-    }
-
-    public void setIdEndereco_FK(int idEndereco_FK) {
-        this.idEndereco_FK = idEndereco_FK;
-    }
-
-    public double getCnpjEmp() {
-        return cnpjEmp;
-    }
-
-    public void setCnpjEmp(double cnpjEmp) {
-        this.cnpjEmp = cnpjEmp;
-    }
-
-    public String getNomeEmp() {
-        return nomeEmp;
-    }
-
-    public void setNomeEmp(String nomeEmp) {
-        this.nomeEmp = nomeEmp;
-    }
-
-    public int getNumeroVagasEmp() {
-        return numeroVagasEmp;
-    }
-
-    public void setNumeroVagasEmp(int numeroVagasEmp) {
-        this.numeroVagasEmp = numeroVagasEmp;
-    }
-
-    public String getRazaoSocialEmp() {
-        return razaoSocialEmp;
-    }
-
-    public void setRazaoSocialEmp(String razaoSocialEmp) {
-        this.razaoSocialEmp = razaoSocialEmp;
-    }
-    
-    
-    
 }

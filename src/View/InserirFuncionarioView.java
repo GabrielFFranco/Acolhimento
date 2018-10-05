@@ -5,25 +5,22 @@
  */
 package View;
 
-
-import DAO.EnderecoDAO;
-import DAO.FuncionariosDAO;
-import java.sql.Date;
-import java.text.DateFormat;
+import Model.Endereco;
+import Model.Funcionario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-
 /**
  *
- * @author wilsi
+ * @author User
  */
-public class InserirFuncionarioView extends javax.swing.JFrame {
+public class InserirFuncionarioView extends javax.swing.JDialog {
 
     /**
-     * Creates new form InserirFuncionarioView
+     * Creates new form Teste
      */
-    public InserirFuncionarioView() {
+    public InserirFuncionarioView(java.awt.Dialog parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -69,9 +66,7 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
         txtCep = new javax.swing.JTextField();
         cbStatus = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(204, 204, 204));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -183,88 +178,119 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
         cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo", " " }));
         jPanel1.add(cbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 410, 90, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 520));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 520, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalvarActionPerformed
-        
-        FuncionariosDAO funcionario = new FuncionariosDAO();
-        EnderecoDAO endereco = new EnderecoDAO();
-        
+
+        Funcionario funcionario = new Funcionario();
+        Endereco endereco = new Endereco();
+
         try {
-            
+
+            funcionario.setCpfFunc(Double.parseDouble(txtCpf.getText()));
+            funcionario.setNomeFunc(txtNome.getText());
+            funcionario.setRgFunc(Double.parseDouble(txtRg.getText()));
+
+            //Setando Data
+            SimpleDateFormat form = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date dataUtil;
+            dataUtil = form.parse(txtDataNasc.getText());
+            java.sql.Date dataSQL = new java.sql.Date(dataUtil.getTime());
+            funcionario.setDataNascFunc(dataSQL);
+            //Terminando de setar a Data
+
+            funcionario.setTelefoneFunc(txtTelefone.getText());
+            funcionario.setEmailFunc(txtEmail.getText());
+            funcionario.setTipoFunc((String) cbTipo.getSelectedItem());
+            funcionario.setStatusFunc((String) cbStatus.getSelectedItem());
+
             //Inserindo Endereço
             endereco.setEndereco(txtEndereco.getText());
             endereco.setNumEnd(Integer.parseInt(txtNumero.getText()));
             endereco.setBairro(txtBairro.getText());
             endereco.setCidade(txtCidade.getText());
             endereco.setCep(Double.parseDouble(txtCep.getText()));
-            endereco.setEndereco();
             //Fim da inserção do endereço
-            
-            funcionario.setCpfFunc(Double.parseDouble(txtCpf.getText()));
-            funcionario.setNomeFunc(txtNome.getText());
-            funcionario.setRgFunc(Double.parseDouble(txtRg.getText()));            
-            
-            SimpleDateFormat form = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date dutiln;
-            dutiln = form.parse(txtDataNasc.getText());
-            java.sql.Date dsqln = new java.sql.Date(dutiln.getTime());
 
-            funcionario.setDataNascFunc(dsqln);
-            
-            funcionario.setTelefoneFunc(txtTelefone.getText());             
-            funcionario.setEmailFunc(txtEmail.getText());
-            funcionario.setTipoFunc((String) cbTipo.getSelectedItem());            
-            funcionario.setStatusFunc((String) cbStatus.getSelectedItem());
-            funcionario.setIdEndereco_FK(endereco.getUltimoEndereco());
-            
-            funcionario.setFuncionario();
-            
+            if (new Funcionario().getFuncionario(funcionario.getCpfFunc()).getCpfFunc()
+                    == funcionario.getCpfFunc()) {
+                endereco.setIdEnd(funcionario.getIdEndereco_FK());
+                endereco.altEndereco();
+                funcionario.altEndereco();
+
+            } else {
+                endereco.setEndereco();
+                funcionario.setIdEndereco_FK(endereco.getUltimoEndereco());
+                funcionario.setFuncionario();
+            }
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
-
     }//GEN-LAST:event_bSalvarActionPerformed
 
-    public void editarFuncionario(double cpfFunc) throws ParseException{
-        
-        this.setVisible(true);
-        
-        FuncionariosDAO funcionario;
-        funcionario = new FuncionariosDAO().getFuncionario(cpfFunc);
-        
-        EnderecoDAO endereco;
-        endereco = new EnderecoDAO().getEndereco(funcionario.getIdEndereco_FK());
-        
+    public void preencherFuncionario(double cpfFunc) throws ParseException {
+
+        Funcionario funcionario;
+        funcionario = new Funcionario().getFuncionario(cpfFunc);
+
+        Endereco endereco;
+        endereco = new Endereco().getEndereco(funcionario.getIdEndereco_FK());
+
         txtCpf.setEditable(false);
-        txtCpf.setText(String.valueOf(funcionario.getCpfFunc()));
-        
+        txtCpf.setText(String.format("%.0f", funcionario.getCpfFunc()));
+
         txtNome.setText(String.valueOf(funcionario.getNomeFunc()));
-        txtRg.setText(String.valueOf(funcionario.getRgFunc()));
-        
+        txtRg.setText(String.format("%.0f", funcionario.getRgFunc()));
+
         SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
         txtDataNasc.setText(out.format(in.parse(String.valueOf(funcionario.getDataNascFunc()))));
-        
+
         txtTelefone.setText(String.valueOf(funcionario.getTelefoneFunc()));
         txtEmail.setText(String.valueOf(funcionario.getEmailFunc()));
-        
-        for(int i = 0; i < cbTipo.getItemCount(); i++){
-            if(cbTipo.getItemAt(i).equals(funcionario.getTipoFunc())){
+
+        for (int i = 0; i < cbTipo.getItemCount(); i++) {
+            if (cbTipo.getItemAt(i).equals(funcionario.getTipoFunc())) {
                 cbTipo.setSelectedIndex(i);
             }
         }
-        
-        for(int i = 0; i < cbStatus.getItemCount(); i++){
-            if(cbStatus.getItemAt(i).equals(funcionario.getStatusFunc())){
+
+        for (int i = 0; i < cbStatus.getItemCount(); i++) {
+            if (cbStatus.getItemAt(i).equals(funcionario.getStatusFunc())) {
                 cbStatus.setSelectedIndex(i);
             }
         }
+
+        txtEndereco.setText(endereco.getEndereco());
+        txtNumero.setText(String.valueOf(endereco.getNumEnd()));
+        txtBairro.setText(endereco.getBairro());
+        txtCidade.setText(endereco.getCidade());
+        txtCep.setText(String.format("%.0f", endereco.getCep()));
+
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -293,10 +319,17 @@ public class InserirFuncionarioView extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InserirFuncionarioView().setVisible(true);
+                InserirFuncionarioView dialog = new InserirFuncionarioView(new javax.swing.JDialog(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

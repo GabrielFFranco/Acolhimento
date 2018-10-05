@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package Model;
 
 import Control.Conexao;
 import java.sql.Connection;
@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author gabri
  */
-public class FuncionariosDAO {
+public class Funcionario {
     
     private double cpfFunc;
     private String nomeFunc;
@@ -30,7 +30,7 @@ public class FuncionariosDAO {
     private String statusFunc;
     private int idEndereco_FK;
 
-    public FuncionariosDAO(double cpfFunc, String nomeFunc, double rgFunc, Date dataNascFunc, String telefoneFunc, String emailFunc, String tipoFunc, String statusFunc, int idEndereco_FK) {
+    public Funcionario(double cpfFunc, String nomeFunc, double rgFunc, Date dataNascFunc, String telefoneFunc, String emailFunc, String tipoFunc, String statusFunc, int idEndereco_FK) {
         this.cpfFunc = cpfFunc;
         this.nomeFunc = nomeFunc;
         this.rgFunc = rgFunc;
@@ -42,7 +42,7 @@ public class FuncionariosDAO {
         this.idEndereco_FK = idEndereco_FK;
     }
 
-    public FuncionariosDAO() {
+    public Funcionario() {
     }
     
     public void setFuncionario(){
@@ -71,15 +71,44 @@ public class FuncionariosDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
+    }
+    
+    public void altEndereco(){
         
+        String comando = "update funcionario set nomeFunc = ?, rgFunc = ?, dataNascFunc = ?,"
+                + " telefoneFunc = ?, emailFunc = ?, tipoFunc = ?, statusFunc = ?"
+                + " where cpfFunc = ?";
+        
+        try {
+            
+            Connection conexao = new Conexao().getConnection();
+
+            PreparedStatement comandoSQL = conexao.prepareStatement(comando);
+
+            comandoSQL.setString(1, this.getNomeFunc());
+            comandoSQL.setDouble(2, this.getRgFunc());
+            comandoSQL.setDate(3, this.getDataNascFunc());
+            comandoSQL.setString(4, this.getTelefoneFunc());
+            comandoSQL.setString(5, this.getEmailFunc());
+            comandoSQL.setString(6, this.getTipoFunc());
+            comandoSQL.setString(7, this.getStatusFunc());
+            comandoSQL.setDouble(8, this.getCpfFunc());
+
+            comandoSQL.executeUpdate();
+
+            comandoSQL.close();
+            conexao.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }   
     }
     
     /**
      * Método para listar todos os funcionários.
      * @return
      */
-    public List<FuncionariosDAO> getFuncionario(){
+    public List<Funcionario> getFuncionario(){
         
         ArrayList lista = new ArrayList();
 
@@ -95,7 +124,7 @@ public class FuncionariosDAO {
 
             while (retorno.next()) {
 
-                FuncionariosDAO funcionario = new FuncionariosDAO();
+                Funcionario funcionario = new Funcionario();
                 
                 funcionario.setCpfFunc(retorno.getDouble("cpfFunc"));
                 funcionario.setNomeFunc(retorno.getString("nomeFunc"));
@@ -132,9 +161,9 @@ public class FuncionariosDAO {
         
     }
     
-    public FuncionariosDAO getFuncionario(double cpf){
+    public Funcionario getFuncionario(double cpf){
         
-        FuncionariosDAO funcionario = new FuncionariosDAO();
+        Funcionario funcionario = new Funcionario();
 
         String listarFuncionarios = "SELECT * FROM funcionario WHERE cpfFunc = ?";
 

@@ -1,6 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package DAO;
 
 import Control.Conexao;
+import Model.Encaminhamento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,36 +14,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Classe para controlar a entidade de relacionamentos.
  *
- * @author Gabriel Ferreira Franco
+ * @author User
  */
 public class EncaminhamentoDAO {
-
-    private String tipoEnc;
-    private String localEnc;
-    private String statusEnc;
-    private long cpfFunc_FK;
-    private long nProntuarioUsu_FK;
-    private long idEndereco_FK;
-
-    public EncaminhamentoDAO() {
-
-    }
-
-    public EncaminhamentoDAO(String tipoEnc, String localEnc, String statusEnc, long cpfFunc_FK, long nProntuarioUsu_FK, long idEndereco_FK) {
-        this.tipoEnc = tipoEnc;
-        this.localEnc = localEnc;
-        this.statusEnc = statusEnc;
-        this.cpfFunc_FK = cpfFunc_FK;
-        this.nProntuarioUsu_FK = nProntuarioUsu_FK;
-        this.idEndereco_FK = idEndereco_FK;
-    }
-
+    
     /**
      * Método para inserir um encaminhamento no banco de dados.
+     * @param encaminhamento
      */
-    public void setEncaminhamento() {
+    public void setEncaminhamento(Encaminhamento encaminhamento) {
 
         String comando = "insert into encaminhamento (tipoEnc, localEnc, statusEnc, cpfFunc,"
                 + " nProntuarioUsu, idEndereco) values (?,?,?,?,?,?)";
@@ -47,12 +33,12 @@ public class EncaminhamentoDAO {
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setString(1, this.getTipoEnc());
-            comandoSQL.setString(2, this.getLocalEnc());
-            comandoSQL.setString(3, this.getStatusEnc());
-            comandoSQL.setLong(4, this.getCpfFunc_FK());
-            comandoSQL.setLong(5, this.getnProntuarioUsu_FK());
-            comandoSQL.setLong(6, this.getIdEndereco_FK());
+            comandoSQL.setString(1, encaminhamento.getTipoEnc());
+            comandoSQL.setString(2, encaminhamento.getLocalEnc());
+            comandoSQL.setString(3, encaminhamento.getStatusEnc());
+            comandoSQL.setLong(4, encaminhamento.getCpfFunc_FK());
+            comandoSQL.setLong(5, encaminhamento.getnProntuarioUsu_FK());
+            comandoSQL.setLong(6, encaminhamento.getIdEndereco_FK());
 
             comandoSQL.executeUpdate();
 
@@ -66,23 +52,26 @@ public class EncaminhamentoDAO {
 
     /**
      *Método para alterar um encaminhamento no banco de dados
+     * @param encaminhamento
      */
-    public void altEncaminhamento() {
+    public void altEncaminhamento(Encaminhamento encaminhamento) {
         
         String comando = "update encaminhamento set tipoEnc = ?, localEnc = ?,"
-                + " statusEnc = ?, cpfFunc = ?, nProntuarioUsu = ?, idEndereco = ?";
+                + " statusEnc = ?, cpfFunc = ?, nProntuarioUsu = ?, idEndereco = ?"
+                + " where idEnc = ?";
 
         try {
             Connection conexao = new Conexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setString(1, this.getTipoEnc());
-            comandoSQL.setString(2, this.getLocalEnc());
-            comandoSQL.setString(3, this.getStatusEnc());
-            comandoSQL.setLong(4, this.getCpfFunc_FK());
-            comandoSQL.setLong(5, this.getnProntuarioUsu_FK());
-            comandoSQL.setLong(6, this.getIdEndereco_FK());
+            comandoSQL.setString(1, encaminhamento.getTipoEnc());
+            comandoSQL.setString(2, encaminhamento.getLocalEnc());
+            comandoSQL.setString(3, encaminhamento.getStatusEnc());
+            comandoSQL.setLong(4, encaminhamento.getCpfFunc_FK());
+            comandoSQL.setLong(5, encaminhamento.getnProntuarioUsu_FK());
+            comandoSQL.setLong(6, encaminhamento.getIdEndereco_FK());
+            comandoSQL.setInt(7, encaminhamento.getIdEnc());
 
             comandoSQL.executeUpdate();
 
@@ -139,9 +128,9 @@ public class EncaminhamentoDAO {
         return lista;
     }
 
-    public EncaminhamentoDAO getEncaminhamento(long idEnc) {
+    public Encaminhamento getEncaminhamento(long idEnc) {
 
-        EncaminhamentoDAO lista = new EncaminhamentoDAO();
+        Encaminhamento lista = new Encaminhamento();
 
         String listarEncaminhamentos = "SELECT tipoEnc, localEnc, statusEnc, cpfFunc, nProntuarioUsu, idEndereco "
                 + "FROM encaminhamento WHERE idEnc = ?";
@@ -174,54 +163,6 @@ public class EncaminhamentoDAO {
 
         return lista;
 
-    }
-
-    public long getIdEndereco_FK() {
-        return idEndereco_FK;
-    }
-
-    public void setIdEndereco_FK(long idEndereco_FK) {
-        this.idEndereco_FK = idEndereco_FK;
-    }
-
-    public String getLocalEnc() {
-        return localEnc;
-    }
-
-    public void setLocalEnc(String localEnc) {
-        this.localEnc = localEnc;
-    }
-
-    public String getStatusEnc() {
-        return statusEnc;
-    }
-
-    public void setStatusEnc(String statusEnc) {
-        this.statusEnc = statusEnc;
-    }
-
-    public long getCpfFunc_FK() {
-        return cpfFunc_FK;
-    }
-
-    public void setCpfFunc_FK(long cpfFunc_FK) {
-        this.cpfFunc_FK = cpfFunc_FK;
-    }
-
-    public long getnProntuarioUsu_FK() {
-        return nProntuarioUsu_FK;
-    }
-
-    public void setnProntuarioUsu_FK(long nProntuarioUsu_FK) {
-        this.nProntuarioUsu_FK = nProntuarioUsu_FK;
-    }
-
-    public String getTipoEnc() {
-        return tipoEnc;
-    }
-
-    public void setTipoEnc(String tipoEnc) {
-        this.tipoEnc = tipoEnc;
     }
 
 }

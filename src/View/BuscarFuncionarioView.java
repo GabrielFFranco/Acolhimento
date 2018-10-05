@@ -5,11 +5,12 @@
  */
 package View;
 
-import DAO.FuncionariosDAO;
+import Model.Funcionario;
 import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -162,8 +163,9 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
         if(linhaSelecionada == -1){
         }else{   
             try {
-                new InserirFuncionarioView().editarFuncionario(
-                        (double) jtFuncionarios.getValueAt(linhaSelecionada, 0));
+                InserirFuncionarioView insFunc = new InserirFuncionarioView(this, true);
+                insFunc.preencherFuncionario((double) jtFuncionarios.getValueAt(linhaSelecionada, 0));
+                insFunc.setVisible(true);
             } catch (ParseException ex) {
                 ex.printStackTrace();
             }
@@ -173,14 +175,14 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
         
-        List<FuncionariosDAO> lista = new FuncionariosDAO().getFuncionario();
+        List<Funcionario> lista = new Funcionario().getFuncionario();
         
         DefaultTableModel modelo = (DefaultTableModel) jtFuncionarios.getModel();
         
         for(int i = modelo.getRowCount() - 1; i > -1; i--)
                     modelo.removeRow(i);
         
-        for(FuncionariosDAO funcionario : lista){
+        for(Funcionario funcionario : lista){
             
             Object[] vetor = new Object[]{
                 funcionario.getCpfFunc(),
@@ -254,4 +256,8 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
     private javax.swing.JTextField txtNome;
     private javax.swing.JLabel txtStatus;
     // End of variables declaration//GEN-END:variables
+
+    private void finalize(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
