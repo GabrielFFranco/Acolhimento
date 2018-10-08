@@ -145,10 +145,11 @@
         <Component class="javax.swing.JComboBox" name="cbTipo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Auxiliar"/>
-                <StringItem index="1" value="Coordenador"/>
-                <StringItem index="2" value="Tecnico"/>
+              <StringArray count="4">
+                <StringItem index="0" value="Selecione"/>
+                <StringItem index="1" value="Auxiliar"/>
+                <StringItem index="2" value="Coordenador"/>
+                <StringItem index="3" value="Tecnico"/>
               </StringArray>
             </Property>
           </Properties>
@@ -212,10 +213,11 @@
         <Component class="javax.swing.JComboBox" name="cbStatus">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Ativo"/>
-                <StringItem index="1" value="Inativo"/>
-                <StringItem index="2" value=" "/>
+              <StringArray count="4">
+                <StringItem index="0" value="Selecione"/>
+                <StringItem index="1" value="Ativo"/>
+                <StringItem index="2" value="Inativo"/>
+                <StringItem index="3" value=" "/>
               </StringArray>
             </Property>
           </Properties>

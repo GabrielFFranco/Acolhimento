@@ -6,6 +6,7 @@
 package View;
 
 import DAO.EncaminhamentoDAO;
+import DAO.EnderecoDAO;
 import Model.Encaminhamento;
 import Model.Endereco;
 import Model.Funcionario;
@@ -298,15 +299,9 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         Encaminhamento encaminhamento = new Encaminhamento();
         EncaminhamentoDAO encaminhamentoDao = new EncaminhamentoDAO();
         Endereco endereco = new Endereco();
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
         Funcionario funcionario = new Funcionario();
         
-    /*    idEnc;
-    private String tipoEnc;
-    private String localEnc;
-    private String statusEnc;
-    private long cpfFunc_FK;
-    private long nProntuarioUsu_FK;
-    private long idEndereco_FK;*/
         try{
             encaminhamento.setTipoEnc(jcbTipoEncaminhamento.getSelectedItem().toString());
             encaminhamento.setStatusEnc(jcbStatus.getSelectedItem().toString());
@@ -315,12 +310,12 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
             endereco.setNumEnd(Integer.parseInt(txtNumero.getText()));
             endereco.setBairro(txtBairro.getText());
             endereco.setCidade(txtCidade.getText());
-            endereco.setCep(txtCep.getText());
+            endereco.setCep(Double.parseDouble(txtCep.getText()));
             funcionario.setNomeFunc(txtNomeDoFuncionario.getText());
             
             if (new EncaminhamentoDAO().getEncaminhamento(encaminhamento.getIdEnc()).getIdEnc() == encaminhamento.getIdEnc()){
                 endereco.setIdEnd((int)encaminhamento.getIdEndereco_FK());
-                endereco.altEndereco();
+                enderecoDAO.altEndereco(endereco);
                 encaminhamentoDao.altEncaminhamento(encaminhamento);
             }
                 
