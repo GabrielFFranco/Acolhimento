@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 
 /**
  * Classe para controlar a entidade de relacionamentos.
@@ -21,12 +22,13 @@ public class Encaminhamento {
     private long cpfFunc_FK;
     private long nProntuarioUsu_FK;
     private long idEndereco_FK;
+    private Date dataEnc;
 
     public Encaminhamento() {
 
     }
 
-    public Encaminhamento(int idEnc, String tipoEnc, String localEnc, String statusEnc, long cpfFunc_FK, long nProntuarioUsu_FK, long idEndereco_FK) {
+    public Encaminhamento(int idEnc, String tipoEnc, String localEnc, String statusEnc, long cpfFunc_FK, long nProntuarioUsu_FK, long idEndereco_FK, Date dataEnc) {
         this.idEnc = idEnc;
         this.tipoEnc = tipoEnc;
         this.localEnc = localEnc;
@@ -34,6 +36,7 @@ public class Encaminhamento {
         this.cpfFunc_FK = cpfFunc_FK;
         this.nProntuarioUsu_FK = nProntuarioUsu_FK;
         this.idEndereco_FK = idEndereco_FK;
+        this.dataEnc = dataEnc;
     }
 
     public int getIdEnc() {
@@ -44,12 +47,12 @@ public class Encaminhamento {
         this.idEnc = idEnc;
     }
 
-    public long getIdEndereco_FK() {
-        return idEndereco_FK;
+    public String getTipoEnc() {
+        return tipoEnc;
     }
 
-    public void setIdEndereco_FK(long idEndereco_FK) {
-        this.idEndereco_FK = idEndereco_FK;
+    public void setTipoEnc(String tipoEnc) {
+        this.tipoEnc = tipoEnc;
     }
 
     public String getLocalEnc() {
@@ -84,12 +87,23 @@ public class Encaminhamento {
         this.nProntuarioUsu_FK = nProntuarioUsu_FK;
     }
 
-    public String getTipoEnc() {
-        return tipoEnc;
+    public long getIdEndereco_FK() {
+        return idEndereco_FK;
     }
 
-    public void setTipoEnc(String tipoEnc) {
-        this.tipoEnc = tipoEnc;
+    public void setIdEndereco_FK(long idEndereco_FK) {
+        this.idEndereco_FK = idEndereco_FK;
     }
+
+    public Date getDataEnc() {
+        return dataEnc;
+    }
+
+    public void setDataEnc(Date dataEnc) {
+        this.dataEnc = dataEnc;
+    }
+    
+    
+
 
 }
