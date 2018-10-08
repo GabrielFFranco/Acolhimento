@@ -37,7 +37,7 @@ public class EnderecoDAO {
             comandoSQL.setInt(2, endereco.getNumEnd());
             comandoSQL.setString(3, endereco.getBairro());
             comandoSQL.setString(4, endereco.getCidade());
-            comandoSQL.setString(5, endereco.getCep());
+            comandoSQL.setDouble(5, endereco.getCep());
 
             comandoSQL.executeUpdate();
 
@@ -65,7 +65,7 @@ public class EnderecoDAO {
             comandoSQL.setInt(2, endereco.getNumEnd());
             comandoSQL.setString(3, endereco.getBairro());
             comandoSQL.setString(4, endereco.getCidade());
-            comandoSQL.setString(5, endereco.getCep());
+            comandoSQL.setDouble(5, endereco.getCep());
             comandoSQL.setInt(6, endereco.getIdEnd());
 
             comandoSQL.executeUpdate();
@@ -106,7 +106,7 @@ public class EnderecoDAO {
                 lista.setNumEnd(retorno.getInt("numeroEnd"));
                 lista.setBairro(retorno.getString("bairro"));
                 lista.setCidade(retorno.getString("cidade"));
-                lista.setCep(retorno.getString("cep"));
+                lista.setCep(retorno.getDouble("cep"));
                 
             }
             

@@ -222,13 +222,13 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
                 funcionario.setCpfFunc(Double.parseDouble(txtCpf.getText()));
                 funcionario.setRgFunc(Double.parseDouble(txtRg.getText()));
                 funcionario.setTelefoneFunc(txtTelefone.getText());
-                
+
                 endereco.setNumEnd(Integer.parseInt(txtNumero.getText()));
                 endereco.setCep(Double.parseDouble(txtCep.getText()));
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Por favor, não digite texto em campos númericos.");
             }
-            
+
             //Setando Data
             SimpleDateFormat form = new SimpleDateFormat("dd/MM/yyyy");
             java.util.Date dataUtil;
@@ -245,7 +245,7 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
             endereco.setEndereco(txtEndereco.getText());
             endereco.setBairro(txtBairro.getText());
             endereco.setCidade(txtCidade.getText());
-            
+
             if (new FuncionarioDAO().getFuncionario(funcionario.getCpfFunc()).getCpfFunc()
                     == funcionario.getCpfFunc()) {
                 endereco.setIdEnd(funcionarioDAO.getFuncionario(funcionario.getCpfFunc()).getIdEndereco_FK());

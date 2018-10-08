@@ -322,7 +322,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         endereco.setNumEnd(Integer.parseInt(txtNumero.getText()));
         endereco.setBairro(txtBairro.getText());
         endereco.setCidade(txtCidade.getText());
-        endereco.setCep(txtCep.getText());
+        endereco.setCep(Double.parseDouble(txtCep.getText()));
         funcionario2.setNomeFunc(txtFuncRealizouEnc.getText());
         if (new EncaminhamentoDAO().getEncaminhamento(encaminhamento.getIdEnc()).getIdEnc()== encaminhamento.getIdEnc()) {
             
@@ -370,7 +370,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         txtNumero.setText(String.valueOf(endereco.getNumEnd()));
         txtBairro.setText(endereco.getBairro());
         txtCidade.setText(endereco.getCidade());
-        txtCep.setText(endereco.getCep());
+        txtCep.setText(String.valueOf(endereco.getCep()));
         txtFuncRealizouEnc.setText(funcionario.getNomeFunc());
         for (int i = 0; i < jcbStatus.getItemCount(); i++) {
             if (jcbStatus.getItemAt(i).equals(encaminhamento.getStatusEnc())) {
