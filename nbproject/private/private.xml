@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/Acolhimento/src/Model/Endereco.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/Acolhimento/src/DAO/EnderecoDAO.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/Acolhimento/src/View/InserirFuncionarioView.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/Acolhimento/src/View/BuscarFuncionarioView.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/Acolhimento/src/View/InserirEmpresaView.java</file>
         </group>
     </open-files>
 </project-private>

@@ -11,6 +11,7 @@ import Model.Endereco;
 import Model.Funcionario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +21,7 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
     /**
      * Creates new form Teste
+     *
      * @param parent
      * @param modal
      */
@@ -88,12 +90,12 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
         lNome.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lNome.setForeground(new java.awt.Color(255, 255, 255));
-        lNome.setText("Nome");
+        lNome.setText("Nome*");
         jPanel1.add(lNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
 
         lCpf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lCpf.setForeground(new java.awt.Color(255, 255, 255));
-        lCpf.setText("CPF");
+        lCpf.setText("CPF*");
         jPanel1.add(lCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
 
         lDataNasc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -130,7 +132,7 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
         lRg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lRg.setForeground(new java.awt.Color(255, 255, 255));
-        lRg.setText("RG");
+        lRg.setText("RG*");
         jPanel1.add(lRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, -1, -1));
         jPanel1.add(txtDataNasc, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 190, -1));
 
@@ -215,10 +217,18 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
         try {
 
-            funcionario.setCpfFunc(Double.parseDouble(txtCpf.getText()));
-            funcionario.setNomeFunc(txtNome.getText());
-            funcionario.setRgFunc(Double.parseDouble(txtRg.getText()));
-
+            //Lendo os campos numéricos
+            try {
+                funcionario.setCpfFunc(Double.parseDouble(txtCpf.getText()));
+                funcionario.setRgFunc(Double.parseDouble(txtRg.getText()));
+                funcionario.setTelefoneFunc(txtTelefone.getText());
+                
+                endereco.setNumEnd(Integer.parseInt(txtNumero.getText()));
+                endereco.setCep(Double.parseDouble(txtCep.getText()));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor, não digite texto em campos númericos.");
+            }
+            
             //Setando Data
             SimpleDateFormat form = new SimpleDateFormat("dd/MM/yyyy");
             java.util.Date dataUtil;
@@ -227,19 +237,15 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
             funcionario.setDataNascFunc(dataSQL);
             //Terminando de setar a Data
 
-            funcionario.setTelefoneFunc(txtTelefone.getText());
+            funcionario.setNomeFunc(txtNome.getText());
             funcionario.setEmailFunc(txtEmail.getText());
             funcionario.setTipoFunc((String) cbTipo.getSelectedItem());
             funcionario.setStatusFunc((String) cbStatus.getSelectedItem());
 
-            //Inserindo Endereço
             endereco.setEndereco(txtEndereco.getText());
-            endereco.setNumEnd(Integer.parseInt(txtNumero.getText()));
             endereco.setBairro(txtBairro.getText());
             endereco.setCidade(txtCidade.getText());
-            endereco.setCep(Double.parseDouble(txtCep.getText()));
-            //Fim da inserção do endereço
-
+            
             if (new FuncionarioDAO().getFuncionario(funcionario.getCpfFunc()).getCpfFunc()
                     == funcionario.getCpfFunc()) {
                 endereco.setIdEnd(funcionarioDAO.getFuncionario(funcionario.getCpfFunc()).getIdEndereco_FK());
@@ -260,12 +266,12 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         Funcionario funcionario;
-        
+
         funcionario = funcionarioDAO.getFuncionario(cpfFunc);
 
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         Endereco endereco;
-        
+
         endereco = enderecoDAO.getEndereco(funcionario.getIdEndereco_FK());
 
         txtCpf.setEditable(false);
