@@ -38,7 +38,7 @@ public class EncaminhamentoDAO {
             comandoSQL.setString(1, encaminhamento.getTipoEnc());
             comandoSQL.setString(2, encaminhamento.getLocalEnc());
             comandoSQL.setString(3, encaminhamento.getStatusEnc());
-            comandoSQL.setLong(4, encaminhamento.getCpfFunc_FK());
+            comandoSQL.setDouble(4, encaminhamento.getCpfFunc_FK());
             comandoSQL.setLong(5, encaminhamento.getnProntuarioUsu_FK());
             comandoSQL.setDate(6, encaminhamento.getDataEnc());
             comandoSQL.setLong(7, encaminhamento.getIdEndereco_FK());
@@ -71,7 +71,7 @@ public class EncaminhamentoDAO {
             comandoSQL.setString(1, encaminhamento.getTipoEnc());
             comandoSQL.setString(2, encaminhamento.getLocalEnc());
             comandoSQL.setString(3, encaminhamento.getStatusEnc());
-            comandoSQL.setLong(4, encaminhamento.getCpfFunc_FK());
+            comandoSQL.setDouble(4, encaminhamento.getCpfFunc_FK());
             comandoSQL.setLong(5, encaminhamento.getnProntuarioUsu_FK());
             comandoSQL.setLong(6, encaminhamento.getIdEndereco_FK());
             comandoSQL.setDate(7, encaminhamento.getDataEnc());

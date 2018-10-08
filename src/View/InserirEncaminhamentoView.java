@@ -43,8 +43,8 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         lblNomeEnc = new javax.swing.JLabel();
         lblNomePrograma1 = new javax.swing.JLabel();
         pnDados = new javax.swing.JPanel();
-        lblNomeDoFuncionario = new javax.swing.JLabel();
-        txtNomeDoFuncionario = new javax.swing.JTextField();
+        lblNomeDoUsuario = new javax.swing.JLabel();
+        txtNomeDoUsuario = new javax.swing.JTextField();
         lblTipoDeEncaminhamento = new javax.swing.JLabel();
         jlLocalEncaminhamento = new javax.swing.JLabel();
         txtLocalEncaminhamento = new javax.swing.JTextField();
@@ -105,12 +105,12 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         pnDados.setBackground(new java.awt.Color(153, 153, 153));
         pnDados.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblNomeDoFuncionario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblNomeDoFuncionario.setForeground(new java.awt.Color(255, 255, 255));
-        lblNomeDoFuncionario.setText("Nome do Usuario*");
+        lblNomeDoUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblNomeDoUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lblNomeDoUsuario.setText("Nome do Usuario*");
 
-        txtNomeDoFuncionario.setBackground(new java.awt.Color(204, 204, 204));
-        txtNomeDoFuncionario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNomeDoUsuario.setBackground(new java.awt.Color(204, 204, 204));
+        txtNomeDoUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         lblTipoDeEncaminhamento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblTipoDeEncaminhamento.setForeground(new java.awt.Color(255, 255, 255));
@@ -187,7 +187,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
                     .addComponent(jlStatus)
                     .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jlCidade1)
-                        .addComponent(lblNomeDoFuncionario)
+                        .addComponent(lblNomeDoUsuario)
                         .addComponent(lblTipoDeEncaminhamento)
                         .addComponent(jlLocalEncaminhamento)
                         .addComponent(jlEndereco)
@@ -197,38 +197,37 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDadosLayout.createSequentialGroup()
                         .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnDadosLayout.createSequentialGroup()
-                                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNomeDoFuncionario)
-                                    .addComponent(txtLocalEncaminhamento)
-                                    .addComponent(txtEndereco)
-                                    .addComponent(txtBairro)
-                                    .addComponent(txtCidade)
-                                    .addComponent(txtFuncRealizouEnc)
-                                    .addComponent(jcbStatus, 0, 368, Short.MAX_VALUE))
-                                .addGap(34, 34, 34)
-                                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlNumero)
-                                    .addComponent(jlCep))
-                                .addGap(29, 29, 29))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnCancelar)
-                                .addGap(18, 18, 18)))
+                            .addComponent(txtNomeDoUsuario)
+                            .addComponent(txtLocalEncaminhamento)
+                            .addComponent(txtEndereco)
+                            .addComponent(txtBairro)
+                            .addComponent(txtCidade)
+                            .addComponent(txtFuncRealizouEnc)
+                            .addComponent(jcbStatus, 0, 368, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)
+                        .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlNumero)
+                            .addComponent(jlCep))
+                        .addGap(29, 29, 29)
                         .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtCep, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
-                            .addComponent(btnSalvar)
                             .addComponent(txtNumero)))
                     .addComponent(jcbTipoEncaminhamento, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(125, 125, 125))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(18, 18, 18)
+                .addComponent(btnSalvar)
+                .addGap(144, 144, 144))
         );
         pnDadosLayout.setVerticalGroup(
             pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDadosLayout.createSequentialGroup()
                 .addGap(81, 81, 81)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNomeDoFuncionario)
-                    .addComponent(txtNomeDoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNomeDoUsuario)
+                    .addComponent(txtNomeDoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTipoDeEncaminhamento)
@@ -263,11 +262,11 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlStatus)
                     .addComponent(jcbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnCancelar))
-                .addGap(28, 28, 28))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnSalvar))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -292,16 +291,18 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(pnDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private int idEnc = 0;
+    
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
-        EncaminhamentoDAO encDao = new EncaminhamentoDAO();
+        EncaminhamentoDAO encaminhamentoDAO = new EncaminhamentoDAO();
         Encaminhamento encaminhamento = new  Encaminhamento();
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         Endereco endereco = new Endereco();
@@ -309,11 +310,11 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         Funcionario funcionario = new Funcionario();
         Funcionario funcionario2 = new Funcionario();
         
-        funcionario.setNomeFunc(txtNomeDoFuncionario.getText());
+        encaminhamento.setnProntuarioUsu_FK(Integer.parseInt(txtNomeDoUsuario.getText()));
         encaminhamento.setTipoEnc(jcbTipoEncaminhamento.getSelectedItem().toString());
         encaminhamento.setStatusEnc(jcbStatus.getSelectedItem().toString());
         encaminhamento.setLocalEnc(txtLocalEncaminhamento.getText());
-        
+        encaminhamento.setCpfFunc_FK(Double.parseDouble(txtFuncRealizouEnc.getText()));
         java.util.Date dataUtil = new java.util.Date();  
         java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
         encaminhamento.setDataEnc(dataSql);
@@ -323,31 +324,28 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         endereco.setBairro(txtBairro.getText());
         endereco.setCidade(txtCidade.getText());
         endereco.setCep(Double.parseDouble(txtCep.getText()));
-        funcionario2.setNomeFunc(txtFuncRealizouEnc.getText());
-        if (new EncaminhamentoDAO().getEncaminhamento(encaminhamento.getIdEnc()).getIdEnc()== encaminhamento.getIdEnc()) {
+
+        if (this.idEnc != 0) {
             
-            endereco.setIdEnd((int)encDao.getEncaminhamento(encaminhamento.getIdEnc()).getIdEndereco_FK());
-            funcionario.setCpfFunc(encDao.getEncaminhamento(encaminhamento.getIdEnc()).getCpfFunc_FK());
-            funcionario2.setCpfFunc(encDao.getEncaminhamento(encaminhamento.getIdEnc()).getCpfFunc_FK());
+            endereco.setIdEnd(this.idEnc);
             enderecoDAO.altEndereco(endereco);
-            funcionarioDAO.altEndereco(funcionario);
-            funcionarioDAO.altEndereco(funcionario2);
-            encDao.altEncaminhamento(encaminhamento);
+            encaminhamentoDAO.altEncaminhamento(encaminhamento);
             
         } else {
             enderecoDAO.setEndereco(endereco);
-            funcionarioDAO.setFuncionario(funcionario);
-            funcionarioDAO.setFuncionario(funcionario2);
-            encDao.setEncaminhamento(encaminhamento);
+            encaminhamento.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
+            encaminhamentoDAO.setEncaminhamento(encaminhamento);
         } 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     public void preencherEncaminhamento(int idEnc) throws ParseException {
         
-        EncaminhamentoDAO encDao = new EncaminhamentoDAO();
+        this.idEnc = idEnc;
+        
+        EncaminhamentoDAO encaminhamentoDAO = new EncaminhamentoDAO();
         Encaminhamento encaminhamento;
         
-        encaminhamento = encDao.getEncaminhamento(idEnc);
+        encaminhamento = encaminhamentoDAO.getEncaminhamento(idEnc);
         
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         Endereco endereco;
@@ -359,7 +357,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         
         funcionario = funcionarioDAO.getFuncionario(encaminhamento.getCpfFunc_FK());
         
-        txtNomeDoFuncionario.setText(funcionario.getNomeFunc());
+        txtNomeDoUsuario.setText(funcionario.getNomeFunc());
         for (int i = 0; i < jcbTipoEncaminhamento.getItemCount(); i++) {
             if (jcbTipoEncaminhamento.getItemAt(i).equals(encaminhamento.getTipoEnc())) {
                 jcbTipoEncaminhamento.setSelectedIndex(i);
@@ -442,7 +440,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
     private javax.swing.JLabel jlLocalEncaminhamento;
     private javax.swing.JLabel jlNumero;
     private javax.swing.JLabel jlStatus;
-    private javax.swing.JLabel lblNomeDoFuncionario;
+    private javax.swing.JLabel lblNomeDoUsuario;
     private javax.swing.JLabel lblNomeEnc;
     private javax.swing.JLabel lblNomePrograma1;
     private javax.swing.JLabel lblTipoDeEncaminhamento;
@@ -454,7 +452,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtFuncRealizouEnc;
     private javax.swing.JTextField txtLocalEncaminhamento;
-    private javax.swing.JTextField txtNomeDoFuncionario;
+    private javax.swing.JTextField txtNomeDoUsuario;
     private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
 }

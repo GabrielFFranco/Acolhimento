@@ -47,7 +47,7 @@
               <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="pnDados" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -136,7 +136,7 @@
                       <Component id="jlStatus" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jlCidade1" max="32767" attributes="0"/>
-                          <Component id="lblNomeDoFuncionario" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblNomeDoUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblTipoDeEncaminhamento" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jlLocalEncaminhamento" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jlEndereco" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -148,38 +148,35 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtNomeDoFuncionario" max="32767" attributes="0"/>
-                                      <Component id="txtLocalEncaminhamento" max="32767" attributes="0"/>
-                                      <Component id="txtEndereco" max="32767" attributes="0"/>
-                                      <Component id="txtBairro" max="32767" attributes="0"/>
-                                      <Component id="txtCidade" max="32767" attributes="0"/>
-                                      <Component id="txtFuncRealizouEnc" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jcbStatus" alignment="0" pref="368" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jlNumero" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlCep" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="txtNomeDoUsuario" max="32767" attributes="0"/>
+                              <Component id="txtLocalEncaminhamento" max="32767" attributes="0"/>
+                              <Component id="txtEndereco" max="32767" attributes="0"/>
+                              <Component id="txtBairro" max="32767" attributes="0"/>
+                              <Component id="txtCidade" max="32767" attributes="0"/>
+                              <Component id="txtFuncRealizouEnc" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jcbStatus" alignment="0" pref="368" max="32767" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jlNumero" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlCep" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtCep" pref="81" max="32767" attributes="0"/>
-                              <Component id="btnSalvar" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtNumero" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jcbTipoEncaminhamento" min="-2" pref="123" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -188,8 +185,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblNomeDoFuncionario" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtNomeDoFuncionario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblNomeDoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNomeDoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -234,18 +231,18 @@
                       <Component id="jlStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jcbStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="124" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblNomeDoFuncionario">
+        <Component class="javax.swing.JLabel" name="lblNomeDoUsuario">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
@@ -256,7 +253,7 @@
             <Property name="text" type="java.lang.String" value="Nome do Usuario*"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNomeDoFuncionario">
+        <Component class="javax.swing.JTextField" name="txtNomeDoUsuario">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>

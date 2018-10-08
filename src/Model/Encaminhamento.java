@@ -19,7 +19,7 @@ public class Encaminhamento {
     private String tipoEnc;
     private String localEnc;
     private String statusEnc;
-    private long cpfFunc_FK;
+    private double cpfFunc_FK;
     private long nProntuarioUsu_FK;
     private long idEndereco_FK;
     private Date dataEnc;
@@ -28,7 +28,7 @@ public class Encaminhamento {
 
     }
 
-    public Encaminhamento(int idEnc, String tipoEnc, String localEnc, String statusEnc, long cpfFunc_FK, long nProntuarioUsu_FK, long idEndereco_FK, Date dataEnc) {
+    public Encaminhamento(int idEnc, String tipoEnc, String localEnc, String statusEnc, double cpfFunc_FK, long nProntuarioUsu_FK, long idEndereco_FK, Date dataEnc) {
         this.idEnc = idEnc;
         this.tipoEnc = tipoEnc;
         this.localEnc = localEnc;
@@ -71,11 +71,11 @@ public class Encaminhamento {
         this.statusEnc = statusEnc;
     }
 
-    public long getCpfFunc_FK() {
+    public double getCpfFunc_FK() {
         return cpfFunc_FK;
     }
 
-    public void setCpfFunc_FK(long cpfFunc_FK) {
+    public void setCpfFunc_FK(double cpfFunc_FK) {
         this.cpfFunc_FK = cpfFunc_FK;
     }
 
