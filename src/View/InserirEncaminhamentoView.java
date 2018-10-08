@@ -7,10 +7,14 @@ package View;
 
 import DAO.EncaminhamentoDAO;
 import DAO.EnderecoDAO;
+import DAO.FuncionarioDAO;
 import Model.Encaminhamento;
 import Model.Endereco;
 import Model.Funcionario;
-import acolhimento.Usuario;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -21,7 +25,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
     /**
      * Creates new form InserirUsuarioView
      */
-    public InserirEncaminhamentoView(java.awt.Frame parent, boolean modal) {
+    public InserirEncaminhamentoView(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -296,36 +300,85 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Encaminhamento encaminhamento = new Encaminhamento();
-        EncaminhamentoDAO encaminhamentoDao = new EncaminhamentoDAO();
-        Endereco endereco = new Endereco();
+        
+        EncaminhamentoDAO encDao = new EncaminhamentoDAO();
+        Encaminhamento encaminhamento = new  Encaminhamento();
         EnderecoDAO enderecoDAO = new EnderecoDAO();
+        Endereco endereco = new Endereco();
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         Funcionario funcionario = new Funcionario();
+        Funcionario funcionario2 = new Funcionario();
         
-        try{
-            encaminhamento.setTipoEnc(jcbTipoEncaminhamento.getSelectedItem().toString());
-            encaminhamento.setStatusEnc(jcbStatus.getSelectedItem().toString());
-            encaminhamento.setLocalEnc(txtLocalEncaminhamento.getText());
-            endereco.setEndereco(txtEndereco.getText());
-            endereco.setNumEnd(Integer.parseInt(txtNumero.getText()));
-            endereco.setBairro(txtBairro.getText());
-            endereco.setCidade(txtCidade.getText());
-            endereco.setCep(Double.parseDouble(txtCep.getText()));
-            funcionario.setNomeFunc(txtNomeDoFuncionario.getText());
+        funcionario.setNomeFunc(txtNomeDoFuncionario.getText());
+        encaminhamento.setTipoEnc(jcbTipoEncaminhamento.getSelectedItem().toString());
+        encaminhamento.setStatusEnc(jcbStatus.getSelectedItem().toString());
+        encaminhamento.setLocalEnc(txtLocalEncaminhamento.getText());
+        
+        java.util.Date dataUtil = new java.util.Date();  
+        java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
+        encaminhamento.setDataEnc(dataSql);
+        
+        endereco.setEndereco(txtEndereco.getText());
+        endereco.setNumEnd(Integer.parseInt(txtNumero.getText()));
+        endereco.setBairro(txtBairro.getText());
+        endereco.setCidade(txtCidade.getText());
+        endereco.setCep(txtCep.getText());
+        funcionario2.setNomeFunc(txtFuncRealizouEnc.getText());
+        if (new EncaminhamentoDAO().getEncaminhamento(encaminhamento.getIdEnc()).getIdEnc()== encaminhamento.getIdEnc()) {
             
-            if (new EncaminhamentoDAO().getEncaminhamento(encaminhamento.getIdEnc()).getIdEnc() == encaminhamento.getIdEnc()){
-                endereco.setIdEnd((int)encaminhamento.getIdEndereco_FK());
-                enderecoDAO.altEndereco(endereco);
-                encaminhamentoDao.altEncaminhamento(encaminhamento);
-            }
-                
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        
-        
+            endereco.setIdEnd((int)encDao.getEncaminhamento(encaminhamento.getIdEnc()).getIdEndereco_FK());
+            funcionario.setCpfFunc(encDao.getEncaminhamento(encaminhamento.getIdEnc()).getCpfFunc_FK());
+            funcionario2.setCpfFunc(encDao.getEncaminhamento(encaminhamento.getIdEnc()).getCpfFunc_FK());
+            enderecoDAO.altEndereco(endereco);
+            funcionarioDAO.altEndereco(funcionario);
+            funcionarioDAO.altEndereco(funcionario2);
+            encDao.altEncaminhamento(encaminhamento);
+            
+        } else {
+            enderecoDAO.setEndereco(endereco);
+            funcionarioDAO.setFuncionario(funcionario);
+            funcionarioDAO.setFuncionario(funcionario2);
+            encDao.setEncaminhamento(encaminhamento);
+        } 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    public void preencherEncaminhamento(int idEnc) throws ParseException {
+        
+        EncaminhamentoDAO encDao = new EncaminhamentoDAO();
+        Encaminhamento encaminhamento;
+        
+        encaminhamento = encDao.getEncaminhamento(idEnc);
+        
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        Endereco endereco;
+        
+        endereco = enderecoDAO.getEndereco((int)encaminhamento.getIdEndereco_FK());
+        
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+        Funcionario funcionario;
+        
+        funcionario = funcionarioDAO.getFuncionario(encaminhamento.getCpfFunc_FK());
+        
+        txtNomeDoFuncionario.setText(funcionario.getNomeFunc());
+        for (int i = 0; i < jcbTipoEncaminhamento.getItemCount(); i++) {
+            if (jcbTipoEncaminhamento.getItemAt(i).equals(encaminhamento.getTipoEnc())) {
+                jcbTipoEncaminhamento.setSelectedIndex(i);
+            }
+        };
+        txtLocalEncaminhamento.setText(encaminhamento.getLocalEnc());
+        txtEndereco.setText(endereco.getEndereco());
+        txtNumero.setText(String.valueOf(endereco.getNumEnd()));
+        txtBairro.setText(endereco.getBairro());
+        txtCidade.setText(endereco.getCidade());
+        txtCep.setText(endereco.getCep());
+        txtFuncRealizouEnc.setText(funcionario.getNomeFunc());
+        for (int i = 0; i < jcbStatus.getItemCount(); i++) {
+            if (jcbStatus.getItemAt(i).equals(encaminhamento.getStatusEnc())) {
+                jcbStatus.setSelectedIndex(i);
+            }
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -363,7 +416,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                InserirEncaminhamentoView dialog = new InserirEncaminhamentoView(new javax.swing.JFrame(), true);
+                InserirEncaminhamentoView dialog = new InserirEncaminhamentoView(new javax.swing.JDialog(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
