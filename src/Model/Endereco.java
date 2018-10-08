@@ -22,7 +22,7 @@ public class Endereco {
     private int numEnd;
     private String bairro;
     private String cidade;
-    private String cep;
+    private double cep;
 
     public Endereco(){
         
@@ -55,7 +55,7 @@ public class Endereco {
             comandoSQL.setInt(2, this.getNumEnd());
             comandoSQL.setString(3, this.getBairro());
             comandoSQL.setString(4, this.getCidade());
-            comandoSQL.setString(5, this.getCep());
+            comandoSQL.setDouble(5, this.getCep());
 
             comandoSQL.executeUpdate();
 
@@ -83,7 +83,7 @@ public class Endereco {
             comandoSQL.setInt(2, this.getNumEnd());
             comandoSQL.setString(3, this.getBairro());
             comandoSQL.setString(4, this.getCidade());
-            comandoSQL.setString(5, this.getCep());
+            comandoSQL.setDouble(5, this.getCep());
             comandoSQL.setInt(6, this.getIdEnd());
 
             comandoSQL.executeUpdate();
@@ -124,7 +124,7 @@ public class Endereco {
                 lista.setNumEnd(retorno.getInt("numeroEnd"));
                 lista.setBairro(retorno.getString("bairro"));
                 lista.setCidade(retorno.getString("cidade"));
-                lista.setCep(retorno.getString("cep"));
+                lista.setCep(retorno.getDouble("cep"));
                 
             }
             
@@ -166,7 +166,7 @@ public class Endereco {
         
     }
     
-    public String getCep() {
+    public double getCep() { 
         return cep;
     }
 

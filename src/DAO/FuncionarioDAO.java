@@ -81,13 +81,12 @@ public class FuncionarioDAO {
     
     /**
      * Método para listar todos os funcionários.
+     * @param listarFuncionarios
      * @return
      */
-    public List<Funcionario> getFuncionario(){
+    public List<Funcionario> getFuncionario(String listarFuncionarios){
         
         ArrayList lista = new ArrayList();
-
-        String listarFuncionarios = "SELECT * FROM funcionario";
 
         Connection conexao;
         try {
