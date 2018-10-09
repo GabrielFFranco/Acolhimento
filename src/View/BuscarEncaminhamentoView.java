@@ -165,14 +165,14 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
         lblPeriodoA.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblPeriodoA.setForeground(new java.awt.Color(255, 255, 255));
         lblPeriodoA.setText("Á");
-        pnDados.add(lblPeriodoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, -1, -1));
-        pnDados.add(txtPrimeiraData, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 100, -1));
+        pnDados.add(lblPeriodoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, -1));
+        pnDados.add(txtPrimeiraData, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 100, -1));
 
         lblTipoDeEncaminhamento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblTipoDeEncaminhamento.setForeground(new java.awt.Color(255, 255, 255));
         lblTipoDeEncaminhamento.setText("Tipo");
         pnDados.add(lblTipoDeEncaminhamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
-        pnDados.add(txtSegundaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 100, -1));
+        pnDados.add(txtSegundaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, 100, -1));
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {

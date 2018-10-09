@@ -289,14 +289,14 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="230" y="50" width="-1" height="-1"/>
+              <AbsoluteConstraints x="340" y="50" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPrimeiraData">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="110" y="50" width="100" height="-1"/>
+              <AbsoluteConstraints x="170" y="50" width="100" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -319,7 +319,7 @@
         <Component class="javax.swing.JTextField" name="txtSegundaData">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="260" y="50" width="100" height="-1"/>
+              <AbsoluteConstraints x="410" y="50" width="100" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
