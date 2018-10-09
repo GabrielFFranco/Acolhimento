@@ -3,17 +3,21 @@ package View;
 
 import DAO.Usuario;
 import DAO.UsuarioDAO;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
+public class EditUsuarioView extends javax.swing.JFrame {
 
-public class InserirUsuarioView extends javax.swing.JDialog {
 
-
-    public InserirUsuarioView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public EditUsuarioView(Integer id) {
         initComponents();
+        mostrarDados(id);
+    }
+
+    private EditUsuarioView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
@@ -21,25 +25,20 @@ public class InserirUsuarioView extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtCidadeOrigem3 = new javax.swing.JTextField();
-        lblCidadeOrigem3 = new javax.swing.JLabel();
-        pnTopo = new javax.swing.JPanel();
-        lblNomePrograma1 = new javax.swing.JLabel();
-        lblNomeFunc = new javax.swing.JLabel();
         pnDados = new javax.swing.JPanel();
         lblTipo = new javax.swing.JLabel();
-        bcxTipo = new javax.swing.JComboBox<String>();
+        bcxTipo = new javax.swing.JComboBox<>();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         lblSexo = new javax.swing.JLabel();
-        cbxSexo = new javax.swing.JComboBox<String>();
+        cbxSexo = new javax.swing.JComboBox<>();
         lblDoc = new javax.swing.JLabel();
-        cbxDoc = new javax.swing.JComboBox<String>();
+        cbxDoc = new javax.swing.JComboBox<>();
         txtDoc = new javax.swing.JTextField();
         lblCidadeOrigem = new javax.swing.JLabel();
         txtCidadeOrigem = new javax.swing.JTextField();
         lblUf = new javax.swing.JLabel();
-        cbxUF = new javax.swing.JComboBox<String>();
+        cbxUF = new javax.swing.JComboBox<>();
         lblEnderecoFamiliar = new javax.swing.JLabel();
         txtEndFamiliar = new javax.swing.JTextField();
         lblNum = new javax.swing.JLabel();
@@ -49,62 +48,27 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         lblCidade = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
         lblUFCidade = new javax.swing.JLabel();
-        cbxUFCidade = new javax.swing.JComboBox<String>();
+        cbxUFCidade = new javax.swing.JComboBox<>();
         lblDrogas = new javax.swing.JLabel();
         atxParecerTec = new javax.swing.JScrollPane();
         jtaPArecerTec = new javax.swing.JTextArea();
+        txtDAtaNascimento = new javax.swing.JTextField();
         lblDataNascimento = new javax.swing.JLabel();
         lblParecer1 = new javax.swing.JLabel();
         atxParecerTec1 = new javax.swing.JScrollPane();
         jtaDrogas = new javax.swing.JTextArea();
         lblStatus = new javax.swing.JLabel();
-        bcxStatus = new javax.swing.JComboBox<String>();
-        txtDAtaNascimento = new javax.swing.JFormattedTextField();
+        bcxStatus = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
+        pnTopo = new javax.swing.JPanel();
+        lblNomePrograma1 = new javax.swing.JLabel();
+        lblNomeFunc = new javax.swing.JLabel();
+        lblBtnSalvar = new javax.swing.JLabel();
+        lblBtnCancel = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
 
-        txtCidadeOrigem3.setBackground(new java.awt.Color(204, 204, 204));
-        txtCidadeOrigem3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
-        lblCidadeOrigem3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblCidadeOrigem3.setForeground(new java.awt.Color(255, 255, 255));
-        lblCidadeOrigem3.setText("N°");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(153, 153, 153));
-
-        pnTopo.setBackground(new java.awt.Color(204, 204, 204));
-        pnTopo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        lblNomePrograma1.setFont(new java.awt.Font("Arial", 3, 36)); // NOI18N
-        lblNomePrograma1.setForeground(new java.awt.Color(51, 102, 255));
-        lblNomePrograma1.setText("SisAC");
-
-        lblNomeFunc.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lblNomeFunc.setForeground(new java.awt.Color(51, 102, 255));
-        lblNomeFunc.setText("Funcionário do acolhimento");
-
-        javax.swing.GroupLayout pnTopoLayout = new javax.swing.GroupLayout(pnTopo);
-        pnTopo.setLayout(pnTopoLayout);
-        pnTopoLayout.setHorizontalGroup(
-            pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnTopoLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(lblNomePrograma1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblNomeFunc)
-                .addGap(20, 20, 20))
-        );
-        pnTopoLayout.setVerticalGroup(
-            pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnTopoLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNomePrograma1)
-                    .addComponent(lblNomeFunc))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pnDados.setBackground(new java.awt.Color(153, 153, 153));
         pnDados.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -114,7 +78,7 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         lblTipo.setText("Tipo");
 
         bcxTipo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        bcxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Morador", "Não-Perfil", "Migrante" }));
+        bcxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Morador", "Não-Perfil", "Migrante" }));
 
         lblNome.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblNome.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,14 +92,14 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         lblSexo.setText("Sexo*");
 
         cbxSexo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
+        cbxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
 
         lblDoc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblDoc.setForeground(new java.awt.Color(255, 255, 255));
         lblDoc.setText("Documento");
 
         cbxDoc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Certidão de Nascimento", "RG", "CPF", "CNH" }));
+        cbxDoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Certidão de Nascimento", "RG", "CPF", "CNH" }));
 
         txtDoc.setBackground(new java.awt.Color(204, 204, 204));
         txtDoc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -152,7 +116,7 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         lblUf.setText("UF");
 
         cbxUF.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SP", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "TO" }));
+        cbxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "TO" }));
 
         lblEnderecoFamiliar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblEnderecoFamiliar.setForeground(new java.awt.Color(255, 255, 255));
@@ -187,7 +151,7 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         lblUFCidade.setText("UF");
 
         cbxUFCidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxUFCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SP", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "TO" }));
+        cbxUFCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "TO" }));
 
         lblDrogas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblDrogas.setForeground(new java.awt.Color(255, 255, 255));
@@ -196,6 +160,9 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         jtaPArecerTec.setColumns(20);
         jtaPArecerTec.setRows(5);
         atxParecerTec.setViewportView(jtaPArecerTec);
+
+        txtDAtaNascimento.setBackground(new java.awt.Color(204, 204, 204));
+        txtDAtaNascimento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         lblDataNascimento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblDataNascimento.setForeground(new java.awt.Color(255, 255, 255));
@@ -214,9 +181,7 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         lblStatus.setText("Status");
 
         bcxStatus.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        bcxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativo", "Inativo" }));
-
-        txtDAtaNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        bcxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo" }));
 
         javax.swing.GroupLayout pnDadosLayout = new javax.swing.GroupLayout(pnDados);
         pnDados.setLayout(pnDadosLayout);
@@ -240,8 +205,8 @@ public class InserirUsuarioView extends javax.swing.JDialog {
                         .addComponent(bcxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(117, 117, 117)
                         .addComponent(lblDataNascimento)
-                        .addGap(32, 32, 32)
-                        .addComponent(txtDAtaNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDAtaNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnDadosLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,6 +332,47 @@ public class InserirUsuarioView extends javax.swing.JDialog {
                     .addGap(123, 123, 123)))
         );
 
+        pnTopo.setBackground(new java.awt.Color(204, 204, 204));
+        pnTopo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lblNomePrograma1.setFont(new java.awt.Font("Arial", 3, 36)); // NOI18N
+        lblNomePrograma1.setForeground(new java.awt.Color(51, 102, 255));
+        lblNomePrograma1.setText("SisAC");
+
+        lblNomeFunc.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblNomeFunc.setForeground(new java.awt.Color(51, 102, 255));
+        lblNomeFunc.setText("Funcionário do acolhimento");
+
+        javax.swing.GroupLayout pnTopoLayout = new javax.swing.GroupLayout(pnTopo);
+        pnTopo.setLayout(pnTopoLayout);
+        pnTopoLayout.setHorizontalGroup(
+            pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnTopoLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(lblNomePrograma1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblNomeFunc)
+                .addGap(20, 20, 20))
+        );
+        pnTopoLayout.setVerticalGroup(
+            pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnTopoLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNomePrograma1)
+                    .addComponent(lblNomeFunc))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblBtnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.png"))); // NOI18N
+        lblBtnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBtnSalvarMouseClicked(evt);
+            }
+        });
+
+        lblBtnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/error.png"))); // NOI18N
+
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -385,58 +391,107 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnTopo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(621, Short.MAX_VALUE)
                 .addComponent(btnSalvar)
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
+                .addComponent(lblBtnSalvar)
+                .addGap(18, 18, 18)
                 .addComponent(btnVoltar)
-                .addGap(38, 38, 38))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblBtnCancel)
+                .addGap(63, 63, 63))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pnTopo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 625, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBtnSalvar)
+                            .addComponent(lblBtnCancel))
+                        .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pnTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnVoltar))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(101, 101, 101)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(pnTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(pnDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(67, Short.MAX_VALUE)))
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblBtnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBtnSalvarMouseClicked
+        // TODO add your handling code here:
+        UsuarioDAO dao = new UsuarioDAO();
+        Usuario obj = new Usuario();
+        try{
+            obj.setAtendidoPor("Func Logado");
+            obj.setCidadeOrigem(txtCidadeOrigem.getText());
+            obj.setDataCadastro(new Date());
+            String data = txtDAtaNascimento.getText();
+            SimpleDateFormat form = new SimpleDateFormat("dd/mm/YYYY");
+            java.util.Date dutiln;
+            dutiln = form.parse(data);
+            obj.setDataNascimento(dutiln);
+            obj.setDocumento(txtDoc.getText());
+            obj.setDrogas(jtaDrogas.getText());
+            obj.setEndereco(Integer.parseInt(txtEndFamiliar.getText()));
+            obj.setNome(txtNome.getText());
+            obj.setParecerTec(jtaPArecerTec.getText());
+            obj.setResponsavel(69);
+            obj.setSexo((String) cbxSexo.getSelectedItem());
+            obj.setStatusUsuario((String) bcxStatus.getSelectedItem());
+            obj.setTipoUsuario((String) bcxTipo.getSelectedItem());
+
+            dao.cadastrarUsuario(obj);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Erro: " + ex);
+        }
+    }//GEN-LAST:event_lblBtnSalvarMouseClicked
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
+                // TODO add your handling code here:
         UsuarioDAO dao = new UsuarioDAO();
         Usuario obj = new Usuario();
         try{
         obj.setAtendidoPor("Func Logado");
         obj.setCidadeOrigem(txtCidadeOrigem.getText());
         obj.setDataCadastro(new Date());
-        //String data = txtDAtaNascimento.getText();
-        //SimpleDateFormat form = new SimpleDateFormat("dd/mm/YYYY");
-      //  java.util.Date dutiln;
-        //dutiln = form.parse(data);
-        obj.setDataNascimento(txtDAtaNascimento.getText());
-        //obj.setDataNascimento(dutiln);
+        String data = txtDAtaNascimento.getText();
+        SimpleDateFormat form = new SimpleDateFormat("dd/mm/YYYY");
+        java.util.Date dutiln;
+        dutiln = form.parse(data);
+        obj.setDataNascimento(dutiln);
         obj.setDocumento(txtDoc.getText());
         obj.setDrogas(jtaDrogas.getText());
         obj.setEndereco(Integer.parseInt(txtEndFamiliar.getText()));
@@ -447,7 +502,7 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         obj.setStatusUsuario((String) bcxStatus.getSelectedItem());
         obj.setTipoUsuario((String) bcxTipo.getSelectedItem());
         
-        boolean resp = dao.cadastrarUsuario(obj);
+        boolean resp = dao.editar(obj);
         if(resp){
             JOptionPane.showMessageDialog(null, "Inserido com sucesso");
         }else{
@@ -457,11 +512,6 @@ public class InserirUsuarioView extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Erro: " + ex);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -480,28 +530,21 @@ public class InserirUsuarioView extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InserirUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InserirUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InserirUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InserirUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the dialog */
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                InserirUsuarioView dialog = new InserirUsuarioView(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                new EditUsuarioView().setVisible(true);
             }
         });
     }
@@ -521,9 +564,10 @@ public class InserirUsuarioView extends javax.swing.JDialog {
     private javax.swing.JTextArea jtaDrogas;
     private javax.swing.JTextArea jtaPArecerTec;
     private javax.swing.JLabel lblBairro;
+    private javax.swing.JLabel lblBtnCancel;
+    private javax.swing.JLabel lblBtnSalvar;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblCidadeOrigem;
-    private javax.swing.JLabel lblCidadeOrigem3;
     private javax.swing.JLabel lblDataNascimento;
     private javax.swing.JLabel lblDoc;
     private javax.swing.JLabel lblDrogas;
@@ -543,11 +587,46 @@ public class InserirUsuarioView extends javax.swing.JDialog {
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtCidadeOrigem;
-    private javax.swing.JTextField txtCidadeOrigem3;
-    private javax.swing.JFormattedTextField txtDAtaNascimento;
+    private javax.swing.JTextField txtDAtaNascimento;
     private javax.swing.JTextField txtDoc;
     private javax.swing.JTextField txtEndFamiliar;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNum;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarDados(Integer id) {
+        Usuario obj = new Usuario();
+        UsuarioDAO dao = new UsuarioDAO();
+        obj.setNumProntuario(id);
+        obj = dao.selecionar(obj);
+        bcxTipo.setSelectedItem(obj.getTipoUsuario());
+        Date data = obj.getDataNascimento();
+        String dataNasc = converteData(data);
+        txtDAtaNascimento.setText(dataNasc);
+        txtNome.setText(obj.getNome());
+        cbxSexo.setSelectedItem(obj.getSexo());
+        cbxDoc.setSelectedItem(obj.getTipoDoc());
+        txtDoc.setText(obj.getDocumento());
+        txtCidadeOrigem.setText(obj.getCidadeOrigem());
+        bcxStatus.setSelectedItem(obj.getStatusUsuario());
+        cbxUF.setSelectedItem(obj.getEstadoCidOrigem());
+        txtEndFamiliar.setText(String.valueOf(obj.getEndereco()));
+        // +- assim acho txtBairro.setText(obj.getEndereco().getBairro);
+        // +- assim acho txtNum.setText(obj.getEndereco().getNumCasa);
+        txtCidade.setText(obj.getCidade());
+        cbxUFCidade.setSelectedItem(obj.getEstadoCidOrigem());
+        jtaDrogas.setText(obj.getDrogas());
+        jtaPArecerTec.setText(obj.getParecerTec());
+    }
+    
+    protected String converteData(java.util.Date dtData){
+   SimpleDateFormat formatBra;   
+   formatBra = new SimpleDateFormat("dd/MM/yyyy");
+   try {
+      java.util.Date newData = formatBra.parse(dtData.toString());
+      return (formatBra.format(newData));
+   } catch (ParseException Ex) {
+      return "Erro na conversão da data";
+   }
+}
 }
