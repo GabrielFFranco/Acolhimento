@@ -6,23 +6,41 @@
 package DAO;
 
 import Control.Conexao;
-import Model.Endereco;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
- * @author User
+ * Classe criada que representa a entidade Endereço
+ * @author Gabriel Ferreira Franco
  */
 public class EnderecoDAO {
     
+    private int idEnd;
+    private String endereco;
+    private int numEnd;
+    private String bairro;
+    private String cidade;
+    private double cep;
+
+    public EnderecoDAO(){
+        
+    }
+    
+    public EnderecoDAO(int idEnd, String endereco, int numEnd, String bairro, String cidade, double cep) {
+        this.idEnd = idEnd;
+        this.endereco = endereco;
+        this.numEnd = numEnd;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.cep = cep;
+    }
+    
     /**
      * Método para inserir um endereço no banco de dados.
-     * @param endereco
      */
-    public void setEndereco(Endereco endereco){
+    public void setEndereco(){
         
         String comando = "insert into endereco (endereco, numeroEnd, bairro, cidade,"
                 + " cep) values (?,?,?,?,?)";
@@ -33,11 +51,11 @@ public class EnderecoDAO {
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setString(1, endereco.getEndereco());
-            comandoSQL.setInt(2, endereco.getNumEnd());
-            comandoSQL.setString(3, endereco.getBairro());
-            comandoSQL.setString(4, endereco.getCidade());
-            comandoSQL.setDouble(5, endereco.getCep());
+            comandoSQL.setString(1, this.getEndereco());
+            comandoSQL.setInt(2, this.getNumEnd());
+            comandoSQL.setString(3, this.getBairro());
+            comandoSQL.setString(4, this.getCidade());
+            comandoSQL.setDouble(5, this.getCep());
 
             comandoSQL.executeUpdate();
 
@@ -50,7 +68,7 @@ public class EnderecoDAO {
 
     }
     
-    public void altEndereco(Endereco endereco){
+    public void altEndereco(){
         
         String comando = "update endereco set endereco = ?, numeroEnd = ?, bairro = ?,"
                 + " cidade = ?, cep = ? where idEndereco = ?";
@@ -61,12 +79,12 @@ public class EnderecoDAO {
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setString(1, endereco.getEndereco());
-            comandoSQL.setInt(2, endereco.getNumEnd());
-            comandoSQL.setString(3, endereco.getBairro());
-            comandoSQL.setString(4, endereco.getCidade());
-            comandoSQL.setDouble(5, endereco.getCep());
-            comandoSQL.setInt(6, endereco.getIdEnd());
+            comandoSQL.setString(1, this.getEndereco());
+            comandoSQL.setInt(2, this.getNumEnd());
+            comandoSQL.setString(3, this.getBairro());
+            comandoSQL.setString(4, this.getCidade());
+            comandoSQL.setDouble(5, this.getCep());
+            comandoSQL.setInt(6, this.getIdEnd());
 
             comandoSQL.executeUpdate();
 
@@ -84,9 +102,9 @@ public class EnderecoDAO {
      * @param idEnd
      * @return
      */
-    public Endereco getEndereco(int idEnd){
+    public EnderecoDAO getEndereco(int idEnd){
         
-        Endereco lista = new Endereco();
+        EnderecoDAO lista = new EnderecoDAO();
 
         String listarEncaminhamentos = "SELECT endereco, numeroEnd, bairro, cidade, cep "
                 + "FROM endereco WHERE idEndereco = ?";
@@ -146,6 +164,54 @@ public class EnderecoDAO {
         
         return resultado;
         
+    }
+    
+    public double getCep() {
+        return cep;
+    }
+
+    public void setCep(double cep) {
+        this.cep = cep;
+    }
+
+    public int getIdEnd() {
+        return idEnd;
+    }
+
+    public void setIdEnd(int idEnd) {
+        this.idEnd = idEnd;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public int getNumEnd() {
+        return numEnd;
+    }
+
+    public void setNumEnd(int numEnd) {
+        this.numEnd = numEnd;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
     
 }

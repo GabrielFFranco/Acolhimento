@@ -1,47 +1,58 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import Control.Conexao;
-import Model.Encaminhamento;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
+ * Classe para controlar a entidade de relacionamentos.
  *
- * @author User
+ * @author Gabriel Ferreira Franco
  */
 public class EncaminhamentoDAO {
-    
+
+    private String tipoEnc;
+    private String localEnc;
+    private String statusEnc;
+    private long cpfFunc_FK;
+    private long nProntuarioUsu_FK;
+    private long idEndereco_FK;
+
+    public EncaminhamentoDAO() {
+
+    }
+
+    public EncaminhamentoDAO(String tipoEnc, String localEnc, String statusEnc, long cpfFunc_FK, long nProntuarioUsu_FK, long idEndereco_FK) {
+        this.tipoEnc = tipoEnc;
+        this.localEnc = localEnc;
+        this.statusEnc = statusEnc;
+        this.cpfFunc_FK = cpfFunc_FK;
+        this.nProntuarioUsu_FK = nProntuarioUsu_FK;
+        this.idEndereco_FK = idEndereco_FK;
+    }
+
     /**
      * Método para inserir um encaminhamento no banco de dados.
-     * @param encaminhamento
      */
-    public void setEncaminhamento(Encaminhamento encaminhamento) {
+    public void setEncaminhamento() {
 
         String comando = "insert into encaminhamento (tipoEnc, localEnc, statusEnc, cpfFunc,"
-                + " nProntuarioUsu, dataEnc, idEndereco) values (?,?,?,?,?,?,?)";
+                + " nProntuarioUsu, idEndereco) values (?,?,?,?,?,?)";
 
         try {
             Connection conexao = new Conexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setString(1, encaminhamento.getTipoEnc());
-            comandoSQL.setString(2, encaminhamento.getLocalEnc());
-            comandoSQL.setString(3, encaminhamento.getStatusEnc());
-            comandoSQL.setDouble(4, encaminhamento.getCpfFunc_FK());
-            comandoSQL.setLong(5, encaminhamento.getnProntuarioUsu_FK());
-            comandoSQL.setDate(6, encaminhamento.getDataEnc());
-            comandoSQL.setLong(7, encaminhamento.getIdEndereco_FK());
+            comandoSQL.setString(1, this.getTipoEnc());
+            comandoSQL.setString(2, this.getLocalEnc());
+            comandoSQL.setString(3, this.getStatusEnc());
+            comandoSQL.setLong(4, this.getCpfFunc_FK());
+            comandoSQL.setLong(5, this.getnProntuarioUsu_FK());
+            comandoSQL.setLong(6, this.getIdEndereco_FK());
 
             comandoSQL.executeUpdate();
 
@@ -55,27 +66,23 @@ public class EncaminhamentoDAO {
 
     /**
      *Método para alterar um encaminhamento no banco de dados
-     * @param encaminhamento
      */
-    public void altEncaminhamento(Encaminhamento encaminhamento) {
+    public void altEncaminhamento() {
         
         String comando = "update encaminhamento set tipoEnc = ?, localEnc = ?,"
-                + " statusEnc = ?, cpfFunc = ?, nProntuarioUsu = ?, dataEnc = ? , idEndereco = ?"
-                + " where idEnc = ?";
+                + " statusEnc = ?, cpfFunc = ?, nProntuarioUsu = ?, idEndereco = ?";
 
         try {
             Connection conexao = new Conexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setString(1, encaminhamento.getTipoEnc());
-            comandoSQL.setString(2, encaminhamento.getLocalEnc());
-            comandoSQL.setString(3, encaminhamento.getStatusEnc());
-            comandoSQL.setDouble(4, encaminhamento.getCpfFunc_FK());
-            comandoSQL.setLong(5, encaminhamento.getnProntuarioUsu_FK());
-            comandoSQL.setLong(6, encaminhamento.getIdEndereco_FK());
-            comandoSQL.setDate(7, encaminhamento.getDataEnc());
-            comandoSQL.setInt(8, encaminhamento.getIdEnc());
+            comandoSQL.setString(1, this.getTipoEnc());
+            comandoSQL.setString(2, this.getLocalEnc());
+            comandoSQL.setString(3, this.getStatusEnc());
+            comandoSQL.setLong(4, this.getCpfFunc_FK());
+            comandoSQL.setLong(5, this.getnProntuarioUsu_FK());
+            comandoSQL.setLong(6, this.getIdEndereco_FK());
 
             comandoSQL.executeUpdate();
 
@@ -93,33 +100,33 @@ public class EncaminhamentoDAO {
      *
      * @return
      */
-    public List<Encaminhamento> getEncaminhamento(String listaEnc) {
+    public ArrayList getEncaminhamento() {
 
         ArrayList lista = new ArrayList();
+
+        String listarEncaminhamentos = "SELECT tipoEnc, localEnc, statusEnc, cpfFunc, nProntuarioUsu, idEndereco "
+                + "FROM encaminhamento";
 
         Connection conexao;
         try {
             conexao = new Conexao().getConnection();
             
-            PreparedStatement comandoSQL = conexao.prepareStatement(listaEnc);
+            PreparedStatement comandoSQL = conexao.prepareStatement(listarEncaminhamentos);
 
             ResultSet retorno = comandoSQL.executeQuery();
 
             while (retorno.next()) {
 
-                Encaminhamento encaminhamento = new Encaminhamento();
-                
-                encaminhamento.setIdEnc(retorno.getInt("idEnc"));
-                encaminhamento.setTipoEnc(retorno.getString("tipoEnc"));
-                encaminhamento.setLocalEnc(retorno.getString("localEnc"));
-                encaminhamento.setStatusEnc(retorno.getString("statusEnc"));
-                encaminhamento.setCpfFunc_FK(retorno.getLong("cpfFunc"));
-                encaminhamento.setnProntuarioUsu_FK(retorno.getLong("nProntuarioUsu"));
-                encaminhamento.setDataEnc(retorno.getDate("dataEnc"));
-                encaminhamento.setIdEndereco_FK(retorno.getLong("idEndereco"));
-                
+                Object[] linha = new Object[6];
 
-                lista.add(encaminhamento);
+                linha[0] = retorno.getString("tipoEnc");
+                linha[1] = retorno.getString("localEnc");
+                linha[2] = retorno.getString("statusEnc");
+                linha[3] = retorno.getLong("cpfFunc");
+                linha[4] = retorno.getLong("nProntuarioUsu");
+                linha[5] = retorno.getString("idEndereco");
+
+                lista.add(linha);
             }
             
             comandoSQL.close();
@@ -132,11 +139,11 @@ public class EncaminhamentoDAO {
         return lista;
     }
 
-    public Encaminhamento getEncaminhamento(long idEnc) {
+    public EncaminhamentoDAO getEncaminhamento(long idEnc) {
 
-        Encaminhamento lista = new Encaminhamento();
+        EncaminhamentoDAO lista = new EncaminhamentoDAO();
 
-        String listarEncaminhamentos = "SELECT tipoEnc, localEnc, statusEnc, cpfFunc, nProntuarioUsu, dataEnc, idEndereco "
+        String listarEncaminhamentos = "SELECT tipoEnc, localEnc, statusEnc, cpfFunc, nProntuarioUsu, idEndereco "
                 + "FROM encaminhamento WHERE idEnc = ?";
 
         try {
@@ -149,13 +156,12 @@ public class EncaminhamentoDAO {
             ResultSet retorno = comandoSQL.executeQuery();
 
             while (retorno.next()) {
-
+                
                 lista.setTipoEnc(retorno.getString("tipoEnc"));
                 lista.setLocalEnc(retorno.getString("localEnc"));
                 lista.setStatusEnc(retorno.getString("statusEnc"));
                 lista.setCpfFunc_FK(retorno.getLong("cpfFunc"));
                 lista.setnProntuarioUsu_FK(retorno.getLong("nProntuarioUsu"));
-                lista.setDataEnc(retorno.getDate("dataEnc"));
                 lista.setIdEndereco_FK(retorno.getLong("idEndereco"));
             }
             
@@ -169,44 +175,53 @@ public class EncaminhamentoDAO {
         return lista;
 
     }
-    
-    public Encaminhamento buscaDatas(Date dataum,Date datadois) {
 
-        Encaminhamento lista = new Encaminhamento();
+    public long getIdEndereco_FK() {
+        return idEndereco_FK;
+    }
 
-        String listarEncaminhamentos = "SELECT tipoEnc, localEnc, statusEnc, cpfFunc, nProntuarioUsu, dataEnc, idEndereco "
-                + "FROM encaminhamento WHERE dataEnc BETWEEN ? AND ?";
+    public void setIdEndereco_FK(long idEndereco_FK) {
+        this.idEndereco_FK = idEndereco_FK;
+    }
 
-        try {
+    public String getLocalEnc() {
+        return localEnc;
+    }
 
-            Connection conexao = new Conexao().getConnection();
-            PreparedStatement comandoSQL = conexao.prepareStatement(listarEncaminhamentos);
+    public void setLocalEnc(String localEnc) {
+        this.localEnc = localEnc;
+    }
 
-            comandoSQL.setDate(1, dataum);
-            comandoSQL.setDate(2, datadois);
+    public String getStatusEnc() {
+        return statusEnc;
+    }
 
-            ResultSet retorno = comandoSQL.executeQuery();
+    public void setStatusEnc(String statusEnc) {
+        this.statusEnc = statusEnc;
+    }
 
-            while (retorno.next()) {
+    public long getCpfFunc_FK() {
+        return cpfFunc_FK;
+    }
 
-                lista.setTipoEnc(retorno.getString("tipoEnc"));
-                lista.setLocalEnc(retorno.getString("localEnc"));
-                lista.setStatusEnc(retorno.getString("statusEnc"));
-                lista.setCpfFunc_FK(retorno.getLong("cpfFunc"));
-                lista.setnProntuarioUsu_FK(retorno.getLong("nProntuarioUsu"));
-                lista.setDataEnc(retorno.getDate("dataEnc"));
-                lista.setIdEndereco_FK(retorno.getLong("idEndereco"));
-            }
-            
-            comandoSQL.close();
-            conexao.close();
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+    public void setCpfFunc_FK(long cpfFunc_FK) {
+        this.cpfFunc_FK = cpfFunc_FK;
+    }
 
-        return lista;
+    public long getnProntuarioUsu_FK() {
+        return nProntuarioUsu_FK;
+    }
 
+    public void setnProntuarioUsu_FK(long nProntuarioUsu_FK) {
+        this.nProntuarioUsu_FK = nProntuarioUsu_FK;
+    }
+
+    public String getTipoEnc() {
+        return tipoEnc;
+    }
+
+    public void setTipoEnc(String tipoEnc) {
+        this.tipoEnc = tipoEnc;
     }
 
 }
