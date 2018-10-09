@@ -35,9 +35,6 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jSeparator = new javax.swing.JSeparator();
-        lTitulo = new javax.swing.JLabel();
-        lsubTitulo = new javax.swing.JLabel();
         lNome = new javax.swing.JLabel();
         lCpf = new javax.swing.JLabel();
         lTipo = new javax.swing.JLabel();
@@ -51,48 +48,41 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
         jspFuncionarios = new javax.swing.JScrollPane();
         jtFuncionarios = new javax.swing.JTable();
         bBuscar = new javax.swing.JButton();
+        pnTopo = new javax.swing.JPanel();
+        lblNomeFunc = new javax.swing.JLabel();
+        lblNomePrograma1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setMaximumSize(new java.awt.Dimension(1, 2));
+        setPreferredSize(new java.awt.Dimension(797, 491));
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 630, 10));
-
-        lTitulo.setFont(new java.awt.Font("Arial", 3, 36)); // NOI18N
-        lTitulo.setForeground(new java.awt.Color(204, 0, 0));
-        lTitulo.setText("SisAC");
-        jPanel1.add(lTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
-
-        lsubTitulo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lsubTitulo.setForeground(new java.awt.Color(153, 0, 0));
-        lsubTitulo.setText("Funcionário do acolhimento");
-        jPanel1.add(lsubTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
 
         lNome.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lNome.setForeground(new java.awt.Color(255, 255, 255));
         lNome.setText("Nome");
-        jPanel1.add(lNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
+        jPanel1.add(lNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
 
         lCpf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lCpf.setForeground(new java.awt.Color(255, 255, 255));
         lCpf.setText("CPF");
-        jPanel1.add(lCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
+        jPanel1.add(lCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
 
         lTipo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lTipo.setForeground(new java.awt.Color(255, 255, 255));
         lTipo.setText("Tipo");
-        jPanel1.add(lTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
-        jPanel1.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 410, -1));
-        jPanel1.add(txtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 180, -1));
+        jPanel1.add(lTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+        jPanel1.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 410, -1));
+        jPanel1.add(txtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 180, -1));
 
         cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Auxiliar", "Coordenador", "Tecnico" }));
-        jPanel1.add(cbTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 80, -1));
+        jPanel1.add(cbTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 80, -1));
 
         txtStatus.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtStatus.setForeground(new java.awt.Color(255, 255, 255));
         txtStatus.setText("Status");
-        jPanel1.add(txtStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, -1, -1));
+        jPanel1.add(txtStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, -1, -1));
 
         bEditar.setBackground(new java.awt.Color(204, 204, 204));
         bEditar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -102,14 +92,14 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
                 bEditarActionPerformed(evt);
             }
         });
-        jPanel1.add(bEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 510, 90, -1));
+        jPanel1.add(bEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 400, 90, -1));
 
         bCancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         bCancelar.setText("Cancelar");
-        jPanel1.add(bCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
+        jPanel1.add(bCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
 
         cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Ativo", "Inativo", " " }));
-        jPanel1.add(cbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 90, -1));
+        jPanel1.add(cbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 90, -1));
 
         jtFuncionarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jtFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -137,7 +127,7 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
         });
         jspFuncionarios.setViewportView(jtFuncionarios);
 
-        jPanel1.add(jspFuncionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 510, 210));
+        jPanel1.add(jspFuncionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 590, 210));
 
         bBuscar.setBackground(new java.awt.Color(204, 204, 204));
         bBuscar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -147,9 +137,45 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
                 bBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(bBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, 90, -1));
+        jPanel1.add(bBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, 90, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 550));
+        pnTopo.setBackground(new java.awt.Color(204, 204, 204));
+        pnTopo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnTopo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblNomeFunc.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblNomeFunc.setForeground(new java.awt.Color(51, 102, 255));
+        lblNomeFunc.setText("Funcionário");
+        pnTopo.add(lblNomeFunc, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 39, -1, -1));
+
+        lblNomePrograma1.setFont(new java.awt.Font("Arial", 3, 36)); // NOI18N
+        lblNomePrograma1.setForeground(new java.awt.Color(51, 102, 255));
+        lblNomePrograma1.setText("SisAC");
+        pnTopo.add(lblNomePrograma1, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 22, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(pnTopo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -269,14 +295,14 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator;
     private javax.swing.JScrollPane jspFuncionarios;
     private javax.swing.JTable jtFuncionarios;
     private javax.swing.JLabel lCpf;
     private javax.swing.JLabel lNome;
     private javax.swing.JLabel lTipo;
-    private javax.swing.JLabel lTitulo;
-    private javax.swing.JLabel lsubTitulo;
+    private javax.swing.JLabel lblNomeFunc;
+    private javax.swing.JLabel lblNomePrograma1;
+    private javax.swing.JPanel pnTopo;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtNome;
     private javax.swing.JLabel txtStatus;
