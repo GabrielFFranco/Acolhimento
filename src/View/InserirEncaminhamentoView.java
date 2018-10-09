@@ -299,6 +299,8 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private int idEnc = 0;
+    private int nPront = 0;
+    private double cpfFunc = 0;
     
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
@@ -308,7 +310,6 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         Endereco endereco = new Endereco();
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         Funcionario funcionario = new Funcionario();
-        Funcionario funcionario2 = new Funcionario();
         
         encaminhamento.setnProntuarioUsu_FK(Integer.parseInt(txtNomeDoUsuario.getText()));
         encaminhamento.setTipoEnc(jcbTipoEncaminhamento.getSelectedItem().toString());
@@ -326,8 +327,8 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         endereco.setCep(Double.parseDouble(txtCep.getText()));
 
         if (this.idEnc != 0) {
-            
-            endereco.setIdEnd(this.idEnc);
+            encaminhamento.setIdEnc(this.idEnc);
+            endereco.setIdEnd((int) encaminhamentoDAO.getEncaminhamento(idEnc).getIdEndereco_FK());
             enderecoDAO.altEndereco(endereco);
             encaminhamentoDAO.altEncaminhamento(encaminhamento);
             
@@ -357,7 +358,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         
         funcionario = funcionarioDAO.getFuncionario(encaminhamento.getCpfFunc_FK());
         
-        txtNomeDoUsuario.setText(funcionario.getNomeFunc());
+        txtNomeDoUsuario.setText("");
         for (int i = 0; i < jcbTipoEncaminhamento.getItemCount(); i++) {
             if (jcbTipoEncaminhamento.getItemAt(i).equals(encaminhamento.getTipoEnc())) {
                 jcbTipoEncaminhamento.setSelectedIndex(i);
