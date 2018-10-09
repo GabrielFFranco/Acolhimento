@@ -18,9 +18,10 @@ import java.sql.SQLException;
  * @author User
  */
 public class EmpresaDAO {
-    
-        /**
+
+    /**
      * Método para inserir uma empresa no banco de dados.
+     *
      * @param empresa
      */
     public void setEmpresa(Empresa empresa) {
@@ -37,12 +38,12 @@ public class EmpresaDAO {
             comandoSQL.setInt(3, empresa.getNumeroVagasEmp());
             comandoSQL.setString(4, empresa.getRazaoSocialEmp());
             comandoSQL.setInt(5, empresa.getIdEndereco_FK());
-            
+
             comandoSQL.executeUpdate();
 
             comandoSQL.close();
             conexao.close();
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -50,12 +51,13 @@ public class EmpresaDAO {
     }
 
     /**
-     *Método para alterar uma empresa no banco de dados
-     * @param funcionario
+     * Método para alterar uma empresa no banco de dados
+     *
+     * @param empresa
      */
     public void altEmpresa(Empresa empresa) {
-        
-        String comando = "update encaminhamento set nomeEmp = ?, numeroVagasEmp = ?, "
+
+        String comando = "update empresa set nomeEmp = ?, numeroVagasEmp = ?, "
                 + "razaoSocialEmp = ?, idEndereco = ? where cnpjEmp = ?";
 
         try {
@@ -68,12 +70,12 @@ public class EmpresaDAO {
             comandoSQL.setInt(2, empresa.getNumeroVagasEmp());
             comandoSQL.setString(3, empresa.getRazaoSocialEmp());
             comandoSQL.setInt(4, empresa.getIdEndereco_FK());
-            
+
             comandoSQL.executeUpdate();
 
             comandoSQL.close();
             conexao.close();
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -81,35 +83,41 @@ public class EmpresaDAO {
 
     /**
      * Retorna uma empresa
+     *
      * @return
      */
     public Empresa getEmpresa() {
 
         Empresa empresa = new Empresa();
 
-        String listarEmpresa = "SELECT * FROM encaminhamento";
+        String listarEmpresa = "SELECT * FROM empresa";
 
         try {
 
             Connection conexao = new Conexao().getConnection();
-            
+
             PreparedStatement comandoSQL = conexao.prepareStatement(listarEmpresa);
 
             ResultSet retorno = comandoSQL.executeQuery();
 
-            while (retorno.next()) {
+            if (retorno.next() == false) {
+                return null;
+            }else{
+                retorno.beforeFirst();
+                while (retorno.next()) {
 
-                empresa.setCnpjEmp(retorno.getDouble("cnpjEmp"));
-                empresa.setNomeEmp(retorno.getString("nomeEmp"));
-                empresa.setNumeroVagasEmp(retorno.getInt("numeroVagasEmp"));
-                empresa.setRazaoSocialEmp(retorno.getString("razaoSocialEmp"));
-                empresa.setIdEndereco_FK(retorno.getInt("idEndereco"));
-                
+                    empresa.setCnpjEmp(retorno.getDouble("cnpjEmp"));
+                    empresa.setNomeEmp(retorno.getString("nomeEmp"));
+                    empresa.setNumeroVagasEmp(retorno.getInt("numeroVagasEmp"));
+                    empresa.setRazaoSocialEmp(retorno.getString("razaoSocialEmp"));
+                    empresa.setIdEndereco_FK(retorno.getInt("idEndereco"));
+
+                }
             }
-            
+
             comandoSQL.close();
             conexao.close();
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

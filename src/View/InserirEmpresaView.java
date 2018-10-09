@@ -5,6 +5,12 @@
  */
 package View;
 
+import DAO.EmpresaDAO;
+import DAO.EnderecoDAO;
+import Model.Empresa;
+import Model.Endereco;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Aluno
@@ -52,6 +58,7 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         jlCep = new javax.swing.JLabel();
         jtfCep = new javax.swing.JTextField();
         bCancelar = new javax.swing.JButton();
+        bBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -98,11 +105,6 @@ public class InserirEmpresaView extends javax.swing.JDialog {
 
         txtNomeDaEmpresa.setBackground(new java.awt.Color(204, 204, 204));
         txtNomeDaEmpresa.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtNomeDaEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeDaEmpresaActionPerformed(evt);
-            }
-        });
 
         lblCNPJ.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblCNPJ.setForeground(new java.awt.Color(255, 255, 255));
@@ -113,6 +115,11 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         bSalvar.setBackground(new java.awt.Color(204, 204, 204));
         bSalvar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         bSalvar.setText("Salvar");
+        bSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSalvarActionPerformed(evt);
+            }
+        });
 
         txtNVagas.setBackground(new java.awt.Color(204, 204, 204));
         txtNVagas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -160,10 +167,19 @@ public class InserirEmpresaView extends javax.swing.JDialog {
 
         bCancelar.setBackground(new java.awt.Color(204, 204, 204));
         bCancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        bCancelar.setText("Cancelar");
+        bCancelar.setText("Voltar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCancelarActionPerformed(evt);
+            }
+        });
+
+        bBuscar.setBackground(new java.awt.Color(204, 204, 204));
+        bBuscar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        bBuscar.setText("Buscar");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
             }
         });
 
@@ -204,9 +220,11 @@ public class InserirEmpresaView extends javax.swing.JDialog {
                                     .addComponent(jtfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 45, Short.MAX_VALUE))))
                     .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(28, 28, 28)
                         .addComponent(bCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(234, 234, 234)
+                        .addComponent(bBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bSalvar)
                         .addGap(45, 45, 45)))
                 .addContainerGap())
@@ -249,7 +267,8 @@ public class InserirEmpresaView extends javax.swing.JDialog {
                 .addGap(35, 35, 35)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bSalvar)
-                    .addComponent(bCancelar))
+                    .addComponent(bCancelar)
+                    .addComponent(bBuscar))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -276,13 +295,66 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomeDaEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeDaEmpresaActionPerformed
-        
-    }//GEN-LAST:event_txtNomeDaEmpresaActionPerformed
-
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        
+
     }//GEN-LAST:event_bCancelarActionPerformed
+
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+
+        EmpresaDAO empresaDAO = new EmpresaDAO();
+        if (empresaDAO.getEmpresa() == null) {
+            JOptionPane.showMessageDialog(this, "Não existe Empresa cadastrada.");
+        } else {
+            Empresa empresa = empresaDAO.getEmpresa();
+
+            EnderecoDAO enderecoDAO = new EnderecoDAO();
+            Endereco endereco = enderecoDAO.getEndereco(empresa.getIdEndereco_FK());
+
+            jtfCNPJ.setText(String.format("%.0f", empresa.getCnpjEmp()));
+            txtNomeDaEmpresa.setText(empresa.getNomeEmp());
+            txtNVagas.setText(String.valueOf(empresa.getNumeroVagasEmp()));
+            jtfRazaoSocial.setText(empresa.getRazaoSocialEmp());
+
+            jtfEndereco.setText(endereco.getEndereco());
+            jtfNumero.setText(String.valueOf(endereco.getNumEnd()));
+            jtfBairro.setText(endereco.getBairro());
+            jtfCidade.setText(endereco.getCidade());
+            jtfCep.setText(String.format("%.0f", endereco.getCep()));
+        }
+    }//GEN-LAST:event_bBuscarActionPerformed
+
+    private void bSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalvarActionPerformed
+
+        Empresa empresa = new Empresa();
+        EmpresaDAO empresaDAO = new EmpresaDAO();
+
+        Endereco endereco = new Endereco();
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+
+        empresa.setCnpjEmp(Double.parseDouble(jtfCNPJ.getText()));
+        empresa.setNomeEmp(txtNomeDaEmpresa.getText());
+        empresa.setNumeroVagasEmp(Integer.parseInt(txtNVagas.getText()));
+        empresa.setRazaoSocialEmp(jtfRazaoSocial.getText());
+
+        endereco.setEndereco(jtfEndereco.getText());
+        endereco.setBairro(jtfBairro.getText());
+        endereco.setCidade(jtfCidade.getText());
+        endereco.setNumEnd(Integer.parseInt(jtfNumero.getText()));
+        endereco.setCep(Double.parseDouble(jtfCep.getText()));
+
+        if (empresaDAO.getEmpresa() != null && empresaDAO.getEmpresa().getCnpjEmp() == empresa.getCnpjEmp()) {
+            endereco.setIdEnd(empresaDAO.getEmpresa().getIdEndereco_FK());
+            enderecoDAO.altEndereco(endereco);
+            empresaDAO.altEmpresa(empresa);
+        } else if (empresaDAO.getEmpresa() == null) {
+            enderecoDAO.setEndereco(endereco);
+            empresa.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
+            empresaDAO.setEmpresa(empresa);
+        } else {
+            JOptionPane.showMessageDialog(this, "Já existe uma Empresa cadastrada.");
+        }
+
+    }//GEN-LAST:event_bSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,6 +402,7 @@ public class InserirEmpresaView extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bBuscar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JButton bSalvar;
     private javax.swing.JLabel jlBairro;
