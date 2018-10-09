@@ -344,6 +344,7 @@ public class InserirEmpresaView extends javax.swing.JDialog {
 
         if (empresaDAO.getEmpresa() != null && empresaDAO.getEmpresa().getCnpjEmp() == empresa.getCnpjEmp()) {
             endereco.setIdEnd(empresaDAO.getEmpresa().getIdEndereco_FK());
+            empresa.setIdEndereco_FK(endereco.getIdEnd());
             enderecoDAO.altEndereco(endereco);
             empresaDAO.altEmpresa(empresa);
         } else if (empresaDAO.getEmpresa() == null) {
