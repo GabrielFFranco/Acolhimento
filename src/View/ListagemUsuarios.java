@@ -2,7 +2,7 @@
 package View;
 
 
-import DAO.Usuario;
+import Model.Usuario;
 import DAO.UsuarioDAO;
 import java.util.List;
 import javax.swing.JDialog;
@@ -41,7 +41,6 @@ public class ListagemUsuarios extends javax.swing.JDialog {
         bcxTipo = new javax.swing.JComboBox<>();
         btnListar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        btnSelcionar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -87,13 +86,6 @@ public class ListagemUsuarios extends javax.swing.JDialog {
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnSelcionar.setText("Consultar");
-        btnSelcionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelcionarActionPerformed(evt);
             }
         });
 
@@ -158,9 +150,7 @@ public class ListagemUsuarios extends javax.swing.JDialog {
                             .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnListar, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSelcionar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(189, 189, 189))))
         );
         layout.setVerticalGroup(
@@ -186,9 +176,7 @@ public class ListagemUsuarios extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSelcionar)
-                            .addComponent(btnListar))
+                        .addComponent(btnListar)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCadastrar)
@@ -227,14 +215,6 @@ public class ListagemUsuarios extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void btnSelcionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelcionarActionPerformed
-        // TODO add your handling code here:
-        int linha = tblObjetos.getSelectedRow();
-        int id = (int) tblObjetos.getValueAt(linha, 0);
-        JFrame form = new ConsultaUsuarioView(id);
-        form.setVisible(true);
-    }//GEN-LAST:event_btnSelcionarActionPerformed
-
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // TODO add your handling code here:
         UsuarioDAO dao = new UsuarioDAO();
@@ -262,9 +242,9 @@ public class ListagemUsuarios extends javax.swing.JDialog {
         // TODO add your handling code here:
         int linha = tblObjetos.getSelectedRow();
         int id = (int) tblObjetos.getValueAt(linha, 0);
-        JFrame form = new EditUsuarioView(id);
+        EditUsuarioView form = new EditUsuarioView(id);
+        this.setVisible(false);
         form.setVisible(true);
-
     }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
@@ -317,7 +297,6 @@ public class ListagemUsuarios extends javax.swing.JDialog {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnListar;
-    private javax.swing.JButton btnSelcionar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNome;

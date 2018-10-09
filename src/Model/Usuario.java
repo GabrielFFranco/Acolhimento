@@ -1,47 +1,30 @@
+package Model;
 
-package acolhimento;
-
-import java.util.Date;
+import java.sql.Date;
 
 
 public class Usuario {
     
-    private Integer numProntuario;
-    private String nome;
-    private String tipoUsuario;
-    private Date dataCadastro;
-    private String statusUsuario;
-    private String sexo;
-    private Date dataNascimento;
-    private String documento;
-    private String cidadeOrigem;
-    private Integer responsavel;
-    private String parecerTec;
-    private String drogas;
-    private String atendidoPor;
-    private int endereco;
+    private Integer numProntuario; 
+    private String nome; 
+    private String tipoUsuario; 
+    private String dataCadastro;
+    private String statusUsuario; 
+    private String sexo; 
+    private String dataNascimento; 
+    private String tipoDoc;
+    private String documento; 
+    private String cidadeOrigem; 
+    private double responsavel; 
+    private String parecerTec; 
+    private String drogas; 
+    private String atendidoPor; 
+    private int endereco; 
 
-    public Usuario(String nome, String tipoUsuario, Date dataCadastro, String statusUsuario,
-            String sexo, Date dataNascimento, String documento, String cidadeOrigem,
-            Integer responsavel, String parecerTec, String drogas, int endereco, String atendidoPor) {
-        this.nome = nome;
-        this.tipoUsuario = tipoUsuario;
-        this.dataCadastro = dataCadastro;
-        this.statusUsuario = statusUsuario;
-        this.sexo = sexo;
-        this.dataNascimento = dataNascimento;
-        this.documento = documento;
-        this.cidadeOrigem = cidadeOrigem;
-        this.responsavel = responsavel;
-        this.parecerTec = parecerTec;
-        this.drogas = drogas;
-        this.endereco = endereco;
-        this.atendidoPor = atendidoPor;
-    }
 
     public Usuario() {
     }
-    
+
     public Integer getNumProntuario() {
         return numProntuario;
     }
@@ -66,11 +49,11 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public Date getDataCadastro() {
+    public String getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(String dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
@@ -90,12 +73,20 @@ public class Usuario {
         this.sexo = sexo;
     }
 
-    public Date getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public String getTipoDoc() {
+        return tipoDoc;
+    }
+
+    public void setTipoDoc(String tipoDoc) {
+        this.tipoDoc = tipoDoc;
     }
 
     public String getDocumento() {
@@ -114,11 +105,11 @@ public class Usuario {
         this.cidadeOrigem = cidadeOrigem;
     }
 
-    public Integer getResponsavel() {
+    public double getResponsavel() {
         return responsavel;
     }
 
-    public void setResponsavel(Integer responsavel) {
+    public void setResponsavel(double responsavel) {
         this.responsavel = responsavel;
     }
 
@@ -138,14 +129,6 @@ public class Usuario {
         this.drogas = drogas;
     }
 
-    public int getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(int endereco) {
-        this.endereco = endereco;
-    }
-
     public String getAtendidoPor() {
         return atendidoPor;
     }
@@ -153,6 +136,12 @@ public class Usuario {
     public void setAtendidoPor(String atendidoPor) {
         this.atendidoPor = atendidoPor;
     }
-    
-    
+
+    public int getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(int endereco) {
+        this.endereco = endereco;
+    }
 }

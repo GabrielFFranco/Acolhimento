@@ -1,8 +1,11 @@
 
 package View;
 
-import DAO.Usuario;
+import DAO.EnderecoDAO;
+import Model.Usuario;
 import DAO.UsuarioDAO;
+import Model.Endereco;
+import java.awt.HeadlessException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,7 +13,8 @@ import javax.swing.JOptionPane;
 
 public class EditUsuarioView extends javax.swing.JFrame {
 
-
+    int nPront = 0;
+    
     public EditUsuarioView(Integer id) {
         initComponents();
         mostrarDados(id);
@@ -37,8 +41,6 @@ public class EditUsuarioView extends javax.swing.JFrame {
         txtDoc = new javax.swing.JTextField();
         lblCidadeOrigem = new javax.swing.JLabel();
         txtCidadeOrigem = new javax.swing.JTextField();
-        lblUf = new javax.swing.JLabel();
-        cbxUF = new javax.swing.JComboBox<>();
         lblEnderecoFamiliar = new javax.swing.JLabel();
         txtEndFamiliar = new javax.swing.JTextField();
         lblNum = new javax.swing.JLabel();
@@ -47,8 +49,6 @@ public class EditUsuarioView extends javax.swing.JFrame {
         txtBairro = new javax.swing.JTextField();
         lblCidade = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
-        lblUFCidade = new javax.swing.JLabel();
-        cbxUFCidade = new javax.swing.JComboBox<>();
         lblDrogas = new javax.swing.JLabel();
         atxParecerTec = new javax.swing.JScrollPane();
         jtaPArecerTec = new javax.swing.JTextArea();
@@ -59,12 +59,12 @@ public class EditUsuarioView extends javax.swing.JFrame {
         jtaDrogas = new javax.swing.JTextArea();
         lblStatus = new javax.swing.JLabel();
         bcxStatus = new javax.swing.JComboBox<>();
+        lbCEP = new javax.swing.JLabel();
+        txtCEP = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         pnTopo = new javax.swing.JPanel();
         lblNomePrograma1 = new javax.swing.JLabel();
         lblNomeFunc = new javax.swing.JLabel();
-        lblBtnSalvar = new javax.swing.JLabel();
-        lblBtnCancel = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
 
@@ -111,13 +111,6 @@ public class EditUsuarioView extends javax.swing.JFrame {
         txtCidadeOrigem.setBackground(new java.awt.Color(204, 204, 204));
         txtCidadeOrigem.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        lblUf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUf.setForeground(new java.awt.Color(255, 255, 255));
-        lblUf.setText("UF");
-
-        cbxUF.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "TO" }));
-
         lblEnderecoFamiliar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblEnderecoFamiliar.setForeground(new java.awt.Color(255, 255, 255));
         lblEnderecoFamiliar.setText("Endereço Familiar");
@@ -145,13 +138,6 @@ public class EditUsuarioView extends javax.swing.JFrame {
 
         txtCidade.setBackground(new java.awt.Color(204, 204, 204));
         txtCidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
-        lblUFCidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUFCidade.setForeground(new java.awt.Color(255, 255, 255));
-        lblUFCidade.setText("UF");
-
-        cbxUFCidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxUFCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "TO" }));
 
         lblDrogas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblDrogas.setForeground(new java.awt.Color(255, 255, 255));
@@ -182,6 +168,13 @@ public class EditUsuarioView extends javax.swing.JFrame {
 
         bcxStatus.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         bcxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo" }));
+
+        lbCEP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lbCEP.setForeground(new java.awt.Color(255, 255, 255));
+        lbCEP.setText("CEP");
+
+        txtCEP.setBackground(new java.awt.Color(204, 204, 204));
+        txtCEP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout pnDadosLayout = new javax.swing.GroupLayout(pnDados);
         pnDados.setLayout(pnDadosLayout);
@@ -220,32 +213,27 @@ public class EditUsuarioView extends javax.swing.JFrame {
                                         .addGap(29, 29, 29)
                                         .addComponent(txtDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(pnDadosLayout.createSequentialGroup()
-                                        .addGap(379, 379, 379)
-                                        .addComponent(lblUFCidade)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cbxUFCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pnDadosLayout.createSequentialGroup()
                                         .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(pnDadosLayout.createSequentialGroup()
-                                                .addGap(369, 369, 369)
-                                                .addComponent(lblBairro)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(4, 4, 4))
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosLayout.createSequentialGroup()
                                                 .addComponent(lblStatus)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(bcxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(57, 57, 57)))
-                                        .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGap(57, 57, 57))
                                             .addGroup(pnDadosLayout.createSequentialGroup()
-                                                .addComponent(lblNum)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtNum))
-                                            .addGroup(pnDadosLayout.createSequentialGroup()
-                                                .addComponent(lblUf)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(cbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addGap(369, 369, 369)
+                                                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(pnDadosLayout.createSequentialGroup()
+                                                        .addComponent(lbCEP)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(pnDadosLayout.createSequentialGroup()
+                                                        .addComponent(lblBairro)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                        .addComponent(lblNum)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtNum, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(pnDadosLayout.createSequentialGroup()
                                 .addComponent(lblCidadeOrigem)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -299,9 +287,6 @@ public class EditUsuarioView extends javax.swing.JFrame {
                         .addComponent(lblStatus)
                         .addComponent(bcxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblUf)
-                        .addComponent(cbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCidadeOrigem)
                         .addComponent(txtCidadeOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
@@ -316,8 +301,9 @@ public class EditUsuarioView extends javax.swing.JFrame {
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCidade)
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUFCidade)
-                    .addComponent(cbxUFCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbCEP)))
                 .addGap(27, 27, 27)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(atxParecerTec1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -364,15 +350,6 @@ public class EditUsuarioView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblBtnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.png"))); // NOI18N
-        lblBtnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBtnSalvarMouseClicked(evt);
-            }
-        });
-
-        lblBtnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/error.png"))); // NOI18N
-
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -394,13 +371,9 @@ public class EditUsuarioView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(621, Short.MAX_VALUE)
                 .addComponent(btnSalvar)
-                .addGap(18, 18, 18)
-                .addComponent(lblBtnSalvar)
-                .addGap(18, 18, 18)
+                .addGap(36, 36, 36)
                 .addComponent(btnVoltar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBtnCancel)
-                .addGap(63, 63, 63))
+                .addGap(67, 67, 67))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -416,11 +389,6 @@ public class EditUsuarioView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 625, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBtnSalvar)
-                            .addComponent(lblBtnCancel))
-                        .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
@@ -444,35 +412,6 @@ public class EditUsuarioView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblBtnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBtnSalvarMouseClicked
-        // TODO add your handling code here:
-        UsuarioDAO dao = new UsuarioDAO();
-        Usuario obj = new Usuario();
-        try{
-            obj.setAtendidoPor("Func Logado");
-            obj.setCidadeOrigem(txtCidadeOrigem.getText());
-            obj.setDataCadastro(new Date());
-            String data = txtDAtaNascimento.getText();
-            SimpleDateFormat form = new SimpleDateFormat("dd/mm/YYYY");
-            java.util.Date dutiln;
-            dutiln = form.parse(data);
-            obj.setDataNascimento(dutiln);
-            obj.setDocumento(txtDoc.getText());
-            obj.setDrogas(jtaDrogas.getText());
-            obj.setEndereco(Integer.parseInt(txtEndFamiliar.getText()));
-            obj.setNome(txtNome.getText());
-            obj.setParecerTec(jtaPArecerTec.getText());
-            obj.setResponsavel(69);
-            obj.setSexo((String) cbxSexo.getSelectedItem());
-            obj.setStatusUsuario((String) bcxStatus.getSelectedItem());
-            obj.setTipoUsuario((String) bcxTipo.getSelectedItem());
-
-            dao.cadastrarUsuario(obj);
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "Erro: " + ex);
-        }
-    }//GEN-LAST:event_lblBtnSalvarMouseClicked
-
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -481,35 +420,49 @@ public class EditUsuarioView extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
                 // TODO add your handling code here:
-        UsuarioDAO dao = new UsuarioDAO();
-        Usuario obj = new Usuario();
-        try{
-        obj.setAtendidoPor("Func Logado");
-        obj.setCidadeOrigem(txtCidadeOrigem.getText());
-        obj.setDataCadastro(new Date());
-        String data = txtDAtaNascimento.getText();
-        SimpleDateFormat form = new SimpleDateFormat("dd/mm/YYYY");
-        java.util.Date dutiln;
-        dutiln = form.parse(data);
-        obj.setDataNascimento(dutiln);
-        obj.setDocumento(txtDoc.getText());
-        obj.setDrogas(jtaDrogas.getText());
-        obj.setEndereco(Integer.parseInt(txtEndFamiliar.getText()));
-        obj.setNome(txtNome.getText());
-        obj.setParecerTec(jtaPArecerTec.getText());
-        obj.setResponsavel(69);
-        obj.setSexo((String) cbxSexo.getSelectedItem());
-        obj.setStatusUsuario((String) bcxStatus.getSelectedItem());
-        obj.setTipoUsuario((String) bcxTipo.getSelectedItem());
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        Usuario usuario = new Usuario();
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        Endereco endereco = new Endereco();
         
-        boolean resp = dao.editar(obj);
-        if(resp){
-            JOptionPane.showMessageDialog(null, "Inserido com sucesso");
-        }else{
-            JOptionPane.showMessageDialog(null, "Deu ruim!");
-        }
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "Erro: " + ex);
+        try {
+            
+            usuario.setNumProntuario(nPront);
+            
+            usuario.setTipoUsuario((String) bcxTipo.getSelectedItem());
+            usuario.setDataCadastro(String.valueOf(new Date()));
+            usuario.setNome(txtNome.getText());
+            usuario.setStatusUsuario((String) bcxStatus.getSelectedItem());
+            usuario.setSexo((String) cbxSexo.getSelectedItem());
+            usuario.setDataNascimento(txtDAtaNascimento.getText());
+            usuario.setTipoDoc((String) cbxDoc.getSelectedItem());
+            usuario.setDocumento(txtDoc.getText());
+            usuario.setCidadeOrigem(txtCidadeOrigem.getText());
+            usuario.setAtendidoPor("Func Logado");
+            usuario.setParecerTec(jtaPArecerTec.getText());
+            usuario.setDrogas(jtaDrogas.getText());
+            usuario.setResponsavel(69);
+
+            endereco.setIdEnd(usuarioDAO.selecionar(usuario.getNumProntuario()).getEndereco());
+            
+            endereco.setEndereco(txtEndFamiliar.getText());
+            endereco.setBairro(txtBairro.getText());
+            endereco.setCidade(txtCidade.getText());
+            endereco.setCep(Double.parseDouble(txtCEP.getText()));
+            endereco.setNumEnd(Integer.parseInt(txtNum.getText()));
+            
+            enderecoDAO.altEndereco(endereco);
+            
+            
+            boolean resp = usuarioDAO.editar(usuario);
+            
+            if (resp) {
+                JOptionPane.showMessageDialog(null, "Editado com sucesso");
+            } else {
+                JOptionPane.showMessageDialog(null, "Deu ruim!");
+            }
+        } catch (HeadlessException | NumberFormatException ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -529,15 +482,12 @@ public class EditUsuarioView extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EditUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
 
@@ -558,14 +508,11 @@ public class EditUsuarioView extends javax.swing.JFrame {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<String> cbxDoc;
     private javax.swing.JComboBox<String> cbxSexo;
-    private javax.swing.JComboBox<String> cbxUF;
-    private javax.swing.JComboBox<String> cbxUFCidade;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jtaDrogas;
     private javax.swing.JTextArea jtaPArecerTec;
+    private javax.swing.JLabel lbCEP;
     private javax.swing.JLabel lblBairro;
-    private javax.swing.JLabel lblBtnCancel;
-    private javax.swing.JLabel lblBtnSalvar;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblCidadeOrigem;
     private javax.swing.JLabel lblDataNascimento;
@@ -580,11 +527,10 @@ public class EditUsuarioView extends javax.swing.JFrame {
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTipo;
-    private javax.swing.JLabel lblUFCidade;
-    private javax.swing.JLabel lblUf;
     private javax.swing.JPanel pnDados;
     private javax.swing.JPanel pnTopo;
     private javax.swing.JTextField txtBairro;
+    private javax.swing.JTextField txtCEP;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtCidadeOrigem;
     private javax.swing.JTextField txtDAtaNascimento;
@@ -595,28 +541,39 @@ public class EditUsuarioView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void mostrarDados(Integer id) {
-        Usuario obj = new Usuario();
-        UsuarioDAO dao = new UsuarioDAO();
-        obj.setNumProntuario(id);
-        obj = dao.selecionar(obj);
-        bcxTipo.setSelectedItem(obj.getTipoUsuario());
-        Date data = obj.getDataNascimento();
-        String dataNasc = converteData(data);
+        Usuario usuario = new Usuario();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        
+        Endereco endereco = new Endereco();
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        
+        usuario = usuarioDAO.selecionar(id);
+        
+        bcxTipo.setSelectedItem(usuario.getTipoUsuario());
+        String dataNasc = usuario.getDataNascimento();
         txtDAtaNascimento.setText(dataNasc);
-        txtNome.setText(obj.getNome());
-        cbxSexo.setSelectedItem(obj.getSexo());
-        cbxDoc.setSelectedItem(obj.getTipoDoc());
-        txtDoc.setText(obj.getDocumento());
-        txtCidadeOrigem.setText(obj.getCidadeOrigem());
-        bcxStatus.setSelectedItem(obj.getStatusUsuario());
-        cbxUF.setSelectedItem(obj.getEstadoCidOrigem());
-        txtEndFamiliar.setText(String.valueOf(obj.getEndereco()));
+        txtNome.setText(usuario.getNome());
+        cbxSexo.setSelectedItem(usuario.getSexo());
+        cbxDoc.setSelectedItem(usuario.getTipoDoc());
+        txtDoc.setText(usuario.getDocumento());
+        txtCidadeOrigem.setText(usuario.getCidadeOrigem());
+        bcxStatus.setSelectedItem(usuario.getStatusUsuario());
+        txtEndFamiliar.setText(String.valueOf(usuario.getEndereco()));
         // +- assim acho txtBairro.setText(obj.getEndereco().getBairro);
         // +- assim acho txtNum.setText(obj.getEndereco().getNumCasa);
-        txtCidade.setText(obj.getCidade());
-        cbxUFCidade.setSelectedItem(obj.getEstadoCidOrigem());
-        jtaDrogas.setText(obj.getDrogas());
-        jtaPArecerTec.setText(obj.getParecerTec());
+        jtaDrogas.setText(usuario.getDrogas());
+        jtaPArecerTec.setText(usuario.getParecerTec());
+        
+        nPront = usuario.getNumProntuario();
+        
+        endereco = enderecoDAO.getEndereco(usuario.getEndereco());
+        
+        txtEndFamiliar.setText(endereco.getEndereco());
+        txtNum.setText(String.valueOf(endereco.getNumEnd()));
+        txtBairro.setText(endereco.getBairro());
+        txtCidade.setText(endereco.getCidade());
+        txtCEP.setText(String.format("%.0f", endereco.getCep()));
+        
     }
     
     protected String converteData(java.util.Date dtData){

@@ -277,11 +277,11 @@ public class InserirEmpresaView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNomeDaEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeDaEmpresaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtNomeDaEmpresaActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_bCancelarActionPerformed
 
     /**

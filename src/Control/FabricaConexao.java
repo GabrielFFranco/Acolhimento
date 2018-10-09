@@ -12,7 +12,7 @@ public class FabricaConexao {
               try {
                   return DriverManager.getConnection(
                           "jdbc:mysql://127.0.0.1:3306/acolhimento", 
-                          "root", "");
+                          "root", "q1w2e3r4");
                   
               } catch (SQLException e) {
                   System.err.println("ERRO: " + e);

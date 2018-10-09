@@ -1,21 +1,19 @@
-
 package View;
 
-import DAO.Usuario;
+import DAO.EnderecoDAO;
+import Model.Usuario;
 import DAO.UsuarioDAO;
+import Model.Endereco;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-
 public class InserirUsuarioView extends javax.swing.JDialog {
-
 
     public InserirUsuarioView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -28,18 +26,16 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         lblNomeFunc = new javax.swing.JLabel();
         pnDados = new javax.swing.JPanel();
         lblTipo = new javax.swing.JLabel();
-        bcxTipo = new javax.swing.JComboBox<String>();
+        bcxTipo = new javax.swing.JComboBox<>();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         lblSexo = new javax.swing.JLabel();
-        cbxSexo = new javax.swing.JComboBox<String>();
+        cbxSexo = new javax.swing.JComboBox<>();
         lblDoc = new javax.swing.JLabel();
-        cbxDoc = new javax.swing.JComboBox<String>();
+        cbxDoc = new javax.swing.JComboBox<>();
         txtDoc = new javax.swing.JTextField();
         lblCidadeOrigem = new javax.swing.JLabel();
         txtCidadeOrigem = new javax.swing.JTextField();
-        lblUf = new javax.swing.JLabel();
-        cbxUF = new javax.swing.JComboBox<String>();
         lblEnderecoFamiliar = new javax.swing.JLabel();
         txtEndFamiliar = new javax.swing.JTextField();
         lblNum = new javax.swing.JLabel();
@@ -48,8 +44,6 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         txtBairro = new javax.swing.JTextField();
         lblCidade = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
-        lblUFCidade = new javax.swing.JLabel();
-        cbxUFCidade = new javax.swing.JComboBox<String>();
         lblDrogas = new javax.swing.JLabel();
         atxParecerTec = new javax.swing.JScrollPane();
         jtaPArecerTec = new javax.swing.JTextArea();
@@ -58,8 +52,10 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         atxParecerTec1 = new javax.swing.JScrollPane();
         jtaDrogas = new javax.swing.JTextArea();
         lblStatus = new javax.swing.JLabel();
-        bcxStatus = new javax.swing.JComboBox<String>();
+        bcxStatus = new javax.swing.JComboBox<>();
         txtDAtaNascimento = new javax.swing.JFormattedTextField();
+        lbCEP = new javax.swing.JLabel();
+        txtCEP = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
@@ -114,7 +110,7 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         lblTipo.setText("Tipo");
 
         bcxTipo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        bcxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Morador", "Não-Perfil", "Migrante" }));
+        bcxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Morador", "Não-Perfil", "Migrante" }));
 
         lblNome.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblNome.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,14 +124,14 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         lblSexo.setText("Sexo*");
 
         cbxSexo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
+        cbxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
 
         lblDoc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblDoc.setForeground(new java.awt.Color(255, 255, 255));
         lblDoc.setText("Documento");
 
         cbxDoc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Certidão de Nascimento", "RG", "CPF", "CNH" }));
+        cbxDoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Certidão de Nascimento", "RG", "CPF", "CNH" }));
 
         txtDoc.setBackground(new java.awt.Color(204, 204, 204));
         txtDoc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -146,13 +142,6 @@ public class InserirUsuarioView extends javax.swing.JDialog {
 
         txtCidadeOrigem.setBackground(new java.awt.Color(204, 204, 204));
         txtCidadeOrigem.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
-        lblUf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUf.setForeground(new java.awt.Color(255, 255, 255));
-        lblUf.setText("UF");
-
-        cbxUF.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxUF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SP", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "TO" }));
 
         lblEnderecoFamiliar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblEnderecoFamiliar.setForeground(new java.awt.Color(255, 255, 255));
@@ -182,13 +171,6 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         txtCidade.setBackground(new java.awt.Color(204, 204, 204));
         txtCidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        lblUFCidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUFCidade.setForeground(new java.awt.Color(255, 255, 255));
-        lblUFCidade.setText("UF");
-
-        cbxUFCidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxUFCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SP", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "TO" }));
-
         lblDrogas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblDrogas.setForeground(new java.awt.Color(255, 255, 255));
         lblDrogas.setText("Uso de substancias:");
@@ -214,9 +196,16 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         lblStatus.setText("Status");
 
         bcxStatus.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        bcxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativo", "Inativo" }));
+        bcxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo" }));
 
         txtDAtaNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+
+        lbCEP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lbCEP.setForeground(new java.awt.Color(255, 255, 255));
+        lbCEP.setText("CEP");
+
+        txtCEP.setBackground(new java.awt.Color(204, 204, 204));
+        txtCEP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout pnDadosLayout = new javax.swing.GroupLayout(pnDados);
         pnDados.setLayout(pnDadosLayout);
@@ -247,7 +236,7 @@ public class InserirUsuarioView extends javax.swing.JDialog {
                         .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnDadosLayout.createSequentialGroup()
                                 .addGap(29, 29, 29)
-                                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(pnDadosLayout.createSequentialGroup()
                                         .addComponent(lblDoc)
                                         .addGap(26, 26, 26)
@@ -255,10 +244,10 @@ public class InserirUsuarioView extends javax.swing.JDialog {
                                         .addGap(29, 29, 29)
                                         .addComponent(txtDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(pnDadosLayout.createSequentialGroup()
-                                        .addGap(379, 379, 379)
-                                        .addComponent(lblUFCidade)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cbxUFCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(492, 492, 492)
+                                        .addComponent(lbCEP)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCEP))
                                     .addGroup(pnDadosLayout.createSequentialGroup()
                                         .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(pnDadosLayout.createSequentialGroup()
@@ -272,15 +261,9 @@ public class InserirUsuarioView extends javax.swing.JDialog {
                                                 .addGap(18, 18, 18)
                                                 .addComponent(bcxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(57, 57, 57)))
-                                        .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(pnDadosLayout.createSequentialGroup()
-                                                .addComponent(lblNum)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtNum))
-                                            .addGroup(pnDadosLayout.createSequentialGroup()
-                                                .addComponent(lblUf)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(cbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(lblNum)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtNum, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(pnDadosLayout.createSequentialGroup()
                                 .addComponent(lblCidadeOrigem)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -334,9 +317,6 @@ public class InserirUsuarioView extends javax.swing.JDialog {
                         .addComponent(lblStatus)
                         .addComponent(bcxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblUf)
-                        .addComponent(cbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCidadeOrigem)
                         .addComponent(txtCidadeOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
@@ -351,8 +331,8 @@ public class InserirUsuarioView extends javax.swing.JDialog {
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCidade)
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUFCidade)
-                    .addComponent(cbxUFCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbCEP)
+                    .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(atxParecerTec1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -425,36 +405,44 @@ public class InserirUsuarioView extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        UsuarioDAO dao = new UsuarioDAO();
-        Usuario obj = new Usuario();
-        try{
-        obj.setAtendidoPor("Func Logado");
-        obj.setCidadeOrigem(txtCidadeOrigem.getText());
-        obj.setDataCadastro(new Date());
-        //String data = txtDAtaNascimento.getText();
-        //SimpleDateFormat form = new SimpleDateFormat("dd/mm/YYYY");
-      //  java.util.Date dutiln;
-        //dutiln = form.parse(data);
-        obj.setDataNascimento(txtDAtaNascimento.getText());
-        //obj.setDataNascimento(dutiln);
-        obj.setDocumento(txtDoc.getText());
-        obj.setDrogas(jtaDrogas.getText());
-        obj.setEndereco(Integer.parseInt(txtEndFamiliar.getText()));
-        obj.setNome(txtNome.getText());
-        obj.setParecerTec(jtaPArecerTec.getText());
-        obj.setResponsavel(69);
-        obj.setSexo((String) cbxSexo.getSelectedItem());
-        obj.setStatusUsuario((String) bcxStatus.getSelectedItem());
-        obj.setTipoUsuario((String) bcxTipo.getSelectedItem());
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        Usuario usuario = new Usuario();
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        Endereco endereco = new Endereco();
         
-        boolean resp = dao.cadastrarUsuario(obj);
-        if(resp){
-            JOptionPane.showMessageDialog(null, "Inserido com sucesso");
-        }else{
-            JOptionPane.showMessageDialog(null, "Deu ruim!");
-        }
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "Erro: " + ex);
+        try {
+            usuario.setTipoUsuario((String) bcxTipo.getSelectedItem());
+            usuario.setDataCadastro(String.valueOf(new Date()));
+            usuario.setNome(txtNome.getText());
+            usuario.setStatusUsuario((String) bcxStatus.getSelectedItem());
+            usuario.setSexo((String) cbxSexo.getSelectedItem());
+            usuario.setDataNascimento(txtDAtaNascimento.getText());
+            usuario.setTipoDoc((String) cbxDoc.getSelectedItem());
+            usuario.setDocumento(txtDoc.getText());
+            usuario.setCidadeOrigem(txtCidadeOrigem.getText());
+            usuario.setAtendidoPor("Func Logado");
+            usuario.setParecerTec(jtaPArecerTec.getText());
+            usuario.setDrogas(jtaDrogas.getText());
+            usuario.setResponsavel(69);
+
+            endereco.setEndereco(txtEndFamiliar.getText());
+            endereco.setBairro(txtBairro.getText());
+            endereco.setCidade(txtCidade.getText());
+            endereco.setCep(Double.parseDouble(txtCEP.getText()));
+            endereco.setNumEnd(Integer.parseInt(txtNum.getText()));
+            
+            enderecoDAO.setEndereco(endereco);
+            usuario.setEndereco(enderecoDAO.getUltimoEndereco());
+            
+            boolean resp = usuarioDAO.cadastrarUsuario(usuario);
+            
+            if (resp) {
+                JOptionPane.showMessageDialog(null, "Inserido com sucesso");
+            } else {
+                JOptionPane.showMessageDialog(null, "Deu ruim!");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -515,11 +503,10 @@ public class InserirUsuarioView extends javax.swing.JDialog {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<String> cbxDoc;
     private javax.swing.JComboBox<String> cbxSexo;
-    private javax.swing.JComboBox<String> cbxUF;
-    private javax.swing.JComboBox<String> cbxUFCidade;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jtaDrogas;
     private javax.swing.JTextArea jtaPArecerTec;
+    private javax.swing.JLabel lbCEP;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblCidadeOrigem;
@@ -536,11 +523,10 @@ public class InserirUsuarioView extends javax.swing.JDialog {
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTipo;
-    private javax.swing.JLabel lblUFCidade;
-    private javax.swing.JLabel lblUf;
     private javax.swing.JPanel pnDados;
     private javax.swing.JPanel pnTopo;
     private javax.swing.JTextField txtBairro;
+    private javax.swing.JTextField txtCEP;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtCidadeOrigem;
     private javax.swing.JTextField txtCidadeOrigem3;
