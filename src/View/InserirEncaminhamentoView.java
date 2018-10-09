@@ -65,7 +65,6 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         jcbStatus = new javax.swing.JComboBox<>();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -203,7 +202,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
                             .addComponent(txtBairro)
                             .addComponent(txtCidade)
                             .addComponent(txtFuncRealizouEnc)
-                            .addComponent(jcbStatus, 0, 368, Short.MAX_VALUE))
+                            .addComponent(jcbStatus, 0, 388, Short.MAX_VALUE))
                         .addGap(34, 34, 34)
                         .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlNumero)
@@ -273,23 +272,19 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnTopo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addComponent(pnTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -299,8 +294,6 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private int idEnc = 0;
-    private int nPront = 0;
-    private double cpfFunc = 0;
     
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
@@ -310,6 +303,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         Endereco endereco = new Endereco();
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         Funcionario funcionario = new Funcionario();
+        Funcionario funcionario2 = new Funcionario();
         
         encaminhamento.setnProntuarioUsu_FK(Integer.parseInt(txtNomeDoUsuario.getText()));
         encaminhamento.setTipoEnc(jcbTipoEncaminhamento.getSelectedItem().toString());
@@ -327,8 +321,8 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         endereco.setCep(Double.parseDouble(txtCep.getText()));
 
         if (this.idEnc != 0) {
-            encaminhamento.setIdEnc(this.idEnc);
-            endereco.setIdEnd((int) encaminhamentoDAO.getEncaminhamento(idEnc).getIdEndereco_FK());
+            
+            endereco.setIdEnd(this.idEnc);
             enderecoDAO.altEndereco(endereco);
             encaminhamentoDAO.altEncaminhamento(encaminhamento);
             
@@ -358,7 +352,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         
         funcionario = funcionarioDAO.getFuncionario(encaminhamento.getCpfFunc_FK());
         
-        txtNomeDoUsuario.setText("");
+        txtNomeDoUsuario.setText(funcionario.getNomeFunc());
         for (int i = 0; i < jcbTipoEncaminhamento.getItemCount(); i++) {
             if (jcbTipoEncaminhamento.getItemAt(i).equals(encaminhamento.getTipoEnc())) {
                 jcbTipoEncaminhamento.setSelectedIndex(i);
@@ -430,7 +424,6 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox<String> jcbStatus;
     private javax.swing.JComboBox<String> jcbTipoEncaminhamento;
     private javax.swing.JLabel jlBairro;

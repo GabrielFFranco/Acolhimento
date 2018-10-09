@@ -45,20 +45,23 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         txtCidadeOrigem = new javax.swing.JTextField();
         lblSexo1 = new javax.swing.JLabel();
         cbxSexo1 = new javax.swing.JComboBox<>();
+        bSalvar = new javax.swing.JButton();
+        bCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
 
-        pnTopo.setBackground(new java.awt.Color(153, 153, 153));
+        pnTopo.setBackground(new java.awt.Color(204, 204, 204));
         pnTopo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        pnTopo.setForeground(new java.awt.Color(153, 153, 153));
+        pnTopo.setToolTipText("");
 
+        lblNomeFunc.setBackground(new java.awt.Color(204, 204, 204));
         lblNomeFunc.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lblNomeFunc.setForeground(new java.awt.Color(204, 0, 0));
+        lblNomeFunc.setForeground(new java.awt.Color(51, 102, 255));
         lblNomeFunc.setText("Funcionário do acolhimento");
 
         lblNomePrograma1.setFont(new java.awt.Font("Arial", 3, 36)); // NOI18N
-        lblNomePrograma1.setForeground(new java.awt.Color(204, 0, 0));
+        lblNomePrograma1.setForeground(new java.awt.Color(51, 102, 255));
         lblNomePrograma1.setText("SisAC");
 
         javax.swing.GroupLayout pnTopoLayout = new javax.swing.GroupLayout(pnTopo);
@@ -130,48 +133,59 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         cbxSexo1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cbxSexo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "TO" }));
 
+        bSalvar.setText("Salvar");
+
+        bCancelar.setText("Cancelar");
+
         javax.swing.GroupLayout pnDadosLayout = new javax.swing.GroupLayout(pnDados);
         pnDados.setLayout(pnDadosLayout);
         pnDadosLayout.setHorizontalGroup(
             pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDadosLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
+                        .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnDadosLayout.createSequentialGroup()
+                                .addGap(335, 335, 335)
+                                .addComponent(lblSexo1)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbxSexo1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnDadosLayout.createSequentialGroup()
+                                .addComponent(lblTipo)
+                                .addGap(97, 97, 97)
+                                .addComponent(bcxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnDadosLayout.createSequentialGroup()
+                                .addComponent(lblCidadeOrigem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCidadeOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosLayout.createSequentialGroup()
                         .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnDadosLayout.createSequentialGroup()
                                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosLayout.createSequentialGroup()
-                                        .addComponent(lblNome)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(34, 34, 34))
+                                    .addComponent(lblDoc)
+                                    .addComponent(lblNome))
+                                .addGap(53, 53, 53)
+                                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnDadosLayout.createSequentialGroup()
-                                        .addComponent(lblDoc)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(cbxDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbxDoc, 0, 175, Short.MAX_VALUE)
                                         .addGap(29, 29, 29)
-                                        .addComponent(txtDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                        .addComponent(txtDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNome)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(bCancelar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnDadosLayout.createSequentialGroup()
+                                .addComponent(bSalvar)
+                                .addGap(178, 178, 178))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosLayout.createSequentialGroup()
                                 .addComponent(lblSexo)
                                 .addGap(18, 18, 18)
-                                .addComponent(cbxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnDadosLayout.createSequentialGroup()
-                                .addGap(306, 306, 306)
-                                .addComponent(lblSexo1)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxSexo1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(lblTipo)
-                        .addGap(18, 18, 18)
-                        .addComponent(bcxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblCidadeOrigem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCidadeOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                                .addComponent(cbxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
         );
         pnDadosLayout.setVerticalGroup(
             pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +213,11 @@ public class InserirUsuarioView extends javax.swing.JDialog {
                     .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCidadeOrigem)
                         .addComponent(txtCidadeOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bSalvar)
+                    .addComponent(bCancelar))
+                .addGap(91, 91, 91))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -207,20 +225,20 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnTopo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addComponent(pnTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -271,6 +289,8 @@ public class InserirUsuarioView extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bCancelar;
+    private javax.swing.JButton bSalvar;
     private javax.swing.JComboBox<String> bcxTipo;
     private javax.swing.JComboBox<String> cbxDoc;
     private javax.swing.JComboBox<String> cbxSexo;

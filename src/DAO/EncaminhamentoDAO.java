@@ -73,8 +73,8 @@ public class EncaminhamentoDAO {
             comandoSQL.setString(3, encaminhamento.getStatusEnc());
             comandoSQL.setDouble(4, encaminhamento.getCpfFunc_FK());
             comandoSQL.setLong(5, encaminhamento.getnProntuarioUsu_FK());
-            comandoSQL.setLong(7, encaminhamento.getIdEndereco_FK());
-            comandoSQL.setDate(6, encaminhamento.getDataEnc());
+            comandoSQL.setLong(6, encaminhamento.getIdEndereco_FK());
+            comandoSQL.setDate(7, encaminhamento.getDataEnc());
             comandoSQL.setInt(8, encaminhamento.getIdEnc());
 
             comandoSQL.executeUpdate();
