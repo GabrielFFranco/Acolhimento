@@ -6,11 +6,13 @@
 package View;
 
 import DAO.EncaminhamentoDAO;
+import DAO.EnderecoDAO;
+import DAO.FuncionarioDAO;
 import Model.Encaminhamento;
+import Model.Endereco;
+import Model.Funcionario;
 import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -40,8 +42,8 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
         lblNomeEnc = new javax.swing.JLabel();
         lblNomePrograma1 = new javax.swing.JLabel();
         pnDados = new javax.swing.JPanel();
-        lblNomeDoUsu = new javax.swing.JLabel();
-        txtNomeUsu = new javax.swing.JTextField();
+        lblNomeDoFuncionario = new javax.swing.JLabel();
+        txtCpfFunc = new javax.swing.JTextField();
         lblPeriodo = new javax.swing.JLabel();
         jcbTipoEncaminhamento = new javax.swing.JComboBox<>();
         jlStatus = new javax.swing.JLabel();
@@ -103,14 +105,14 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
         pnDados.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pnDados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblNomeDoUsu.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblNomeDoUsu.setForeground(new java.awt.Color(255, 255, 255));
-        lblNomeDoUsu.setText("Nome do Usuario");
-        pnDados.add(lblNomeDoUsu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        lblNomeDoFuncionario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblNomeDoFuncionario.setForeground(new java.awt.Color(255, 255, 255));
+        lblNomeDoFuncionario.setText("Nome do Usuario");
+        pnDados.add(lblNomeDoFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
-        txtNomeUsu.setBackground(new java.awt.Color(204, 204, 204));
-        txtNomeUsu.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        pnDados.add(txtNomeUsu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 410, -1));
+        txtCpfFunc.setBackground(new java.awt.Color(204, 204, 204));
+        txtCpfFunc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        pnDados.add(txtCpfFunc, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 410, -1));
 
         lblPeriodo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblPeriodo.setForeground(new java.awt.Color(255, 255, 255));
@@ -145,11 +147,11 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Id Enc", "Usuário", "Tipo", "Status", "Data"
+                "Cpf do Funcionario", "Tipo", "Status", "Data"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -163,14 +165,14 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
         lblPeriodoA.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblPeriodoA.setForeground(new java.awt.Color(255, 255, 255));
         lblPeriodoA.setText("Á");
-        pnDados.add(lblPeriodoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, -1, -1));
-        pnDados.add(txtPrimeiraData, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 100, -1));
+        pnDados.add(lblPeriodoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, -1));
+        pnDados.add(txtPrimeiraData, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 100, -1));
 
         lblTipoDeEncaminhamento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblTipoDeEncaminhamento.setForeground(new java.awt.Color(255, 255, 255));
         lblTipoDeEncaminhamento.setText("Tipo");
         pnDados.add(lblTipoDeEncaminhamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
-        pnDados.add(txtSegundaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 100, -1));
+        pnDados.add(txtSegundaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, 100, -1));
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -195,10 +197,11 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
         } else {
             try {
                 InserirEncaminhamentoView insEnc = new InserirEncaminhamentoView(this,true);
-                insEnc.preencherEncaminhamento(((int) jtEncaminhamento.getValueAt(linhaSelecionada, 0)));
+                insEnc.preencherEncaminhamento((int) jtEncaminhamento.getValueAt(linhaSelecionada, 0));
                 insEnc.setVisible(true);
+                
             } catch (ParseException ex) {
-                Logger.getLogger(BuscarEncaminhamentoView.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
         }
         
@@ -209,7 +212,7 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
         List<Encaminhamento> lista;
         String comando = "select * from encaminhamento";
         
-        if (!"".equals(txtNomeUsu.getText())
+        if (!"".equals(txtCpfFunc.getText())
                 || !"".equals(txtPrimeiraData.getText())
                 || !"".equals(txtSegundaData.getText())
                 || !"Selecione".equals(jcbStatus.getSelectedItem())
@@ -217,18 +220,18 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
             
             comando = comando + " where";
 
-            if (!"".equals(txtNomeUsu.getText())) {
-                comando = comando + " nomeUsu = '" + txtNomeUsu.getText() + "' and";
+            if (!"".equals(txtCpfFunc.getText())) {
+                comando = comando + " cpfFunc = '" + txtCpfFunc.getText() + "' and";
             }
             if (!"".equals(txtPrimeiraData.getText()) && !"".equals(txtSegundaData.getText()) ) {
-                comando = comando + " dataEnc BETWEEN '" + txtPrimeiraData.getText() + "' and '" 
+                comando = comando + " dataEnc BETWEEN '" + txtPrimeiraData.getText() + "' and" 
                         + txtSegundaData.getText() + "' and";
             }
             if (!"Selecione".equals(jcbStatus.getSelectedItem())) {
-                comando = comando + " statusEnc = '" + jcbStatus.getSelectedItem() + "' and";
+                comando = comando + " statusFunc = '" + jcbStatus.getSelectedItem() + "' and";
             }
             if (!"Selecione".equals(jcbTipoEncaminhamento.getSelectedItem())) {
-                comando = comando + " tipoEnc = '" + jcbTipoEncaminhamento.getSelectedItem() + "' and";
+                comando = comando + " tipoFunc = '" + jcbTipoEncaminhamento.getSelectedItem() + "' and";
             }
             
             comando = comando.substring(0, comando.length() - 4);
@@ -240,13 +243,8 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
         
         DefaultTableModel modelo = (DefaultTableModel) jtEncaminhamento.getModel();
                 
-        for (int i = modelo.getRowCount() - 1; i > -1; i--) {
-            modelo.removeRow(i);
-        }
-        
         for (Encaminhamento encaminhamento : lista){
             Object[] vetor = new Object[]{
-                encaminhamento.getIdEnc(),
                 encaminhamento.getCpfFunc_FK(),
                 encaminhamento.getTipoEnc(),
                 encaminhamento.getStatusEnc(),
@@ -327,7 +325,7 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jcbTipoEncaminhamento;
     private javax.swing.JLabel jlStatus;
     private javax.swing.JTable jtEncaminhamento;
-    private javax.swing.JLabel lblNomeDoUsu;
+    private javax.swing.JLabel lblNomeDoFuncionario;
     private javax.swing.JLabel lblNomeEnc;
     private javax.swing.JLabel lblNomePrograma1;
     private javax.swing.JLabel lblPeriodo;
@@ -335,7 +333,7 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
     private javax.swing.JLabel lblTipoDeEncaminhamento;
     private javax.swing.JPanel pnDados;
     private javax.swing.JPanel pnTopo;
-    private javax.swing.JTextField txtNomeUsu;
+    private javax.swing.JTextField txtCpfFunc;
     private javax.swing.JTextField txtPrimeiraData;
     private javax.swing.JTextField txtSegundaData;
     // End of variables declaration//GEN-END:variables
