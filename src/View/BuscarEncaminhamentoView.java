@@ -107,7 +107,7 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
 
         lblNomeDoFuncionario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblNomeDoFuncionario.setForeground(new java.awt.Color(255, 255, 255));
-        lblNomeDoFuncionario.setText("Nome do Usuario");
+        lblNomeDoFuncionario.setText("Nº Prontuario");
         pnDados.add(lblNomeDoFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         txtCpfFunc.setBackground(new java.awt.Color(204, 204, 204));
@@ -196,7 +196,7 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
         if (linhaSelecionada == -1) {
         } else {
             try {
-                InserirEncaminhamentoView insEnc = new InserirEncaminhamentoView(this,true);
+                InserirEncaminhamentoView insEnc = new InserirEncaminhamentoView(new javax.swing.JFrame(),true);
                 insEnc.preencherEncaminhamento((int) jtEncaminhamento.getValueAt(linhaSelecionada, 0));
                 insEnc.setVisible(true);
                 
@@ -221,17 +221,17 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
             comando = comando + " where";
 
             if (!"".equals(txtCpfFunc.getText())) {
-                comando = comando + " cpfFunc = '" + txtCpfFunc.getText() + "' and";
+                comando = comando + " nProntuarioUsu = '" + txtCpfFunc.getText() + "' and";
             }
             if (!"".equals(txtPrimeiraData.getText()) && !"".equals(txtSegundaData.getText()) ) {
                 comando = comando + " dataEnc BETWEEN '" + txtPrimeiraData.getText() + "' and" 
                         + txtSegundaData.getText() + "' and";
             }
             if (!"Selecione".equals(jcbStatus.getSelectedItem())) {
-                comando = comando + " statusFunc = '" + jcbStatus.getSelectedItem() + "' and";
+                comando = comando + " statusEnc = " + jcbStatus.getSelectedItem() + " and";
             }
             if (!"Selecione".equals(jcbTipoEncaminhamento.getSelectedItem())) {
-                comando = comando + " tipoFunc = '" + jcbTipoEncaminhamento.getSelectedItem() + "' and";
+                comando = comando + " tipoEnc = '" + jcbTipoEncaminhamento.getSelectedItem() + "' and";
             }
             
             comando = comando.substring(0, comando.length() - 4);
@@ -243,9 +243,13 @@ public class BuscarEncaminhamentoView extends javax.swing.JDialog {
         
         DefaultTableModel modelo = (DefaultTableModel) jtEncaminhamento.getModel();
                 
+        for (int i = modelo.getRowCount() - 1; i > -1; i--) {
+            modelo.removeRow(i);
+        }
+        
         for (Encaminhamento encaminhamento : lista){
             Object[] vetor = new Object[]{
-                encaminhamento.getCpfFunc_FK(),
+                encaminhamento.getIdEnc(),
                 encaminhamento.getTipoEnc(),
                 encaminhamento.getStatusEnc(),
                 encaminhamento.getDataEnc()

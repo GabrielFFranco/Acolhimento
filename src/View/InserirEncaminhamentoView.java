@@ -32,7 +32,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
     /**
      * Creates new form InserirUsuarioView
      */
-    public InserirEncaminhamentoView(java.awt.Dialog parent, boolean modal) {
+    public InserirEncaminhamentoView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         List<Usuario> lista = new UsuarioDAO().listar();
@@ -168,7 +168,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
 
         jlCidade1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jlCidade1.setForeground(new java.awt.Color(255, 255, 255));
-        jlCidade1.setText("<html>Funcionário que realizou<br/>\no encaminhamento");
+        jlCidade1.setText("<html>CPF do funcionário que realizou<br/> o encaminhamento");
 
         txtFuncRealizouEnc.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -194,7 +194,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
             }
         });
 
-        cbNProntuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbNProntuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0" }));
         cbNProntuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 trocaNPront(evt);
@@ -230,7 +230,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
                         .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnDadosLayout.createSequentialGroup()
                                 .addComponent(jcbNomes, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                                 .addComponent(jlNProntuario))
                             .addGroup(pnDadosLayout.createSequentialGroup()
                                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -368,7 +368,8 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
 
         if (this.idEnc != 0) {
             
-            endereco.setIdEnd(this.idEnc);
+            encaminhamento.setIdEnc(this.idEnc);
+            endereco.setIdEnd((int) encaminhamentoDAO.getEncaminhamento(idEnc).getIdEndereco_FK());
             enderecoDAO.altEndereco(endereco);
             encaminhamentoDAO.altEncaminhamento(encaminhamento);
             
@@ -403,12 +404,12 @@ int i = cbNProntuario.getSelectedIndex();
         
         endereco = enderecoDAO.getEndereco((int)encaminhamento.getIdEndereco_FK());
         
-        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-        Funcionario funcionario;
-        
-        funcionario = funcionarioDAO.getFuncionario(encaminhamento.getCpfFunc_FK());
-        
-        cbNProntuario.setText(funcionario.getNomeFunc());
+        for (int i = 0; i < cbNProntuario.getItemCount(); i++) {
+            if (Double.parseDouble(cbNProntuario.getItemAt(i)) == encaminhamento.getnProntuarioUsu_FK()) {
+                cbNProntuario.setSelectedIndex(i);
+                jcbNomes.setSelectedIndex(i);
+            }
+        };
         
         for (int i = 0; i < jcbTipoEncaminhamento.getItemCount(); i++) {
             if (jcbTipoEncaminhamento.getItemAt(i).equals(encaminhamento.getTipoEnc())) {
@@ -421,7 +422,7 @@ int i = cbNProntuario.getSelectedIndex();
         txtBairro.setText(endereco.getBairro());
         txtCidade.setText(endereco.getCidade());
         txtCep.setText(String.valueOf(endereco.getCep()));
-        txtFuncRealizouEnc.setText(funcionario.getNomeFunc());
+        txtFuncRealizouEnc.setText(String.valueOf(encaminhamento.getCpfFunc_FK()));
         for (int i = 0; i < jcbStatus.getItemCount(); i++) {
             if (jcbStatus.getItemAt(i).equals(encaminhamento.getStatusEnc())) {
                 jcbStatus.setSelectedIndex(i);
@@ -466,7 +467,7 @@ int i = cbNProntuario.getSelectedIndex();
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                InserirEncaminhamentoView dialog = new InserirEncaminhamentoView(new javax.swing.JDialog(), true);
+                InserirEncaminhamentoView dialog = new InserirEncaminhamentoView(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

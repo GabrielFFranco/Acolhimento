@@ -177,7 +177,8 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        pack();
+        setSize(new java.awt.Dimension(763, 580));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void bEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEditarActionPerformed
@@ -187,7 +188,7 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
         if (linhaSelecionada == -1) {
         } else {
             try {
-                InserirFuncionarioView insFunc = new InserirFuncionarioView(this, true);
+                InserirFuncionarioView insFunc = new InserirFuncionarioView(new javax.swing.JFrame(), true);
                 insFunc.preencherFuncionario((double) jtFuncionarios.getValueAt(linhaSelecionada, 0));
                 insFunc.setVisible(true);
             } catch (ParseException ex) {
