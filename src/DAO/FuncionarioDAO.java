@@ -29,9 +29,9 @@ public class FuncionarioDAO {
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setDouble(1, funcionario.getCpfFunc());
+            comandoSQL.setString(1, funcionario.getCpfFunc());
             comandoSQL.setString(2, funcionario.getNomeFunc());
-            comandoSQL.setDouble(3, funcionario.getRgFunc());
+            comandoSQL.setString(3, funcionario.getRgFunc());
             comandoSQL.setDate(4, funcionario.getDataNascFunc());
             comandoSQL.setString(5, funcionario.getTelefoneFunc());
             comandoSQL.setString(6, funcionario.getEmailFunc());
@@ -60,9 +60,9 @@ public class FuncionarioDAO {
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setDouble(8, funcionario.getCpfFunc());
+            comandoSQL.setString(8, funcionario.getCpfFunc());
             comandoSQL.setString(1, funcionario.getNomeFunc());
-            comandoSQL.setDouble(2, funcionario.getRgFunc());
+            comandoSQL.setString(2, funcionario.getRgFunc());
             comandoSQL.setDate(3, funcionario.getDataNascFunc());
             comandoSQL.setString(4, funcionario.getTelefoneFunc());
             comandoSQL.setString(5, funcionario.getEmailFunc());
@@ -100,9 +100,9 @@ public class FuncionarioDAO {
 
                 Funcionario funcionario = new Funcionario();
                 
-                funcionario.setCpfFunc(retorno.getDouble("cpfFunc"));
+                funcionario.setCpfFunc(retorno.getString("cpfFunc"));
                 funcionario.setNomeFunc(retorno.getString("nomeFunc"));
-                funcionario.setRgFunc(retorno.getDouble("rgFunc"));
+                funcionario.setRgFunc(retorno.getString("rgFunc"));
                 funcionario.setDataNascFunc(retorno.getDate("dataNascFunc"));
                 funcionario.setTelefoneFunc(retorno.getString("telefoneFunc"));
                 funcionario.setEmailFunc(retorno.getString("emailFunc"));
@@ -152,9 +152,9 @@ public class FuncionarioDAO {
 
             while (retorno.next()) {
 
-                funcionario.setCpfFunc(retorno.getDouble("cpfFunc"));
+                funcionario.setCpfFunc(retorno.getString("cpfFunc"));
                 funcionario.setNomeFunc(retorno.getString("nomeFunc"));
-                funcionario.setRgFunc(retorno.getDouble("rgFunc"));
+                funcionario.setRgFunc(retorno.getString("rgFunc"));
                 funcionario.setDataNascFunc(retorno.getDate("dataNascFunc"));
                 funcionario.setTelefoneFunc(retorno.getString("telefoneFunc"));
                 funcionario.setEmailFunc(retorno.getString("emailFunc"));
