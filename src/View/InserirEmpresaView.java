@@ -20,12 +20,15 @@ public class InserirEmpresaView extends javax.swing.JDialog {
 
     /**
      * Creates new form InserirUsuarioView
+     * @param parent
+     * @param modal
      */
     public InserirEmpresaView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         jtfNumero.setDocument(new CamposNumericos());
         txtNVagas.setDocument(new CamposNumericos());
+        this.preencherTela();
     }
 
     /**
@@ -59,7 +62,6 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         jtfCidade = new javax.swing.JTextField();
         jlCep = new javax.swing.JLabel();
         bCancelar = new javax.swing.JButton();
-        bBuscar = new javax.swing.JButton();
         jtfCNPJ = new javax.swing.JFormattedTextField();
         jtfCep = new javax.swing.JFormattedTextField();
 
@@ -87,7 +89,7 @@ public class InserirEmpresaView extends javax.swing.JDialog {
                 .addComponent(lblNomePrograma1)
                 .addGap(131, 131, 131)
                 .addComponent(lblNomeFunc)
-                .addContainerGap(446, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnTopoLayout.setVerticalGroup(
             pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,15 +175,6 @@ public class InserirEmpresaView extends javax.swing.JDialog {
             }
         });
 
-        bBuscar.setBackground(new java.awt.Color(204, 204, 204));
-        bBuscar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        bBuscar.setText("Buscar");
-        bBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBuscarActionPerformed(evt);
-            }
-        });
-
         jtfCNPJ.setBackground(new java.awt.Color(204, 204, 204));
         try {
             jtfCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####.##")));
@@ -228,16 +221,15 @@ public class InserirEmpresaView extends javax.swing.JDialog {
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtfCNPJ)
                     .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addComponent(jtfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jtfCep))
+                        .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 22, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(bCancelar)
-                .addGap(234, 234, 234)
-                .addComponent(bBuscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bSalvar)
                 .addGap(55, 55, 55))
         );
@@ -279,8 +271,7 @@ public class InserirEmpresaView extends javax.swing.JDialog {
                 .addGap(34, 34, 34)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bSalvar)
-                    .addComponent(bCancelar)
-                    .addComponent(bBuscar))
+                    .addComponent(bCancelar))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -291,8 +282,9 @@ public class InserirEmpresaView extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(pnTopo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,11 +303,10 @@ public class InserirEmpresaView extends javax.swing.JDialog {
 
     }//GEN-LAST:event_bCancelarActionPerformed
 
-    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-
+    private void preencherTela(){
         EmpresaDAO empresaDAO = new EmpresaDAO();
         if (empresaDAO.getEmpresa() == null) {
-            JOptionPane.showMessageDialog(this, "Não existe Empresa cadastrada.");
+            
         } else {
             Empresa empresa = empresaDAO.getEmpresa();
 
@@ -332,11 +323,17 @@ public class InserirEmpresaView extends javax.swing.JDialog {
             jtfBairro.setText(endereco.getBairro());
             jtfCidade.setText(endereco.getCidade());
             jtfCep.setText(endereco.getCep());
+            
+            jtfCNPJ.setEnabled(false);
         }
-    }//GEN-LAST:event_bBuscarActionPerformed
-
+    }
+    
     private void bSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalvarActionPerformed
 
+        if(new EmpresaDAO().getEmpresa() != null){
+            
+        }
+        
         Empresa empresa = new Empresa();
         EmpresaDAO empresaDAO = new EmpresaDAO();
 
@@ -359,10 +356,12 @@ public class InserirEmpresaView extends javax.swing.JDialog {
             empresa.setIdEndereco_FK(endereco.getIdEnd());
             enderecoDAO.altEndereco(endereco);
             empresaDAO.altEmpresa(empresa);
+            JOptionPane.showMessageDialog(this, "Empresa Alterada com sucesso.");
         } else if (empresaDAO.getEmpresa() == null) {
             enderecoDAO.setEndereco(endereco);
             empresa.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
             empresaDAO.setEmpresa(empresa);
+            JOptionPane.showMessageDialog(this, "Empresa Inserida com sucesso.");
         } else {
             JOptionPane.showMessageDialog(this, "Já existe uma Empresa cadastrada.");
         }
@@ -385,37 +384,33 @@ public class InserirEmpresaView extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InserirEmpresaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InserirEmpresaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InserirEmpresaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(InserirEmpresaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InserirEmpresaView dialog = new InserirEmpresaView(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            InserirEmpresaView dialog = new InserirEmpresaView(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bBuscar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JButton bSalvar;
     private javax.swing.JLabel jlBairro;
