@@ -189,7 +189,7 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
         } else {
             try {
                 InserirFuncionarioView insFunc = new InserirFuncionarioView(new javax.swing.JFrame(), true);
-                insFunc.preencherFuncionario((double) jtFuncionarios.getValueAt(linhaSelecionada, 0));
+                insFunc.preencherFuncionario((String) jtFuncionarios.getValueAt(linhaSelecionada, 0));
                 insFunc.setVisible(true);
             } catch (ParseException ex) {
                 ex.printStackTrace();
@@ -226,7 +226,7 @@ public class BuscarFuncionarioView extends javax.swing.JDialog {
             comando = comando.substring(0, comando.length() - 4);
         }
         System.out.println(comando);
-        lista = new FuncionarioDAO().getFuncionario(comando);
+        lista = new FuncionarioDAO().listarFuncionarios(comando);
 
         DefaultTableModel modelo = (DefaultTableModel) jtFuncionarios.getModel();
 
