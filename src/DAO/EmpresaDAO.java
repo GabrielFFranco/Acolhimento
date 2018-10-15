@@ -26,14 +26,14 @@ public class EmpresaDAO {
      */
     public void setEmpresa(Empresa empresa) {
 
-        String comando = "insert into empresa values (?,?,?,?,?)";
+        String setar = "insert into empresa values (?,?,?,?,?)";
 
         try {
             Connection conexao = new Conexao().getConnection();
 
-            PreparedStatement comandoSQL = conexao.prepareStatement(comando);
+            PreparedStatement comandoSQL = conexao.prepareStatement(setar);
 
-            comandoSQL.setDouble(1, empresa.getCnpjEmp());
+            comandoSQL.setString(1, empresa.getCnpjEmp());
             comandoSQL.setString(2, empresa.getNomeEmp());
             comandoSQL.setInt(3, empresa.getNumeroVagasEmp());
             comandoSQL.setString(4, empresa.getRazaoSocialEmp());
@@ -65,7 +65,7 @@ public class EmpresaDAO {
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setDouble(5, empresa.getCnpjEmp());
+            comandoSQL.setString(5, empresa.getCnpjEmp());
             comandoSQL.setString(1, empresa.getNomeEmp());
             comandoSQL.setInt(2, empresa.getNumeroVagasEmp());
             comandoSQL.setString(3, empresa.getRazaoSocialEmp());
@@ -106,7 +106,7 @@ public class EmpresaDAO {
                 retorno.beforeFirst();
                 while (retorno.next()) {
 
-                    empresa.setCnpjEmp(retorno.getDouble("cnpjEmp"));
+                    empresa.setCnpjEmp(retorno.getString("cnpjEmp"));
                     empresa.setNomeEmp(retorno.getString("nomeEmp"));
                     empresa.setNumeroVagasEmp(retorno.getInt("numeroVagasEmp"));
                     empresa.setRazaoSocialEmp(retorno.getString("razaoSocialEmp"));

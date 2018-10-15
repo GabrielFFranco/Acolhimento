@@ -5,6 +5,7 @@
  */
 package View;
 
+import Control.CamposNumericos;
 import DAO.EnderecoDAO;
 import DAO.FuncionarioDAO;
 import Model.Endereco;
@@ -28,6 +29,9 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
     public InserirFuncionarioView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        txtNumero.setDocument(new CamposNumericos());
+        txtRg.setDocument(new CamposNumericos());
+        txtTelefone.setDocument(new CamposNumericos());
     }
 
     /**
@@ -43,15 +47,14 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
         lNome = new javax.swing.JLabel();
         lCpf = new javax.swing.JLabel();
         lDataNasc = new javax.swing.JLabel();
+        txtDataNasc = new javax.swing.JFormattedTextField();
         lEmail = new javax.swing.JLabel();
         lEndereco = new javax.swing.JLabel();
         lBairro = new javax.swing.JLabel();
         lCidade = new javax.swing.JLabel();
         lTipo = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        txtCpf = new javax.swing.JTextField();
         lRg = new javax.swing.JLabel();
-        txtDataNasc = new javax.swing.JTextField();
         lTelefone = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         txtEndereco = new javax.swing.JTextField();
@@ -66,8 +69,9 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
         txtRg = new javax.swing.JTextField();
         txtTelefone = new javax.swing.JTextField();
         txtNumero = new javax.swing.JTextField();
-        txtCep = new javax.swing.JTextField();
         cbStatus = new javax.swing.JComboBox<>();
+        txtCpf = new javax.swing.JFormattedTextField();
+        txtCep = new javax.swing.JFormattedTextField();
         pnTopo = new javax.swing.JPanel();
         lblNomeEnc = new javax.swing.JLabel();
         lblNomePrograma1 = new javax.swing.JLabel();
@@ -86,7 +90,13 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
         lDataNasc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lDataNasc.setForeground(new java.awt.Color(255, 255, 255));
-        lDataNasc.setText("Data de Nasc.");
+        lDataNasc.setText("Data de Nasc.*");
+
+        try {
+            txtDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         lEmail.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lEmail.setForeground(new java.awt.Color(255, 255, 255));
@@ -94,19 +104,19 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
         lEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lEndereco.setForeground(new java.awt.Color(255, 255, 255));
-        lEndereco.setText("Endereço");
+        lEndereco.setText("Endereço*");
 
         lBairro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lBairro.setForeground(new java.awt.Color(255, 255, 255));
-        lBairro.setText("Bairro");
+        lBairro.setText("Bairro*");
 
         lCidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lCidade.setForeground(new java.awt.Color(255, 255, 255));
-        lCidade.setText("Cidade");
+        lCidade.setText("Cidade*");
 
         lTipo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lTipo.setForeground(new java.awt.Color(255, 255, 255));
-        lTipo.setText("Tipo");
+        lTipo.setText("Tipo*");
 
         lRg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lRg.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,17 +124,17 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
         lTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lTelefone.setForeground(new java.awt.Color(255, 255, 255));
-        lTelefone.setText("Telefone");
+        lTelefone.setText("Telefone*");
 
         lNumero.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lNumero.setForeground(new java.awt.Color(255, 255, 255));
-        lNumero.setText("Nº");
+        lNumero.setText("Nº*");
 
         lCep.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lCep.setForeground(new java.awt.Color(255, 255, 255));
-        lCep.setText("CEP");
+        lCep.setText("CEP*");
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auxiliar", "Coordenador", "Tecnico" }));
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Auxiliar", "Coordenador", "Tecnico" }));
 
         txtStatus.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtStatus.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,10 +154,28 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
         cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo", " " }));
 
+        try {
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,24 +216,24 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
                                     .addComponent(lCep)
                                     .addComponent(txtStatus))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lDataNasc)
-                                        .addGap(11, 11, 11)
-                                        .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lCpf)
-                                        .addGap(67, 67, 67)
-                                        .addComponent(txtCpf)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(65, 65, 65))
+                                    .addComponent(txtCep)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lDataNasc)
+                                    .addComponent(lCpf))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtDataNasc)
+                                    .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lRg)
-                                        .addGap(34, 34, 34)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lTelefone)
@@ -213,12 +241,6 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
                                         .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(136, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,17 +249,22 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lCpf)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lRg)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lCpf)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lRg)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lDataNasc)
-                    .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lDataNasc)
+                        .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lTelefone)
                         .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -256,13 +283,16 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lBairro)
                     .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lCidade)
-                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lCep)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lCidade)
+                            .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lCep)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
@@ -321,7 +351,7 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 5, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pnTopo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -348,17 +378,12 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
         try {
 
-            //Lendo os campos numéricos
-            try {
-                funcionario.setCpfFunc(Double.parseDouble(txtCpf.getText()));
-                funcionario.setRgFunc(Double.parseDouble(txtRg.getText()));
-                funcionario.setTelefoneFunc(txtTelefone.getText());
+            funcionario.setCpfFunc(txtCpf.getText());
+            funcionario.setRgFunc(txtRg.getText());
+            funcionario.setTelefoneFunc(txtTelefone.getText());
 
-                endereco.setNumEnd(Integer.parseInt(txtNumero.getText()));
-                endereco.setCep(Double.parseDouble(txtCep.getText()));
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Por favor, não digite texto em campos númericos.");
-            }
+            endereco.setNumEnd(Integer.parseInt(txtNumero.getText()));
+            endereco.setCep(txtCep.getText());
 
             //Setando Data
             SimpleDateFormat form = new SimpleDateFormat("dd/MM/yyyy");
@@ -377,23 +402,28 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
             endereco.setBairro(txtBairro.getText());
             endereco.setCidade(txtCidade.getText());
 
-            if (new FuncionarioDAO().getFuncionario(funcionario.getCpfFunc()).getCpfFunc()
-                    == funcionario.getCpfFunc()) {
-                endereco.setIdEnd(funcionarioDAO.getFuncionario(funcionario.getCpfFunc()).getIdEndereco_FK());
-                enderecoDAO.altEndereco(endereco);
-                funcionarioDAO.altEndereco(funcionario);
-
-            } else {
+            try {
+                if (new FuncionarioDAO().getFuncionario(funcionario.getCpfFunc()).getCpfFunc().equals(funcionario.getCpfFunc())) {
+                    endereco.setIdEnd(funcionarioDAO.getFuncionario(funcionario.getCpfFunc()).getIdEndereco_FK());
+                    enderecoDAO.altEndereco(endereco);
+                    funcionarioDAO.altEndereco(funcionario);
+                } else {
+                    enderecoDAO.setEndereco(endereco);
+                    funcionario.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
+                    funcionarioDAO.setFuncionario(funcionario);
+                }
+            } catch (NullPointerException ex) {
                 enderecoDAO.setEndereco(endereco);
                 funcionario.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
                 funcionarioDAO.setFuncionario(funcionario);
             }
+
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_bSalvarActionPerformed
 
-    public void preencherFuncionario(double cpfFunc) throws ParseException {
+    public void preencherFuncionario(String cpfFunc) throws ParseException {
 
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         Funcionario funcionario;
@@ -407,17 +437,17 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
 
         txtCpf.setEditable(false);
         txtCpf.setEnabled(false);
-        txtCpf.setText(String.format("%.0f", funcionario.getCpfFunc()));
+        txtCpf.setText(funcionario.getCpfFunc());
 
-        txtNome.setText(String.valueOf(funcionario.getNomeFunc()));
-        txtRg.setText(String.format("%.0f", funcionario.getRgFunc()));
+        txtNome.setText(funcionario.getNomeFunc());
+        txtRg.setText(funcionario.getRgFunc());
 
         SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
         txtDataNasc.setText(out.format(in.parse(String.valueOf(funcionario.getDataNascFunc()))));
 
-        txtTelefone.setText(String.valueOf(funcionario.getTelefoneFunc()));
-        txtEmail.setText(String.valueOf(funcionario.getEmailFunc()));
+        txtTelefone.setText(funcionario.getTelefoneFunc());
+        txtEmail.setText(funcionario.getEmailFunc());
 
         for (int i = 0; i < cbTipo.getItemCount(); i++) {
             if (cbTipo.getItemAt(i).equals(funcionario.getTipoFunc())) {
@@ -435,7 +465,7 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
         txtNumero.setText(String.valueOf(endereco.getNumEnd()));
         txtBairro.setText(endereco.getBairro());
         txtCidade.setText(endereco.getCidade());
-        txtCep.setText(String.format("%.0f", endereco.getCep()));
+        txtCep.setText(endereco.getCep());
 
     }
 
@@ -504,10 +534,10 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
     private javax.swing.JLabel lblNomePrograma1;
     private javax.swing.JPanel pnTopo;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtCep;
+    private javax.swing.JFormattedTextField txtCep;
     private javax.swing.JTextField txtCidade;
-    private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtDataNasc;
+    private javax.swing.JFormattedTextField txtCpf;
+    private javax.swing.JFormattedTextField txtDataNasc;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;

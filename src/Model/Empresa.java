@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class Empresa {
 
-    private double cnpjEmp;
+    private String cnpjEmp;
     private String nomeEmp;
     private int numeroVagasEmp;
     private String razaoSocialEmp;
@@ -27,28 +27,20 @@ public class Empresa {
     public Empresa(){
         
     }
-    
-    public Empresa(double cnpjEmp, String nomeEmp, int numeroVagasEmp, String razaoSocialEmp, int idEndereco) {
+
+    public Empresa(String cnpjEmp, String nomeEmp, int numeroVagasEmp, String razaoSocialEmp, int idEndereco_FK) {
         this.cnpjEmp = cnpjEmp;
         this.nomeEmp = nomeEmp;
         this.numeroVagasEmp = numeroVagasEmp;
         this.razaoSocialEmp = razaoSocialEmp;
-        this.idEndereco_FK = idEndereco;
-    }
-    
-    public int getIdEndereco_FK() {
-        return idEndereco_FK;
-    }
-
-    public void setIdEndereco_FK(int idEndereco_FK) {
         this.idEndereco_FK = idEndereco_FK;
     }
 
-    public double getCnpjEmp() {
+    public String getCnpjEmp() {
         return cnpjEmp;
     }
 
-    public void setCnpjEmp(double cnpjEmp) {
+    public void setCnpjEmp(String cnpjEmp) {
         this.cnpjEmp = cnpjEmp;
     }
 
@@ -74,6 +66,14 @@ public class Empresa {
 
     public void setRazaoSocialEmp(String razaoSocialEmp) {
         this.razaoSocialEmp = razaoSocialEmp;
+    }
+
+    public int getIdEndereco_FK() {
+        return idEndereco_FK;
+    }
+
+    public void setIdEndereco_FK(int idEndereco_FK) {
+        this.idEndereco_FK = idEndereco_FK;
     }
     
     
