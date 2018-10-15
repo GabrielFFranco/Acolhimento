@@ -355,7 +355,7 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         encaminhamento.setTipoEnc(jcbTipoEncaminhamento.getSelectedItem().toString());
         encaminhamento.setStatusEnc(jcbStatus.getSelectedItem().toString());
         encaminhamento.setLocalEnc(txtLocalEncaminhamento.getText());
-        encaminhamento.setCpfFunc_FK(Double.parseDouble(txtFuncRealizouEnc.getText()));
+        encaminhamento.setCpfFunc_FK(txtFuncRealizouEnc.getText());
         java.util.Date dataUtil = new java.util.Date();  
         java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
         encaminhamento.setDataEnc(dataSql);

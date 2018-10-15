@@ -38,7 +38,7 @@ public class EncaminhamentoDAO {
             comandoSQL.setString(1, encaminhamento.getTipoEnc());
             comandoSQL.setString(2, encaminhamento.getLocalEnc());
             comandoSQL.setString(3, encaminhamento.getStatusEnc());
-            comandoSQL.setDouble(4, encaminhamento.getCpfFunc_FK());
+            comandoSQL.setString(4, encaminhamento.getCpfFunc_FK());
             comandoSQL.setLong(5, encaminhamento.getnProntuarioUsu_FK());
             comandoSQL.setDate(6, encaminhamento.getDataEnc());
             comandoSQL.setLong(7, encaminhamento.getIdEndereco_FK());
@@ -71,7 +71,7 @@ public class EncaminhamentoDAO {
             comandoSQL.setString(1, encaminhamento.getTipoEnc());
             comandoSQL.setString(2, encaminhamento.getLocalEnc());
             comandoSQL.setString(3, encaminhamento.getStatusEnc());
-            comandoSQL.setDouble(4, encaminhamento.getCpfFunc_FK());
+            comandoSQL.setString(4, encaminhamento.getCpfFunc_FK());
             comandoSQL.setLong(5, encaminhamento.getnProntuarioUsu_FK());
             comandoSQL.setLong(7, encaminhamento.getIdEndereco_FK());
             comandoSQL.setDate(6, encaminhamento.getDataEnc());
@@ -113,7 +113,7 @@ public class EncaminhamentoDAO {
                 encaminhamento.setTipoEnc(retorno.getString("tipoEnc"));
                 encaminhamento.setLocalEnc(retorno.getString("localEnc"));
                 encaminhamento.setStatusEnc(retorno.getString("statusEnc"));
-                encaminhamento.setCpfFunc_FK(retorno.getLong("cpfFunc"));
+                encaminhamento.setCpfFunc_FK(retorno.getString("cpfFunc"));
                 encaminhamento.setnProntuarioUsu_FK(retorno.getLong("nProntuarioUsu"));
                 encaminhamento.setDataEnc(retorno.getDate("dataEnc"));
                 encaminhamento.setIdEndereco_FK(retorno.getLong("idEndereco"));
@@ -153,7 +153,7 @@ public class EncaminhamentoDAO {
                 lista.setTipoEnc(retorno.getString("tipoEnc"));
                 lista.setLocalEnc(retorno.getString("localEnc"));
                 lista.setStatusEnc(retorno.getString("statusEnc"));
-                lista.setCpfFunc_FK(retorno.getLong("cpfFunc"));
+                lista.setCpfFunc_FK(retorno.getString("cpfFunc"));
                 lista.setnProntuarioUsu_FK(retorno.getLong("nProntuarioUsu"));
                 lista.setDataEnc(retorno.getDate("dataEnc"));
                 lista.setIdEndereco_FK(retorno.getLong("idEndereco"));
@@ -192,7 +192,7 @@ public class EncaminhamentoDAO {
                 lista.setTipoEnc(retorno.getString("tipoEnc"));
                 lista.setLocalEnc(retorno.getString("localEnc"));
                 lista.setStatusEnc(retorno.getString("statusEnc"));
-                lista.setCpfFunc_FK(retorno.getLong("cpfFunc"));
+                lista.setCpfFunc_FK(retorno.getString("cpfFunc"));
                 lista.setnProntuarioUsu_FK(retorno.getLong("nProntuarioUsu"));
                 lista.setDataEnc(retorno.getDate("dataEnc"));
                 lista.setIdEndereco_FK(retorno.getLong("idEndereco"));
