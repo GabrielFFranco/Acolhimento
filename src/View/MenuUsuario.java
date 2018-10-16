@@ -36,7 +36,7 @@ public class MenuUsuario extends javax.swing.JFrame {
         lblInserir = new javax.swing.JLabel();
         lblInserir1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pnTopo.setBackground(new java.awt.Color(204, 204, 204));
         pnTopo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -148,6 +148,7 @@ public class MenuUsuario extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblInserirFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInserirFuncionarioMouseClicked

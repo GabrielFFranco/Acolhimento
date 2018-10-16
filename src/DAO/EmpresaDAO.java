@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Control.Conexao;
+import Control.AbrirConexao;
 import Model.Empresa;
 import Model.Funcionario;
 import java.sql.Connection;
@@ -29,7 +29,7 @@ public class EmpresaDAO {
         String setar = "insert into empresa values (?,?,?,?,?)";
 
         try {
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(setar);
 
@@ -61,7 +61,7 @@ public class EmpresaDAO {
                 + "razaoSocialEmp = ? where cnpjEmp = ?";
 
         try {
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
@@ -93,7 +93,7 @@ public class EmpresaDAO {
 
         try {
 
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(listarEmpresa);
 

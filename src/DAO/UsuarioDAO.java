@@ -1,6 +1,6 @@
 package DAO;
 
-import Control.Conexao;
+import Control.AbrirConexao;
 import Model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,9 +21,14 @@ public class UsuarioDAO {
                 + "dataDeEntrada, "
                 + "cpfFunc, idEndereco) value (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
+        if(usuario.getIdEndereco_FK() == 0){
+            comando = comando.substring(0, comando.length() - 57) 
+                    + ") value (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        }
+        
         try {
 
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
@@ -44,8 +49,10 @@ public class UsuarioDAO {
             comandoSQL.setString(15, usuario.getCidadeDestino());
             comandoSQL.setDate(16, new java.sql.Date(new java.util.Date().getTime()));
             comandoSQL.setString(17, usuario.getResponsavel_FK());
-            comandoSQL.setInt(18, usuario.getIdEndereco_FK());
-
+            if(usuario.getIdEndereco_FK() != 0){
+            comandoSQL.setObject(18, usuario.getIdEndereco_FK());
+            }
+            
             comandoSQL.executeUpdate();
 
             comandoSQL.close();
@@ -62,11 +69,15 @@ public class UsuarioDAO {
                 + "documentoUsu = ?, cidadeOrigemUsu = ?, atendidoPeloFunc = ?, "
                 + "parecerTecnicoUsu = ?, drogasUsadasUsu = ?, "
                 + "situacao = ?, ultimaCidade = ?, cidadeDestino = ?, dataDeEntrada = ?, "
-                + "dataDeSaida = ?, cpfFunc = ? where nProntuarioUsu = ?";
+                + "dataDeSaida = ?, cpfFunc = ?, idEndereco  = ? where nProntuarioUsu = ?";
 
+        if(usuario.getIdEndereco_FK() == 0){
+            comando = comando.substring(0, comando.length() - 42) + " where nProntuarioUsu = ?";
+        }
+        
         try {
 
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
@@ -87,6 +98,10 @@ public class UsuarioDAO {
             comandoSQL.setDate(15, usuario.getDataDeEntrada());
             comandoSQL.setDate(16, usuario.getDataDeSaida());
             comandoSQL.setString(17, usuario.getResponsavel_FK());
+            if(usuario.getIdEndereco_FK() != 0){
+                comandoSQL.setInt(18, usuario.getIdEndereco_FK());
+                comandoSQL.setInt(19, usuario.getnProntuarioUsu());
+            }
             comandoSQL.setInt(18, usuario.getnProntuarioUsu());
 
             comandoSQL.executeUpdate();
@@ -105,7 +120,7 @@ public class UsuarioDAO {
 
         Connection conexao;
         try {
-            conexao = new Conexao().getConnection();
+            conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(listarUsuarios);
 
@@ -158,7 +173,7 @@ public class UsuarioDAO {
         Connection conexao;
         try {
 
-            conexao = new Conexao().getConnection();
+            conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 

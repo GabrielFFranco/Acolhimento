@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Control.Conexao;
+import Control.AbrirConexao;
 import Model.Funcionario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +25,7 @@ public class FuncionarioDAO {
         String comando = "insert into funcionario values (?,?,?,?,?,?,?,?,?)";
 
         try {
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
@@ -56,7 +56,7 @@ public class FuncionarioDAO {
 
         try {
 
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
@@ -89,7 +89,7 @@ public class FuncionarioDAO {
         ArrayList lista = new ArrayList();
 
         try {
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new Control.AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(listarFuncionarios);
 
@@ -131,7 +131,7 @@ public class FuncionarioDAO {
 
         try {
 
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
             PreparedStatement comandoSQL = conexao.prepareStatement(listarFuncionarios);
 
             comandoSQL.setString(1, cpf);

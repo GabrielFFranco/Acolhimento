@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Control.Conexao;
+import Control.AbrirConexao;
 import Model.Encaminhamento;
 import java.sql.Connection;
 import java.sql.Date;
@@ -31,7 +31,7 @@ public class EncaminhamentoDAO {
                 + " nProntuarioUsu, dataEnc, idEndereco) values (?,?,?,?,?,?,?)";
 
         try {
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
@@ -64,7 +64,7 @@ public class EncaminhamentoDAO {
                 + " where idEnc = ?";
 
         try {
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
@@ -100,7 +100,7 @@ public class EncaminhamentoDAO {
 
         Connection conexao;
         try {
-            conexao = new Conexao().getConnection();
+            conexao = new AbrirConexao().getConnection();
             
             PreparedStatement comandoSQL = conexao.prepareStatement(listaEnc);
 
@@ -142,7 +142,7 @@ public class EncaminhamentoDAO {
 
         try {
 
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
             PreparedStatement comandoSQL = conexao.prepareStatement(listarEncaminhamentos);
 
             comandoSQL.setLong(1, idEnc);
@@ -180,7 +180,7 @@ public class EncaminhamentoDAO {
 
         try {
 
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
             PreparedStatement comandoSQL = conexao.prepareStatement(listarEncaminhamentos);
 
             comandoSQL.setDate(1, dataum);

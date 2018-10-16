@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Control.Conexao;
+import Control.AbrirConexao;
 import Model.Endereco;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +29,7 @@ public class EnderecoDAO {
         
         try {
             
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
@@ -57,7 +57,7 @@ public class EnderecoDAO {
         
         try {
             
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
@@ -93,7 +93,7 @@ public class EnderecoDAO {
 
         try {
 
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
             PreparedStatement comandoSQL = conexao.prepareStatement(listarEncaminhamentos);
 
             comandoSQL.setLong(1, idEnd);
@@ -128,7 +128,7 @@ public class EnderecoDAO {
         
         try {
 
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
             ResultSet retorno = comandoSQL.executeQuery();

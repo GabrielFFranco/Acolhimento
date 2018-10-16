@@ -99,6 +99,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         btnUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/USUARIO_1.jpg"))); // NOI18N
+        btnUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUsuario(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 102, 255));
@@ -188,6 +193,7 @@ public class Menu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionarioMouseClicked
@@ -207,6 +213,11 @@ public class Menu extends javax.swing.JFrame {
         tela.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEncaminhamentoMouseClicked
+
+    private void btnUsuario(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuario
+        MenuUsuario tela = new MenuUsuario();
+        tela.setVisible(true);
+    }//GEN-LAST:event_btnUsuario
 
     /**
      * @param args the command line arguments

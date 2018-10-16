@@ -22,7 +22,9 @@ public class InserirUsuarioView extends javax.swing.JDialog {
         txtNum.setDocument(new CamposNumericos());
         List<Funcionario> lista = new FuncionarioDAO().listarFuncionarios("select * from funcionario");
         for (Funcionario funcionarioLista : lista) {
-            bcxResponsavel.addItem(funcionarioLista.getCpfFunc());
+            if (!funcionarioLista.getStatusFunc().equals("Inativo")) {
+                bcxResponsavel.addItem(funcionarioLista.getCpfFunc());
+            }
         }
     }
 
@@ -504,11 +506,14 @@ public class InserirUsuarioView extends javax.swing.JDialog {
             usuario.setTipoUsu((String) bcxTipo.getSelectedItem());
             usuario.setNomeUsu(txtNome.getText());
             usuario.setSexoUsu((String) cbxSexo.getSelectedItem());
-
+            
+            try{
             SimpleDateFormat form = new SimpleDateFormat("dd/MM/yyyy");
             java.util.Date dataUtil = form.parse(txtDataNascimento.getText());
             usuario.setDataNascUsu(new java.sql.Date(dataUtil.getTime()));
-
+            }catch(Exception e){
+                
+            }
             usuario.setAtendidoPeloFunc_FK("076.855.759-30");
             usuario.setTipoDoc((String) cbxDoc.getSelectedItem());
             usuario.setDocumentoUsu(txtDoc.getText());
@@ -536,7 +541,11 @@ public class InserirUsuarioView extends javax.swing.JDialog {
 
             endereco.setEndereco(txtEndFamiliar.getText());
             endereco.setBairro(txtBairro.getText());
-            endereco.setNumEnd(Integer.parseInt(txtNum.getText()));
+            try {
+                endereco.setNumEnd(Integer.parseInt(txtNum.getText()));
+            } catch (NumberFormatException ex) {
+                endereco.setNumEnd(0);
+            }
             endereco.setCidade(txtCidade.getText());
             endereco.setCep(txtCEP.getText());
 
@@ -545,9 +554,14 @@ public class InserirUsuarioView extends javax.swing.JDialog {
                 if (usuario.getStatusUsu().equals("Ativo")) {
                     usuario.setDataDeEntrada(new java.sql.Date(new java.util.Date().getTime()));
                 }
-                enderecoDAO.setEndereco(endereco);
-                usuario.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
+                if (!"".equals(endereco.getEndereco()) || !"".equals(endereco.getBairro())
+                        || endereco.getNumEnd() != 0 || !"".equals(endereco.getCidade())
+                        || !"     -   ".equals(endereco.getCep())) {
+                    enderecoDAO.setEndereco(endereco);
+                    usuario.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
+                }
                 usuarioDAO.setUsuario(usuario);
+                JOptionPane.showMessageDialog(this, "Usuario Inserido com sucesso");
             } else {
                 if (usuarioDAO.getUsuario(nProntuarioUsu).getStatusUsu().equals("Ativo")
                         && usuario.getStatusUsu().equals("Desligado")) {
@@ -558,9 +572,16 @@ public class InserirUsuarioView extends javax.swing.JDialog {
                     usuario.setDataDeEntrada(new java.sql.Date(new java.util.Date().getTime()));
                 }
                 usuario.setnProntuarioUsu(nProntuarioUsu);
-                endereco.setIdEnd(usuarioDAO.getUsuario(nProntuarioUsu).getIdEndereco_FK());
-                enderecoDAO.altEndereco(endereco);
-                usuarioDAO.altUsuario(usuario);
+                if(usuarioDAO.getUsuario(nProntuarioUsu).getIdEndereco_FK() != 0){
+                    endereco.setIdEnd(usuarioDAO.getUsuario(nProntuarioUsu).getIdEndereco_FK());
+                    enderecoDAO.altEndereco(endereco);
+                    usuarioDAO.altUsuario(usuario);
+                } else {
+                    enderecoDAO.setEndereco(endereco);
+                    usuario.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
+                    usuarioDAO.altUsuario(usuario);
+                }
+                JOptionPane.showMessageDialog(this, "Usuario Alterado com sucesso");
             }
 
         } catch (Exception ex) {
