@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Control.Conexao;
+import Control.AbrirConexao;
 import Model.Endereco;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +29,7 @@ public class EnderecoDAO {
         
         try {
             
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
@@ -37,7 +37,7 @@ public class EnderecoDAO {
             comandoSQL.setInt(2, endereco.getNumEnd());
             comandoSQL.setString(3, endereco.getBairro());
             comandoSQL.setString(4, endereco.getCidade());
-            comandoSQL.setDouble(5, endereco.getCep());
+            comandoSQL.setString(5, endereco.getCep());
 
             comandoSQL.executeUpdate();
 
@@ -57,7 +57,7 @@ public class EnderecoDAO {
         
         try {
             
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
@@ -65,7 +65,7 @@ public class EnderecoDAO {
             comandoSQL.setInt(2, endereco.getNumEnd());
             comandoSQL.setString(3, endereco.getBairro());
             comandoSQL.setString(4, endereco.getCidade());
-            comandoSQL.setDouble(5, endereco.getCep());
+            comandoSQL.setString(5, endereco.getCep());
             comandoSQL.setInt(6, endereco.getIdEnd());
 
             comandoSQL.executeUpdate();
@@ -93,7 +93,7 @@ public class EnderecoDAO {
 
         try {
 
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
             PreparedStatement comandoSQL = conexao.prepareStatement(listarEncaminhamentos);
 
             comandoSQL.setLong(1, idEnd);
@@ -106,7 +106,7 @@ public class EnderecoDAO {
                 lista.setNumEnd(retorno.getInt("numeroEnd"));
                 lista.setBairro(retorno.getString("bairro"));
                 lista.setCidade(retorno.getString("cidade"));
-                lista.setCep(retorno.getDouble("cep"));
+                lista.setCep(retorno.getString("cep"));
                 
             }
             
@@ -128,7 +128,7 @@ public class EnderecoDAO {
         
         try {
 
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new AbrirConexao().getConnection();
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
             ResultSet retorno = comandoSQL.executeQuery();

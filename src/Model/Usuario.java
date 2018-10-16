@@ -5,80 +5,85 @@ import java.sql.Date;
 
 public class Usuario {
     
-    private Integer numProntuario; 
-    private String nome; 
-    private String tipoUsuario; 
-    private String dataCadastro;
-    private String statusUsuario; 
-    private String sexo; 
-    private String dataNascimento; 
+    private int nProntuarioUsu; 
+    private String tipoUsu;
+    private Date dataCadastroUsu;
+    private String nomeUsu;
+    private String statusUsu;
+    private String sexoUsu;
+    private Date dataNascUsu;
     private String tipoDoc;
-    private String documento; 
-    private String cidadeOrigem; 
-    private double responsavel; 
-    private String parecerTec; 
-    private String drogas; 
-    private String atendidoPor; 
-    private int endereco; 
+    private String documentoUsu;
+    private String cidadeOrigemUsu;
+    private String atendidoPeloFunc_FK;
+    private String parecerTecnicoUsu;
+    private String drogasUsadasUsu;
+    private String situacao;
+    private String ultimaCidade;
+    private String cidadeDestino;
+    private Date dataDeEntrada;
+    private Date dataDeSaida;
+    private String responsavel_FK;
+    private int idEndereco_FK;
 
-
-    public Usuario() {
+    public void Usuario(){
+        
+    }
+    
+    public int getnProntuarioUsu() {
+        return nProntuarioUsu;
     }
 
-    public Integer getNumProntuario() {
-        return numProntuario;
+    public void setnProntuarioUsu(int nProntuarioUsu) {
+        this.nProntuarioUsu = nProntuarioUsu;
     }
 
-    public void setNumProntuario(Integer numProntuario) {
-        this.numProntuario = numProntuario;
+    public String getTipoUsu() {
+        return tipoUsu;
     }
 
-    public String getNome() {
-        return nome;
+    public void setTipoUsu(String tipoUsu) {
+        this.tipoUsu = tipoUsu;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public Date getDataCadastroUsu() {
+        return dataCadastroUsu;
     }
 
-    public String getTipoUsuario() {
-        return tipoUsuario;
+    public void setDataCadastroUsu(Date dataCadastroUsu) {
+        this.dataCadastroUsu = dataCadastroUsu;
     }
 
-    public void setTipoUsuario(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public String getNomeUsu() {
+        return nomeUsu;
     }
 
-    public String getDataCadastro() {
-        return dataCadastro;
+    public void setNomeUsu(String nomeUsu) {
+        this.nomeUsu = nomeUsu;
     }
 
-    public void setDataCadastro(String dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public String getStatusUsu() {
+        return statusUsu;
     }
 
-    public String getStatusUsuario() {
-        return statusUsuario;
+    public void setStatusUsu(String statusUsu) {
+        this.statusUsu = statusUsu;
     }
 
-    public void setStatusUsuario(String statusUsuario) {
-        this.statusUsuario = statusUsuario;
+    public String getSexoUsu() {
+        return sexoUsu;
     }
 
-    public String getSexo() {
-        return sexo;
+    public void setSexoUsu(String sexoUsu) {
+        this.sexoUsu = sexoUsu;
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public Date getDataNascUsu() {
+        return dataNascUsu;
     }
 
-    public String getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setDataNascUsu(Date dataNascUsu) {
+        this.dataNascUsu = dataNascUsu;
     }
 
     public String getTipoDoc() {
@@ -89,59 +94,101 @@ public class Usuario {
         this.tipoDoc = tipoDoc;
     }
 
-    public String getDocumento() {
-        return documento;
+    public String getDocumentoUsu() {
+        return documentoUsu;
     }
 
-    public void setDocumento(String documento) {
-        this.documento = documento;
+    public void setDocumentoUsu(String documentoUsu) {
+        this.documentoUsu = documentoUsu;
     }
 
-    public String getCidadeOrigem() {
-        return cidadeOrigem;
+    public String getCidadeOrigemUsu() {
+        return cidadeOrigemUsu;
     }
 
-    public void setCidadeOrigem(String cidadeOrigem) {
-        this.cidadeOrigem = cidadeOrigem;
+    public void setCidadeOrigemUsu(String cidadeOrigemUsu) {
+        this.cidadeOrigemUsu = cidadeOrigemUsu;
     }
 
-    public double getResponsavel() {
-        return responsavel;
+    public String getAtendidoPeloFunc_FK() {
+        return atendidoPeloFunc_FK;
     }
 
-    public void setResponsavel(double responsavel) {
-        this.responsavel = responsavel;
+    public void setAtendidoPeloFunc_FK(String atendidoPeloFunc_FK) {
+        this.atendidoPeloFunc_FK = atendidoPeloFunc_FK;
     }
 
-    public String getParecerTec() {
-        return parecerTec;
+    public String getParecerTecnicoUsu() {
+        return parecerTecnicoUsu;
     }
 
-    public void setParecerTec(String parecerTec) {
-        this.parecerTec = parecerTec;
+    public void setParecerTecnicoUsu(String parecerTecnicoUsu) {
+        this.parecerTecnicoUsu = parecerTecnicoUsu;
     }
 
-    public String getDrogas() {
-        return drogas;
+    public String getDrogasUsadasUsu() {
+        return drogasUsadasUsu;
     }
 
-    public void setDrogas(String drogas) {
-        this.drogas = drogas;
+    public void setDrogasUsadasUsu(String drogasUsadasUsu) {
+        this.drogasUsadasUsu = drogasUsadasUsu;
     }
 
-    public String getAtendidoPor() {
-        return atendidoPor;
+    public String getSituacao() {
+        return situacao;
     }
 
-    public void setAtendidoPor(String atendidoPor) {
-        this.atendidoPor = atendidoPor;
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
     }
 
-    public int getEndereco() {
-        return endereco;
+    public String getUltimaCidade() {
+        return ultimaCidade;
     }
 
-    public void setEndereco(int endereco) {
-        this.endereco = endereco;
+    public void setUltimaCidade(String ultimaCidade) {
+        this.ultimaCidade = ultimaCidade;
     }
+
+    public String getCidadeDestino() {
+        return cidadeDestino;
+    }
+
+    public void setCidadeDestino(String cidadeDestino) {
+        this.cidadeDestino = cidadeDestino;
+    }
+
+    public Date getDataDeEntrada() {
+        return dataDeEntrada;
+    }
+
+    public void setDataDeEntrada(Date dataDeEntrada) {
+        this.dataDeEntrada = dataDeEntrada;
+    }
+
+    public Date getDataDeSaida() {
+        return dataDeSaida;
+    }
+
+    public void setDataDeSaida(Date dataDeSaida) {
+        this.dataDeSaida = dataDeSaida;
+    }
+
+    public String getResponsavel_FK() {
+        return responsavel_FK;
+    }
+
+    public void setResponsavel_FK(String responsavel_FK) {
+        this.responsavel_FK = responsavel_FK;
+    }
+
+    public int getIdEndereco_FK() {
+        return idEndereco_FK;
+    }
+
+    public void setIdEndereco_FK(int idEndereco_FK) {
+        this.idEndereco_FK = idEndereco_FK;
+    }
+
+    
 }

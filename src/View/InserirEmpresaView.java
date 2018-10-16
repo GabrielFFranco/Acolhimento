@@ -5,6 +5,7 @@
  */
 package View;
 
+import Control.CamposNumericos;
 import DAO.EmpresaDAO;
 import DAO.EnderecoDAO;
 import Model.Empresa;
@@ -19,10 +20,15 @@ public class InserirEmpresaView extends javax.swing.JDialog {
 
     /**
      * Creates new form InserirUsuarioView
+     * @param parent
+     * @param modal
      */
     public InserirEmpresaView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jtfNumero.setDocument(new CamposNumericos());
+        txtNVagas.setDocument(new CamposNumericos());
+        this.preencherTela();
     }
 
     /**
@@ -41,7 +47,6 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         lblNomeDaEmpresa = new javax.swing.JLabel();
         txtNomeDaEmpresa = new javax.swing.JTextField();
         lblCNPJ = new javax.swing.JLabel();
-        jtfCNPJ = new javax.swing.JTextField();
         bSalvar = new javax.swing.JButton();
         txtNVagas = new javax.swing.JTextField();
         lblNVagas = new javax.swing.JLabel();
@@ -56,9 +61,9 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         jlCidade = new javax.swing.JLabel();
         jtfCidade = new javax.swing.JTextField();
         jlCep = new javax.swing.JLabel();
-        jtfCep = new javax.swing.JTextField();
         bCancelar = new javax.swing.JButton();
-        bBuscar = new javax.swing.JButton();
+        jtfCNPJ = new javax.swing.JFormattedTextField();
+        jtfCep = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -84,7 +89,7 @@ public class InserirEmpresaView extends javax.swing.JDialog {
                 .addComponent(lblNomePrograma1)
                 .addGap(131, 131, 131)
                 .addComponent(lblNomeFunc)
-                .addContainerGap(446, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnTopoLayout.setVerticalGroup(
             pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,8 +114,6 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         lblCNPJ.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblCNPJ.setForeground(new java.awt.Color(255, 255, 255));
         lblCNPJ.setText("CNPJ*");
-
-        jtfCNPJ.setBackground(new java.awt.Color(204, 204, 204));
 
         bSalvar.setBackground(new java.awt.Color(204, 204, 204));
         bSalvar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -163,8 +166,6 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         jlCep.setForeground(new java.awt.Color(255, 255, 255));
         jlCep.setText("CEP");
 
-        jtfCep.setBackground(new java.awt.Color(204, 204, 204));
-
         bCancelar.setBackground(new java.awt.Color(204, 204, 204));
         bCancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         bCancelar.setText("Voltar");
@@ -174,60 +175,63 @@ public class InserirEmpresaView extends javax.swing.JDialog {
             }
         });
 
-        bBuscar.setBackground(new java.awt.Color(204, 204, 204));
-        bBuscar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        bBuscar.setText("Buscar");
-        bBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBuscarActionPerformed(evt);
-            }
-        });
+        jtfCNPJ.setBackground(new java.awt.Color(204, 204, 204));
+        try {
+            jtfCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####.##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jtfCNPJ.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        jtfCep.setBackground(new java.awt.Color(204, 204, 204));
+        try {
+            jtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jtfCep.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout pnDadosLayout = new javax.swing.GroupLayout(pnDados);
         pnDados.setLayout(pnDadosLayout);
         pnDadosLayout.setHorizontalGroup(
             pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnDadosLayout.createSequentialGroup()
-                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNomeDaEmpresa)
+                    .addComponent(lblNVagas)
+                    .addComponent(jlRazaoSocial)
+                    .addComponent(jlEndereco)
+                    .addComponent(jlBairro)
+                    .addComponent(jlCidade))
+                .addGap(18, 18, 18)
+                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNomeDaEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                    .addComponent(txtNVagas)
+                    .addComponent(jtfRazaoSocial)
+                    .addComponent(jtfEndereco)
+                    .addComponent(jtfBairro)
+                    .addComponent(jtfCidade))
+                .addGap(34, 34, 34)
+                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCNPJ)
+                    .addComponent(jlNumero)
+                    .addComponent(jlCep))
+                .addGap(18, 18, 18)
+                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtfCNPJ)
                     .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
                         .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNomeDaEmpresa)
-                            .addComponent(lblNVagas)
-                            .addComponent(jlRazaoSocial)
-                            .addComponent(jlEndereco)
-                            .addComponent(jlBairro)
-                            .addComponent(jlCidade))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNomeDaEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-                            .addComponent(txtNVagas)
-                            .addComponent(jtfRazaoSocial)
-                            .addComponent(jtfEndereco)
-                            .addComponent(jtfBairro)
-                            .addComponent(jtfCidade))
-                        .addGap(34, 34, 34)
-                        .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCNPJ)
-                            .addComponent(jlNumero)
-                            .addComponent(jlCep))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfCNPJ)
-                            .addGroup(pnDadosLayout.createSequentialGroup()
-                                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 45, Short.MAX_VALUE))))
-                    .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(bCancelar)
-                        .addGap(234, 234, 234)
-                        .addComponent(bBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bSalvar)
-                        .addGap(45, 45, 45)))
+                            .addComponent(jtfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 22, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(bCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bSalvar)
+                .addGap(55, 55, 55))
         );
         pnDadosLayout.setVerticalGroup(
             pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,11 +268,10 @@ public class InserirEmpresaView extends javax.swing.JDialog {
                         .addComponent(jtfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jlCep)
                         .addComponent(jtfCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
+                .addGap(34, 34, 34)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bSalvar)
-                    .addComponent(bCancelar)
-                    .addComponent(bBuscar))
+                    .addComponent(bCancelar))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -279,8 +282,9 @@ public class InserirEmpresaView extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(pnTopo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,18 +303,17 @@ public class InserirEmpresaView extends javax.swing.JDialog {
 
     }//GEN-LAST:event_bCancelarActionPerformed
 
-    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-
+    private void preencherTela(){
         EmpresaDAO empresaDAO = new EmpresaDAO();
         if (empresaDAO.getEmpresa() == null) {
-            JOptionPane.showMessageDialog(this, "Não existe Empresa cadastrada.");
+            
         } else {
             Empresa empresa = empresaDAO.getEmpresa();
 
             EnderecoDAO enderecoDAO = new EnderecoDAO();
             Endereco endereco = enderecoDAO.getEndereco(empresa.getIdEndereco_FK());
 
-            jtfCNPJ.setText(String.format("%.0f", empresa.getCnpjEmp()));
+            jtfCNPJ.setText(empresa.getCnpjEmp());
             txtNomeDaEmpresa.setText(empresa.getNomeEmp());
             txtNVagas.setText(String.valueOf(empresa.getNumeroVagasEmp()));
             jtfRazaoSocial.setText(empresa.getRazaoSocialEmp());
@@ -319,19 +322,25 @@ public class InserirEmpresaView extends javax.swing.JDialog {
             jtfNumero.setText(String.valueOf(endereco.getNumEnd()));
             jtfBairro.setText(endereco.getBairro());
             jtfCidade.setText(endereco.getCidade());
-            jtfCep.setText(String.format("%.0f", endereco.getCep()));
+            jtfCep.setText(endereco.getCep());
+            
+            jtfCNPJ.setEnabled(false);
         }
-    }//GEN-LAST:event_bBuscarActionPerformed
-
+    }
+    
     private void bSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalvarActionPerformed
 
+        if(new EmpresaDAO().getEmpresa() != null){
+            
+        }
+        
         Empresa empresa = new Empresa();
         EmpresaDAO empresaDAO = new EmpresaDAO();
 
         Endereco endereco = new Endereco();
         EnderecoDAO enderecoDAO = new EnderecoDAO();
 
-        empresa.setCnpjEmp(Double.parseDouble(jtfCNPJ.getText()));
+        empresa.setCnpjEmp(jtfCNPJ.getText());
         empresa.setNomeEmp(txtNomeDaEmpresa.getText());
         empresa.setNumeroVagasEmp(Integer.parseInt(txtNVagas.getText()));
         empresa.setRazaoSocialEmp(jtfRazaoSocial.getText());
@@ -340,17 +349,19 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         endereco.setBairro(jtfBairro.getText());
         endereco.setCidade(jtfCidade.getText());
         endereco.setNumEnd(Integer.parseInt(jtfNumero.getText()));
-        endereco.setCep(Double.parseDouble(jtfCep.getText()));
+        endereco.setCep(jtfCep.getText());
 
-        if (empresaDAO.getEmpresa() != null && empresaDAO.getEmpresa().getCnpjEmp() == empresa.getCnpjEmp()) {
+        if (empresaDAO.getEmpresa() != null && empresaDAO.getEmpresa().getCnpjEmp().equals(empresa.getCnpjEmp())) {
             endereco.setIdEnd(empresaDAO.getEmpresa().getIdEndereco_FK());
             empresa.setIdEndereco_FK(endereco.getIdEnd());
             enderecoDAO.altEndereco(endereco);
             empresaDAO.altEmpresa(empresa);
+            JOptionPane.showMessageDialog(this, "Empresa Alterada com sucesso.");
         } else if (empresaDAO.getEmpresa() == null) {
             enderecoDAO.setEndereco(endereco);
             empresa.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
             empresaDAO.setEmpresa(empresa);
+            JOptionPane.showMessageDialog(this, "Empresa Inserida com sucesso.");
         } else {
             JOptionPane.showMessageDialog(this, "Já existe uma Empresa cadastrada.");
         }
@@ -373,37 +384,33 @@ public class InserirEmpresaView extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InserirEmpresaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InserirEmpresaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InserirEmpresaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(InserirEmpresaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InserirEmpresaView dialog = new InserirEmpresaView(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            InserirEmpresaView dialog = new InserirEmpresaView(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bBuscar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JButton bSalvar;
     private javax.swing.JLabel jlBairro;
@@ -413,8 +420,8 @@ public class InserirEmpresaView extends javax.swing.JDialog {
     private javax.swing.JLabel jlNumero;
     private javax.swing.JLabel jlRazaoSocial;
     private javax.swing.JTextField jtfBairro;
-    private javax.swing.JTextField jtfCNPJ;
-    private javax.swing.JTextField jtfCep;
+    private javax.swing.JFormattedTextField jtfCNPJ;
+    private javax.swing.JFormattedTextField jtfCep;
     private javax.swing.JTextField jtfCidade;
     private javax.swing.JTextField jtfEndereco;
     private javax.swing.JTextField jtfNumero;

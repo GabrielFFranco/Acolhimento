@@ -12,10 +12,10 @@ import java.sql.Date;
  * @author gabri
  */
 public class Funcionario {
-    
-    private double cpfFunc;
+
+    private String cpfFunc;
     private String nomeFunc;
-    private double rgFunc;
+    private String rgFunc;
     private Date dataNascFunc;
     private String telefoneFunc;
     private String emailFunc;
@@ -23,7 +23,7 @@ public class Funcionario {
     private String statusFunc;
     private int idEndereco_FK;
 
-    public Funcionario(double cpfFunc, String nomeFunc, double rgFunc, Date dataNascFunc, String telefoneFunc, String emailFunc, String tipoFunc, String statusFunc, int idEndereco_FK) {
+    public Funcionario(String cpfFunc, String nomeFunc, String rgFunc, Date dataNascFunc, String telefoneFunc, String emailFunc, String tipoFunc, String statusFunc, int idEndereco_FK) {
         this.cpfFunc = cpfFunc;
         this.nomeFunc = nomeFunc;
         this.rgFunc = rgFunc;
@@ -37,12 +37,12 @@ public class Funcionario {
 
     public Funcionario() {
     }
-    
-    public double getCpfFunc() {
+
+    public String getCpfFunc() {
         return cpfFunc;
     }
 
-    public void setCpfFunc(double cpfFunc) {
+    public void setCpfFunc(String cpfFunc) {
         this.cpfFunc = cpfFunc;
     }
 
@@ -54,11 +54,11 @@ public class Funcionario {
         this.nomeFunc = nomeFunc;
     }
 
-    public double getRgFunc() {
+    public String getRgFunc() {
         return rgFunc;
     }
 
-    public void setRgFunc(double rgFunc) {
+    public void setRgFunc(String rgFunc) {
         this.rgFunc = rgFunc;
     }
 
@@ -109,5 +109,5 @@ public class Funcionario {
     public void setIdEndereco_FK(int idEndereco_FK) {
         this.idEndereco_FK = idEndereco_FK;
     }
-        
+
 }

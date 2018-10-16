@@ -1,11 +1,5 @@
 package Model;
 
-import Control.Conexao;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.sql.Date;
 
 /**
@@ -19,7 +13,7 @@ public class Encaminhamento {
     private String tipoEnc;
     private String localEnc;
     private String statusEnc;
-    private double cpfFunc_FK;
+    private String cpfFunc_FK;
     private long nProntuarioUsu_FK;
     private long idEndereco_FK;
     private Date dataEnc;
@@ -28,7 +22,7 @@ public class Encaminhamento {
 
     }
 
-    public Encaminhamento(int idEnc, String tipoEnc, String localEnc, String statusEnc, double cpfFunc_FK, long nProntuarioUsu_FK, long idEndereco_FK, Date dataEnc) {
+    public Encaminhamento(int idEnc, String tipoEnc, String localEnc, String statusEnc, String cpfFunc_FK, long nProntuarioUsu_FK, long idEndereco_FK, Date dataEnc) {
         this.idEnc = idEnc;
         this.tipoEnc = tipoEnc;
         this.localEnc = localEnc;
@@ -71,11 +65,11 @@ public class Encaminhamento {
         this.statusEnc = statusEnc;
     }
 
-    public double getCpfFunc_FK() {
+    public String getCpfFunc_FK() {
         return cpfFunc_FK;
     }
 
-    public void setCpfFunc_FK(double cpfFunc_FK) {
+    public void setCpfFunc_FK(String cpfFunc_FK) {
         this.cpfFunc_FK = cpfFunc_FK;
     }
 

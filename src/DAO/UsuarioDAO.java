@@ -1,189 +1,217 @@
 package DAO;
 
+import Control.AbrirConexao;
 import Model.Usuario;
-import Control.FabricaConexao;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDAO {
 
-    public boolean cadastrarUsuario(Usuario obj) {
-        try {
-            Connection con = FabricaConexao.getConnection();
-            PreparedStatement stmt = null;
-            String sql = "insert into usuario (nomeUsu, atendidoPeloFunc,"
-                    + " cidadeOrigemUsu,dataNascUsu, documentoUsu,"
-                    + " DrogasUsadasUsu, idEndereco, parecerTecnicoUsu, cpfFunc, sexoUsu,"
-                    + " statusUsu, tipoUsu, tipoDoc, dataCadastroUsu)"
-                    + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            stmt = con.prepareStatement(sql);
-            stmt.setString(1, obj.getNome());
-            stmt.setString(2, obj.getAtendidoPor());
-            stmt.setString(3, obj.getCidadeOrigem());
-            stmt.setString(4, obj.getDataNascimento());
-            stmt.setString(5, obj.getDocumento());
-            stmt.setString(6, obj.getDrogas());
-            stmt.setInt(7, obj.getEndereco());
-            stmt.setString(8, obj.getParecerTec());
-            stmt.setDouble(9, obj.getResponsavel());
-            stmt.setString(10, obj.getSexo());
-            stmt.setString(11, obj.getStatusUsuario());
-            stmt.setString(12, obj.getTipoUsuario());
-            stmt.setString(13, obj.getTipoDoc());
-            stmt.setString(14, obj.getDataCadastro());
+    public void setUsuario(Usuario usuario) {
 
-            stmt.executeUpdate();
-            stmt.close();
-            con.close();
-            return true;
-        } catch (Exception ex) {
-            System.err.println("Erro:" + ex);
-            return false;
+        String comando = "insert into usuario (tipoUsu, dataCadastroUsu, "
+                + "nomeUsu, statusUsu, sexoUsu, dataNascUsu, tipoDoc, "
+                + "documentoUsu, cidadeOrigemUsu, atendidoPeloFunc, "
+                + "parecerTecnicoUsu, drogasUsadasUsu, "
+                + "situacao, ultimaCidade, cidadeDestino, "
+                + "dataDeEntrada, "
+                + "cpfFunc, idEndereco) value (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        if(usuario.getIdEndereco_FK() == 0){
+            comando = comando.substring(0, comando.length() - 57) 
+                    + ") value (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         }
-    }
-
-    public List<Usuario> consultar(Usuario obj) {
-        List<Usuario> lista = null;
-
+        
         try {
 
-            Connection con = FabricaConexao.getConnection();
-            String sql = "Select* from usuario where nPontuarioUsu = ? OR nomeUsu = ? "
-                    + "OR statusUsu = ? OR tipoUsu = ?";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, obj.getNumProntuario());
-            stmt.setString(2, obj.getNome());
-            stmt.setString(3, obj.getStatusUsuario());
-            stmt.setString(4, obj.getTipoUsuario());
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                obj.setNome(rs.getString("nomeUsu"));
-                obj.setAtendidoPor(rs.getString("atendidoPeloFunc"));
-                obj.setCidadeOrigem(rs.getString("cidadeOrigemUsu"));
-                obj.setDataCadastro(rs.getString("dataCadastroUsu"));
-                obj.setDataNascimento(rs.getString("dataNascUsu"));
-                obj.setDocumento(rs.getString("documentoUsu"));
-                obj.setDrogas(rs.getString("DrogasUsadasUsu"));
-                obj.setEndereco(rs.getInt("idEndereco"));
-                obj.setNumProntuario(rs.getInt("nPontuarioUsu"));
-                obj.setParecerTec(rs.getString("parecerTecnicoUsu"));
-                obj.setResponsavel(rs.getDouble("cpfFunc"));
-                obj.setSexo(rs.getString("sexoUsu"));
-                obj.setStatusUsuario(rs.getString("statusUsu"));
-                obj.setTipoUsuario(rs.getString("tipoUsu"));
-                lista.add(obj);
+            Connection conexao = new AbrirConexao().getConnection();
+
+            PreparedStatement comandoSQL = conexao.prepareStatement(comando);
+
+            comandoSQL.setString(1, usuario.getTipoUsu());
+            comandoSQL.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
+            comandoSQL.setString(3, usuario.getNomeUsu());
+            comandoSQL.setString(4, usuario.getStatusUsu());
+            comandoSQL.setString(5, usuario.getSexoUsu());
+            comandoSQL.setDate(6, usuario.getDataNascUsu());
+            comandoSQL.setString(7, usuario.getTipoDoc());
+            comandoSQL.setString(8, usuario.getDocumentoUsu());
+            comandoSQL.setString(9, usuario.getCidadeOrigemUsu());
+            comandoSQL.setString(10, usuario.getAtendidoPeloFunc_FK());
+            comandoSQL.setString(11, usuario.getParecerTecnicoUsu());
+            comandoSQL.setString(12, usuario.getDrogasUsadasUsu());
+            comandoSQL.setString(13, usuario.getSituacao());
+            comandoSQL.setString(14, usuario.getUltimaCidade());
+            comandoSQL.setString(15, usuario.getCidadeDestino());
+            comandoSQL.setDate(16, new java.sql.Date(new java.util.Date().getTime()));
+            comandoSQL.setString(17, usuario.getResponsavel_FK());
+            if(usuario.getIdEndereco_FK() != 0){
+            comandoSQL.setObject(18, usuario.getIdEndereco_FK());
             }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return lista;
-    }
-
-    public Usuario selecionar(int obg) {
-        Usuario usuario = new Usuario();
-        try {
             
-            Connection con = FabricaConexao.getConnection();
-            String sql = "Select* from usuario where nProntuarioUsu = ?";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, obg);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                usuario.setNome(rs.getString("nomeUsu"));
-                usuario.setAtendidoPor(rs.getString("atendidoPeloFunc"));
-                usuario.setCidadeOrigem(rs.getString("cidadeOrigemUsu"));
-                usuario.setDataCadastro(rs.getString("dataCadastroUsu"));
-                usuario.setDataNascimento(rs.getString("dataNascUsu"));
-                usuario.setDocumento(rs.getString("documentoUsu"));
-                usuario.setDrogas(rs.getString("DrogasUsadasUsu"));
-                usuario.setEndereco(rs.getInt("idEndereco"));
-                usuario.setNumProntuario(rs.getInt("nProntuarioUsu"));
-                usuario.setParecerTec(rs.getString("parecerTecnicoUsu"));
-                usuario.setResponsavel(rs.getDouble("cpfFunc"));
-                usuario.setSexo(rs.getString("sexoUsu"));
-                usuario.setStatusUsuario(rs.getString("statusUsu"));
-                usuario.setTipoUsuario(rs.getString("tipoUsu"));
-                usuario.setTipoDoc(rs.getString("tipoDoc"));
+            comandoSQL.executeUpdate();
 
-            }
-
-        } catch (Exception ex) {
+            comandoSQL.close();
+            conexao.close();
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return usuario;
     }
 
-    public List<Usuario> listar() {
+    public void altUsuario(Usuario usuario) {
+
+        String comando = "update usuario set tipoUsu = ?, "
+                + "nomeUsu = ?, statusUsu = ?, sexoUsu = ?, dataNascUsu = ?, tipoDoc = ?, "
+                + "documentoUsu = ?, cidadeOrigemUsu = ?, atendidoPeloFunc = ?, "
+                + "parecerTecnicoUsu = ?, drogasUsadasUsu = ?, "
+                + "situacao = ?, ultimaCidade = ?, cidadeDestino = ?, dataDeEntrada = ?, "
+                + "dataDeSaida = ?, cpfFunc = ?, idEndereco  = ? where nProntuarioUsu = ?";
+
+        if(usuario.getIdEndereco_FK() == 0){
+            comando = comando.substring(0, comando.length() - 42) + " where nProntuarioUsu = ?";
+        }
+        
+        try {
+
+            Connection conexao = new AbrirConexao().getConnection();
+
+            PreparedStatement comandoSQL = conexao.prepareStatement(comando);
+
+            comandoSQL.setString(1, usuario.getTipoUsu());
+            comandoSQL.setString(2, usuario.getNomeUsu());
+            comandoSQL.setString(3, usuario.getStatusUsu());
+            comandoSQL.setString(4, usuario.getSexoUsu());
+            comandoSQL.setDate(5, usuario.getDataNascUsu());
+            comandoSQL.setString(6, usuario.getTipoDoc());
+            comandoSQL.setString(7, usuario.getDocumentoUsu());
+            comandoSQL.setString(8, usuario.getCidadeOrigemUsu());
+            comandoSQL.setString(9, usuario.getAtendidoPeloFunc_FK());
+            comandoSQL.setString(10, usuario.getParecerTecnicoUsu());
+            comandoSQL.setString(11, usuario.getDrogasUsadasUsu());
+            comandoSQL.setString(12, usuario.getSituacao());
+            comandoSQL.setString(13, usuario.getUltimaCidade());
+            comandoSQL.setString(14, usuario.getCidadeDestino());
+            comandoSQL.setDate(15, usuario.getDataDeEntrada());
+            comandoSQL.setDate(16, usuario.getDataDeSaida());
+            comandoSQL.setString(17, usuario.getResponsavel_FK());
+            if(usuario.getIdEndereco_FK() != 0){
+                comandoSQL.setInt(18, usuario.getIdEndereco_FK());
+                comandoSQL.setInt(19, usuario.getnProntuarioUsu());
+            }
+            comandoSQL.setInt(18, usuario.getnProntuarioUsu());
+
+            comandoSQL.executeUpdate();
+
+            comandoSQL.close();
+            conexao.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public List<Usuario> listarUsuario(String listarUsuarios) {
+
         ArrayList lista = new ArrayList();
-        try {
-            
-            
-            Connection con = FabricaConexao.getConnection();
-            String sql = "select * from usuario";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
+        Connection conexao;
+        try {
+            conexao = new AbrirConexao().getConnection();
+
+            PreparedStatement comandoSQL = conexao.prepareStatement(listarUsuarios);
+
+            ResultSet retorno = comandoSQL.executeQuery();
+
+            while (retorno.next()) {
+
                 Usuario usuario = new Usuario();
-                usuario.setNome(rs.getString("nomeUsu"));
-                usuario.setAtendidoPor(rs.getString("atendidoPeloFunc"));
-                usuario.setCidadeOrigem(rs.getString("cidadeOrigemUsu"));
-                usuario.setDataCadastro(rs.getString("dataCadastroUsu"));
-                usuario.setDataNascimento(rs.getString("dataNascUsu"));
-                usuario.setDocumento(rs.getString("documentoUsu"));
-                usuario.setDrogas(rs.getString("DrogasUsadasUsu"));
-                usuario.setEndereco(rs.getInt("idEndereco"));
-                usuario.setNumProntuario(rs.getInt("nProntuarioUsu"));
-                usuario.setParecerTec(rs.getString("parecerTecnicoUsu"));
-                usuario.setResponsavel(rs.getDouble("cpfFunc"));
-                usuario.setSexo(rs.getString("sexoUsu"));
-                usuario.setStatusUsuario(rs.getString("statusUsu"));
-                usuario.setTipoUsuario(rs.getString("tipoUsu"));
+
+                usuario.setnProntuarioUsu(retorno.getInt("nProntuarioUsu"));
+                usuario.setTipoUsu(retorno.getString("tipoUsu"));
+                usuario.setDataCadastroUsu(retorno.getDate("dataCadastroUsu"));
+                usuario.setNomeUsu(retorno.getString("nomeUsu"));
+                usuario.setStatusUsu(retorno.getString("statusUsu"));
+                usuario.setSexoUsu(retorno.getString("sexoUsu"));
+                usuario.setDataNascUsu(retorno.getDate("dataNascUsu"));
+                usuario.setTipoDoc(retorno.getString("tipoDoc"));
+                usuario.setDocumentoUsu(retorno.getString("documentoUsu"));
+                usuario.setCidadeOrigemUsu(retorno.getString("cidadeOrigemUsu"));
+                usuario.setAtendidoPeloFunc_FK(retorno.getString("atendidoPeloFunc"));
+                usuario.setParecerTecnicoUsu(retorno.getString("parecerTecnicoUsu"));
+                usuario.setDrogasUsadasUsu(retorno.getString("drogasUsadasUsu"));
+                usuario.setSituacao(retorno.getString("situacao"));
+                usuario.setUltimaCidade(retorno.getString("ultimaCidade"));
+                usuario.setCidadeDestino(retorno.getString("cidadeDestino"));
+                usuario.setDataDeEntrada(retorno.getDate("dataDeEntrada"));
+                usuario.setDataDeSaida(retorno.getDate("dataDeSaida"));
+                usuario.setResponsavel_FK(retorno.getString("cpfFunc"));
+                usuario.setIdEndereco_FK(retorno.getInt("idEndereco"));
+
                 lista.add(usuario);
             }
 
-        } catch (Exception ex) {
+            comandoSQL.close();
+            conexao.close();
+
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
         return lista;
     }
 
-    public boolean editar(Usuario obj) {
-        try {
-            Connection con = FabricaConexao.getConnection();
-            PreparedStatement stmt = null;
-            String sql = "update from usuario set nomeUsu = ? atendidoPeloFunc = ?"
-                    + "  cidadeOrigemUsu = ? dataNascUsu = ? documentoUsu = ?"
-                    + "  DrogasUsadasUsu = ? idEndereco = ? parecerTecUsu = ? fk_cpfFunc = ? sexoUsu = ?"
-                    + " statusUsu = ? tipoUsu = ? tipodoc = ?"
-                    + "where nPontuarioUsu = ?";
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(14, obj.getNumProntuario());
-            stmt.setString(12, obj.getTipoUsuario());
-            stmt.setString(1, obj.getNome());
-            stmt.setString(10, obj.getStatusUsuario());
-            stmt.setString(9, obj.getSexo());
-            stmt.setString(4, obj.getDataNascimento());
-            stmt.setString(5, obj.getDocumento());
-            stmt.setString(3, obj.getCidadeOrigem());
-            stmt.setString(2, obj.getAtendidoPor());
-            stmt.setString(7, obj.getParecerTec());
-            stmt.setString(6, obj.getDrogas());
-            stmt.setDouble(8, obj.getResponsavel());
-            stmt.setInt(7, obj.getEndereco());
-            stmt.setString(13, obj.getTipoDoc());
+    public Usuario getUsuario(int nProntuario) {
 
-            stmt.executeUpdate();
-            stmt.close();
-            con.close();
-            return true;
-        } catch (Exception ex) {
-            return false;
+        String comando = "select * from usuario where nProntuarioUsu = ?";
+
+        Usuario usuario = new Usuario();
+
+        Connection conexao;
+        try {
+
+            conexao = new AbrirConexao().getConnection();
+
+            PreparedStatement comandoSQL = conexao.prepareStatement(comando);
+
+            comandoSQL.setInt(1, nProntuario);
+
+            ResultSet retorno = comandoSQL.executeQuery();
+
+            while (retorno.next()) {
+
+                usuario.setnProntuarioUsu(retorno.getInt("nProntuarioUsu"));
+                usuario.setTipoUsu(retorno.getString("tipoUsu"));
+                usuario.setDataCadastroUsu(retorno.getDate("dataCadastroUsu"));
+                usuario.setNomeUsu(retorno.getString("nomeUsu"));
+                usuario.setStatusUsu(retorno.getString("statusUsu"));
+                usuario.setSexoUsu(retorno.getString("sexoUsu"));
+                usuario.setDataNascUsu(retorno.getDate("dataNascUsu"));
+                usuario.setTipoDoc(retorno.getString("tipoDoc"));
+                usuario.setDocumentoUsu(retorno.getString("documentoUsu"));
+                usuario.setCidadeOrigemUsu(retorno.getString("cidadeOrigemUsu"));
+                usuario.setAtendidoPeloFunc_FK(retorno.getString("atendidoPeloFunc"));
+                usuario.setParecerTecnicoUsu(retorno.getString("parecerTecnicoUsu"));
+                usuario.setDrogasUsadasUsu(retorno.getString("drogasUsadasUsu"));
+                usuario.setSituacao(retorno.getString("situacao"));
+                usuario.setUltimaCidade(retorno.getString("ultimaCidade"));
+                usuario.setCidadeDestino(retorno.getString("cidadeDestino"));
+                usuario.setDataDeEntrada(retorno.getDate("dataDeEntrada"));
+                usuario.setDataDeSaida(retorno.getDate("dataDeSaida"));
+                usuario.setResponsavel_FK(retorno.getString("cpfFunc"));
+                usuario.setIdEndereco_FK(retorno.getInt("idEndereco"));
+
+            }
+
+            comandoSQL.close();
+            conexao.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+        return usuario;
     }
 }

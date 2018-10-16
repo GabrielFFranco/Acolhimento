@@ -5,12 +5,6 @@
  */
 package Model;
 
-import Control.Conexao;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 /**
  * Classe criada que representa a entidade Endereço
  * @author Gabriel Ferreira Franco
@@ -22,26 +16,18 @@ public class Endereco {
     private int numEnd;
     private String bairro;
     private String cidade;
-    private double cep;
+    private String cep;
 
     public Endereco(){
         
     }
-    
-    public Endereco(int idEnd, String endereco, int numEnd, String bairro, String cidade, double cep) {
+
+    public Endereco(int idEnd, String endereco, int numEnd, String bairro, String cidade, String cep) {
         this.idEnd = idEnd;
         this.endereco = endereco;
         this.numEnd = numEnd;
         this.bairro = bairro;
         this.cidade = cidade;
-        this.cep = cep;
-    }
-    
-    public double getCep() {
-        return cep;
-    }
-
-    public void setCep(double cep) {
         this.cep = cep;
     }
 
@@ -83,6 +69,14 @@ public class Endereco {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
     
 }
