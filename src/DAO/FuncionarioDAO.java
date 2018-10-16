@@ -88,9 +88,8 @@ public class FuncionarioDAO {
 
         ArrayList lista = new ArrayList();
 
-        Connection conexao;
         try {
-            conexao = new Conexao().getConnection();
+            Connection conexao = new Conexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(listarFuncionarios);
 

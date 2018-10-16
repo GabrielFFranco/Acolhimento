@@ -9,12 +9,12 @@ package View;
  *
  * @author Aluno
  */
-public class Menu extends javax.swing.JFrame {
+public class MenuFuncionario extends javax.swing.JFrame {
 
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public MenuFuncionario() {
         initComponents();
     }
 
@@ -31,14 +31,10 @@ public class Menu extends javax.swing.JFrame {
         lblNomeEnc = new javax.swing.JLabel();
         lblNomePrograma1 = new javax.swing.JLabel();
         pnDados = new javax.swing.JPanel();
-        btnFuncionario = new javax.swing.JLabel();
-        btnEmpresa = new javax.swing.JLabel();
-        btnEncaminhamento = new javax.swing.JLabel();
-        btnUsuario = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblInserirFuncionario = new javax.swing.JLabel();
+        lblBuscarFuncionario = new javax.swing.JLabel();
+        lblInserir = new javax.swing.JLabel();
+        lblConsultar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,7 +43,7 @@ public class Menu extends javax.swing.JFrame {
 
         lblNomeEnc.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lblNomeEnc.setForeground(new java.awt.Color(51, 102, 255));
-        lblNomeEnc.setText("Menu");
+        lblNomeEnc.setText("Funcionário");
 
         lblNomePrograma1.setFont(new java.awt.Font("Arial", 3, 36)); // NOI18N
         lblNomePrograma1.setForeground(new java.awt.Color(51, 102, 255));
@@ -60,7 +56,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnTopoLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(lblNomePrograma1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
                 .addComponent(lblNomeEnc)
                 .addGap(215, 215, 215))
         );
@@ -77,93 +73,60 @@ public class Menu extends javax.swing.JFrame {
         pnDados.setBackground(new java.awt.Color(153, 153, 153));
         pnDados.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/USUARIO_1.jpg"))); // NOI18N
-        btnFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblInserirFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/USUARIO+_1.jpg"))); // NOI18N
+        lblInserirFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFuncionarioMouseClicked(evt);
+                lblInserirFuncionarioMouseClicked(evt);
             }
         });
 
-        btnEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/EMPRESA.jpg"))); // NOI18N
-        btnEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblBuscarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/BUSCAUSUARIO1_1.jpg"))); // NOI18N
+        lblBuscarFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEmpresaMouseClicked(evt);
+                lblBuscarFuncionarioMouseClicked(evt);
             }
         });
 
-        btnEncaminhamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/ENCAMINHAMENTO.jpg"))); // NOI18N
-        btnEncaminhamento.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEncaminhamentoMouseClicked(evt);
-            }
-        });
+        lblInserir.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblInserir.setForeground(new java.awt.Color(51, 102, 255));
+        lblInserir.setText("Inserir");
 
-        btnUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/USUARIO_1.jpg"))); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel1.setText("Funcionário");
-
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel2.setText("Empresa");
-
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel3.setText("Encaminhamento");
-
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel4.setText("Usuário");
+        lblConsultar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblConsultar.setForeground(new java.awt.Color(51, 102, 255));
+        lblConsultar.setText("Consultar");
 
         javax.swing.GroupLayout pnDadosLayout = new javax.swing.GroupLayout(pnDados);
         pnDados.setLayout(pnDadosLayout);
         pnDadosLayout.setHorizontalGroup(
             pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDadosLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnDadosLayout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addComponent(lblInserirFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnDadosLayout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(lblInserir)))
+                .addGap(135, 135, 135)
+                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDadosLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jLabel1)))
-                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(btnEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(jLabel2)))
-                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(btnEncaminhamento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                        .addComponent(btnUsuario)
-                        .addGap(43, 43, 43))
-                    .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(68, 68, 68))))
+                        .addComponent(lblConsultar))
+                    .addComponent(lblBuscarFuncionario))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnDadosLayout.setVerticalGroup(
             pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDadosLayout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(47, 47, 47)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUsuario)
-                    .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEncaminhamento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(lblBuscarFuncionario)
+                    .addComponent(lblInserirFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addContainerGap(75, Short.MAX_VALUE))
+                    .addComponent(lblInserir)
+                    .addComponent(lblConsultar))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -182,31 +145,24 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addComponent(pnTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionarioMouseClicked
-        MenuFuncionario tela = new MenuFuncionario();
-        tela.setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnFuncionarioMouseClicked
+    private void lblInserirFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInserirFuncionarioMouseClicked
+    InserirFuncionarioView tela = new InserirFuncionarioView(this, true);
+    tela.setVisible(true);
+    }//GEN-LAST:event_lblInserirFuncionarioMouseClicked
 
-    private void btnEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmpresaMouseClicked
-        MenuEmpresa tela = new MenuEmpresa();
-        tela.setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEmpresaMouseClicked
-
-    private void btnEncaminhamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncaminhamentoMouseClicked
-        MenuEncaminhamento tela = new MenuEncaminhamento();
-        tela.setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEncaminhamentoMouseClicked
+    private void lblBuscarFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarFuncionarioMouseClicked
+    BuscarFuncionarioView tela = new BuscarFuncionarioView(this, true);
+    tela.setVisible(true);
+// TODO add your handling code here:
+    }//GEN-LAST:event_lblBuscarFuncionarioMouseClicked
 
     /**
      * @param args the command line arguments
@@ -225,14 +181,26 @@ public class Menu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -241,20 +209,16 @@ public class Menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                new MenuFuncionario().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnEmpresa;
-    private javax.swing.JLabel btnEncaminhamento;
-    private javax.swing.JLabel btnFuncionario;
-    private javax.swing.JLabel btnUsuario;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblBuscarFuncionario;
+    private javax.swing.JLabel lblConsultar;
+    private javax.swing.JLabel lblInserir;
+    private javax.swing.JLabel lblInserirFuncionario;
     private javax.swing.JLabel lblNomeEnc;
     private javax.swing.JLabel lblNomePrograma1;
     private javax.swing.JPanel pnDados;
