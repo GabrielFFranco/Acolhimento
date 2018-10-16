@@ -5,11 +5,11 @@
  */
 package View;
 
-import DAO.EmpresaDAO;
+
 import DAO.EnderecoDAO;
+import DAO.EmpresaDAO;
 import Model.Empresa;
 import Model.Endereco;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,6 +42,12 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         txtNomeDaEmpresa = new javax.swing.JTextField();
         lblCNPJ = new javax.swing.JLabel();
         jtfCNPJ = new javax.swing.JTextField();
+        try{ 
+            javax.swing.text.MaskFormatter cnpj= new javax.swing.text.MaskFormatter("##.###.###/####-##");
+            jtfCNPJ = new javax.swing.JFormattedTextField(cnpj);
+        }
+        catch (Exception e){
+        }
         bSalvar = new javax.swing.JButton();
         txtNVagas = new javax.swing.JTextField();
         lblNVagas = new javax.swing.JLabel();
@@ -57,8 +63,13 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         jtfCidade = new javax.swing.JTextField();
         jlCep = new javax.swing.JLabel();
         jtfCep = new javax.swing.JTextField();
+        try{ 
+            javax.swing.text.MaskFormatter cep = new javax.swing.text.MaskFormatter("#####-###");
+            jtfCep = new javax.swing.JFormattedTextField(cep);
+        }
+        catch (Exception e){
+        }
         bCancelar = new javax.swing.JButton();
-        bBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -167,19 +178,10 @@ public class InserirEmpresaView extends javax.swing.JDialog {
 
         bCancelar.setBackground(new java.awt.Color(204, 204, 204));
         bCancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        bCancelar.setText("Voltar");
+        bCancelar.setText("Cancelar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCancelarActionPerformed(evt);
-            }
-        });
-
-        bBuscar.setBackground(new java.awt.Color(204, 204, 204));
-        bBuscar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        bBuscar.setText("Buscar");
-        bBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBuscarActionPerformed(evt);
             }
         });
 
@@ -220,11 +222,9 @@ public class InserirEmpresaView extends javax.swing.JDialog {
                                     .addComponent(jtfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 45, Short.MAX_VALUE))))
                     .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addContainerGap()
                         .addComponent(bCancelar)
-                        .addGap(234, 234, 234)
-                        .addComponent(bBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bSalvar)
                         .addGap(45, 45, 45)))
                 .addContainerGap())
@@ -267,8 +267,7 @@ public class InserirEmpresaView extends javax.swing.JDialog {
                 .addGap(35, 35, 35)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bSalvar)
-                    .addComponent(bCancelar)
-                    .addComponent(bBuscar))
+                    .addComponent(bCancelar))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -295,66 +294,48 @@ public class InserirEmpresaView extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private int idEmp = 0;
+        
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-
+        // TODO add your handling code here:
+        Menu tela = new Menu();
+        tela.setVisible(true);
+        dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 
-    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-
-        EmpresaDAO empresaDAO = new EmpresaDAO();
-        if (empresaDAO.getEmpresa() == null) {
-            JOptionPane.showMessageDialog(this, "Não existe Empresa cadastrada.");
-        } else {
-            Empresa empresa = empresaDAO.getEmpresa();
-
-            EnderecoDAO enderecoDAO = new EnderecoDAO();
-            Endereco endereco = enderecoDAO.getEndereco(empresa.getIdEndereco_FK());
-
-            jtfCNPJ.setText(String.format("%.0f", empresa.getCnpjEmp()));
-            txtNomeDaEmpresa.setText(empresa.getNomeEmp());
-            txtNVagas.setText(String.valueOf(empresa.getNumeroVagasEmp()));
-            jtfRazaoSocial.setText(empresa.getRazaoSocialEmp());
-
-            jtfEndereco.setText(endereco.getEndereco());
-            jtfNumero.setText(String.valueOf(endereco.getNumEnd()));
-            jtfBairro.setText(endereco.getBairro());
-            jtfCidade.setText(endereco.getCidade());
-            jtfCep.setText(String.format("%.0f", endereco.getCep()));
-        }
-    }//GEN-LAST:event_bBuscarActionPerformed
-
     private void bSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalvarActionPerformed
-
-        Empresa empresa = new Empresa();
+        // TODO add your handling code here:
+        
         EmpresaDAO empresaDAO = new EmpresaDAO();
-
-        Endereco endereco = new Endereco();
+        Empresa empresa = new Empresa();
         EnderecoDAO enderecoDAO = new EnderecoDAO();
-
+        Endereco endereco = new Endereco();
+        
         empresa.setCnpjEmp(Double.parseDouble(jtfCNPJ.getText()));
         empresa.setNomeEmp(txtNomeDaEmpresa.getText());
         empresa.setNumeroVagasEmp(Integer.parseInt(txtNVagas.getText()));
         empresa.setRazaoSocialEmp(jtfRazaoSocial.getText());
-
+        java.util.Date dataUtil = new java.util.Date();  
+        java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
+        
         endereco.setEndereco(jtfEndereco.getText());
+        endereco.setNumEnd(Integer.parseInt(jtfNumero.getText()));
         endereco.setBairro(jtfBairro.getText());
         endereco.setCidade(jtfCidade.getText());
-        endereco.setNumEnd(Integer.parseInt(jtfNumero.getText()));
-        endereco.setCep(Double.parseDouble(jtfCep.getText()));
+        endereco.setCep(Double.parseDouble(jtfCidade.getText()));
 
-        if (empresaDAO.getEmpresa() != null && empresaDAO.getEmpresa().getCnpjEmp() == empresa.getCnpjEmp()) {
-            endereco.setIdEnd(empresaDAO.getEmpresa().getIdEndereco_FK());
-            empresa.setIdEndereco_FK(endereco.getIdEnd());
+        if (this.idEmp != 0) {
+            
+            endereco.setIdEnd(this.idEmp);
             enderecoDAO.altEndereco(endereco);
             empresaDAO.altEmpresa(empresa);
-        } else if (empresaDAO.getEmpresa() == null) {
+            
+        } else {
             enderecoDAO.setEndereco(endereco);
             empresa.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
             empresaDAO.setEmpresa(empresa);
-        } else {
-            JOptionPane.showMessageDialog(this, "Já existe uma Empresa cadastrada.");
-        }
-
+        } 
+    
     }//GEN-LAST:event_bSalvarActionPerformed
 
     /**
@@ -403,7 +384,6 @@ public class InserirEmpresaView extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bBuscar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JButton bSalvar;
     private javax.swing.JLabel jlBairro;
