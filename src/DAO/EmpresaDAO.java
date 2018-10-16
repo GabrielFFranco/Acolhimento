@@ -58,19 +58,18 @@ public class EmpresaDAO {
     public void altEmpresa(Empresa empresa) {
 
         String comando = "update empresa set nomeEmp = ?, numeroVagasEmp = ?, "
-                + "razaoSocialEmp = ?, idEndereco = ? where cnpjEmp = ?";
+                + "razaoSocialEmp = ? where cnpjEmp = ?";
 
         try {
             Connection conexao = new Conexao().getConnection();
 
             PreparedStatement comandoSQL = conexao.prepareStatement(comando);
 
-            comandoSQL.setString(5, empresa.getCnpjEmp());
+            comandoSQL.setString(4, empresa.getCnpjEmp());
             comandoSQL.setString(1, empresa.getNomeEmp());
             comandoSQL.setInt(2, empresa.getNumeroVagasEmp());
             comandoSQL.setString(3, empresa.getRazaoSocialEmp());
-            comandoSQL.setInt(4, empresa.getIdEndereco_FK());
-
+                
             comandoSQL.executeUpdate();
 
             comandoSQL.close();

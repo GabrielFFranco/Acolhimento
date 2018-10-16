@@ -391,7 +391,9 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         encaminhamento.setTipoEnc(jcbTipoEncaminhamento.getSelectedItem().toString());
         encaminhamento.setStatusEnc(jcbStatus.getSelectedItem().toString());
         encaminhamento.setLocalEnc(txtLocalEncaminhamento.getText());
-        encaminhamento.setCpfFunc_FK(Double.parseDouble(txtFuncRealizouEnc.getText()));
+        
+        encaminhamento.setCpfFunc_FK((String) cbCPF.getSelectedItem());
+        
         java.util.Date dataUtil = new java.util.Date();
         java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
         encaminhamento.setDataEnc(dataSql);
@@ -470,13 +472,12 @@ public class InserirEncaminhamentoView extends javax.swing.JDialog {
         txtCep.setText(String.valueOf(endereco.getCep()));
         
         for (int i = 0; i < cbCPF.getItemCount(); i++) {
-            if (Double.parseDouble(cbCPF.getItemAt(i)) == encaminhamento.) {
-                cbNProntuario.setSelectedIndex(i);
-                jcbNomes.setSelectedIndex(i);
+            if (cbCPF.getItemAt(i).equals(encaminhamento.getCpfFunc_FK())) {
+                cbCPF.setSelectedIndex(i);
+                jcbNomesFunc.setSelectedIndex(i);
             }
         };
-        txtFuncRealizouEnc.setText(String.valueOf(encaminhamento.getCpfFunc_FK()));
-        
+
         for (int i = 0; i < jcbStatus.getItemCount(); i++) {
             if (jcbStatus.getItemAt(i).equals(encaminhamento.getStatusEnc())) {
                 jcbStatus.setSelectedIndex(i);
