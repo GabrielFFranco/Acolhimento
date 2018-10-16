@@ -22,8 +22,8 @@ public class NewClass {
     
     public static void main(String[] args) throws ParseException {
          
-        java.util.Date dataUtil = new java.util.Date();  
-        java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
+        //java.util.Date dataUtil = new java.util.Date();  
+        java.sql.Date dataSql = new java.sql.Date(new java.util.Date().getTime());
         System.out.println(dataSql); 
     }
     

@@ -407,15 +407,18 @@ public class InserirFuncionarioView extends javax.swing.JDialog {
                     endereco.setIdEnd(funcionarioDAO.getFuncionario(funcionario.getCpfFunc()).getIdEndereco_FK());
                     enderecoDAO.altEndereco(endereco);
                     funcionarioDAO.altEndereco(funcionario);
+                    JOptionPane.showMessageDialog(this, "Funcionario Alterado com sucesso.");
                 } else {
                     enderecoDAO.setEndereco(endereco);
                     funcionario.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
                     funcionarioDAO.setFuncionario(funcionario);
+                    JOptionPane.showMessageDialog(this, "Funcionario Inserido com sucesso.");
                 }
             } catch (NullPointerException ex) {
                 enderecoDAO.setEndereco(endereco);
                 funcionario.setIdEndereco_FK(enderecoDAO.getUltimoEndereco());
                 funcionarioDAO.setFuncionario(funcionario);
+                JOptionPane.showMessageDialog(this, "Funcionario Inserido com sucesso.");
             }
 
         } catch (ParseException ex) {
